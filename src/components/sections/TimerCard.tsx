@@ -400,23 +400,23 @@ export const TimerCard = () => {
                         {loading ? (
                             <div className="flex items-center gap-1.5 px-2 py-1 sm:px-3 sm:py-1.5 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10">
                                 <Loader2 className="h-3 w-3 sm:h-4 sm:w-4 animate-spin" />
-                                <span className="text-[10px] sm:text-sm">Detecting location...</span>
+                                <span className="text-[8px] sm:text-sm">Detecting location...</span>
                             </div>
                         ) : (
                             <div className="flex flex-col gap-0.5 sm:gap-1">
                                 <div className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10">
                                     <MapPin className="h-2.5 w-2.5 sm:h-4 sm:w-4" />
-                                    <span className="text-[10px] sm:text-sm font-medium">
+                                    <span className="text-[8px] sm:text-sm font-medium">
                                         {city}, {country}
                                     </span>
                                     {temp !== undefined && (
-                                        <span className="text-[10px] sm:text-sm text-muted-foreground">
+                                        <span className="text-[8px] sm:text-sm text-muted-foreground">
                                             {temp}°C
                                         </span>
                                     )}
                                 </div>
                                 <div className="flex items-center gap-1 ml-2 sm:ml-3">
-                                    <span className="text-[7px] sm:text-[10px] text-muted-foreground/60">
+                                    <span className="text-[6px] sm:text-[10px] text-muted-foreground/60">
                                         {timezone}
                                     </span>
                                 </div>
@@ -426,13 +426,13 @@ export const TimerCard = () => {
 
                     <div className="self-start relative">
                         <div className="flex items-center gap-1.5 bg-black/5 dark:bg-white/5 rounded-full py-1 px-2 border-t border-white/20 dark:border-black/20">
-                            <div className="relative w-2 h-2">
+                            <div className="relative w-1.5 h-1.5 sm:w-2 sm:h-2">
                                 <div className="absolute inset-0 rounded-full bg-lime-500/50 animate-ping shadow-[0_0_5px_#84cc16,0_0_10px_#84cc16]"></div>
                                 <div className="relative w-full h-full rounded-full bg-lime-500 animate-pulse shadow-[0_0_5px_#84cc16,0_0_10px_#84cc16,0_0_15px_#84cc16]"></div>
                             </div>
-                            <span className="text-[10px] sm:text-xs font-medium">JKT {getJakartaTimeInfo().time}</span>
+                            <span className="text-[8px] sm:text-xs font-medium">JKT {getJakartaTimeInfo().time}</span>
                         </div>
-                        <span className="absolute -bottom-4 right-[6%] -translate-x-1/2 text-[6px] sm:text-[8px] bg-white/10 text-black dark:text-muted-foreground px-1 rounded-full shadow-sm">
+                        <span className="absolute -bottom-4 right-[6%] -translate-x-1/2 text-[5px] sm:text-[8px] bg-white/10 text-black dark:text-muted-foreground px-1 rounded-full shadow-sm">
                             GMT{getJakartaTimeInfo().diff}
                         </span>
                     </div>
@@ -456,14 +456,14 @@ export const TimerCard = () => {
                     </div>
                 </div>
 
-                <div className="flex justify-between items-center text-sm text-muted-foreground mt-auto">
+                <div className="flex justify-between items-center text-[8px] sm:text-sm text-muted-foreground mt-auto">
                     <div className="flex items-center gap-3">
-                        <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10">
-                            <Calendar className="h-4 w-4" />
+                        <div className="flex items-center gap-2 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10">
+                            <Calendar className="h-3 w-3 sm:h-4 sm:w-4" />
                             <span className="font-medium">{formatDate(currentTime)}</span>
                         </div>
                     </div>
-                    <div className="px-3 py-1.5 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10">
+                    <div className="px-2 sm:px-3 py-1 sm:py-1.5 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10">
                         <span className="font-medium">Week {getWeekNumber(currentTime)}</span>
                     </div>
                 </div>
@@ -477,6 +477,6 @@ export const TimerCard = () => {
                     />
                 )}
             </Card>
-        </motion.div>
+        </motion.div >
     );
 };

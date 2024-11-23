@@ -104,6 +104,10 @@ export const HeroSection = ({
 
   return (
     <div className="relative overflow-x-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(circle,hsl(var(--foreground))_1px,transparent_1px)] [background-size:24px_24px] opacity-[0.08] [mask-image:linear-gradient(to_bottom,transparent,black_20%,black_80%,transparent)]" />
+      <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-background to-transparent opacity-90" />
+      <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-background to-transparent opacity-90" />
+
       <div className="absolute bottom-0 w-full px-8 h-[2px]">
         <div className="w-full h-full border-b-[1px] border-dashed border-foreground/10" />
       </div>
@@ -215,10 +219,10 @@ export const HeroSection = ({
                       <Separator className="flex-1" />
                     </div>
 
-                    <p className="text-xs md:text-base leading-relaxed text-muted-foreground/80 animate-fade-in-up opacity-0 [animation-delay:400ms] [animation-fill-mode:forwards] max-w-[95%] md:max-w-[90%] mx-auto">
+                    <p className="text-sm md:text-base leading-relaxed text-muted-foreground/80 animate-fade-in-up opacity-0 [animation-delay:400ms] [animation-fill-mode:forwards] max-w-[95%] md:max-w-[90%] mx-auto">
                       {title}
                     </p>
-                    <p className="text-xs md:text-base leading-relaxed text-muted-foreground/80 animate-fade-in-up opacity-0 [animation-delay:400ms] [animation-fill-mode:forwards] max-w-[95%] md:max-w-[90%] mx-auto">
+                    <p className="text-sm md:text-base leading-relaxed text-muted-foreground/80 animate-fade-in-up opacity-0 [animation-delay:400ms] [animation-fill-mode:forwards] max-w-[95%] md:max-w-[90%] mx-auto">
                       {subtitle}
                     </p>
                   </div>

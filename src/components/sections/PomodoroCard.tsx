@@ -234,7 +234,7 @@ export const PomodoroCard = () => {
                                     boxShadow: `0 2px 10px ${JSON.parse(taskColor).complementary}`,
                                 }}
                             >
-                                <p className="text-[10px] sm:text-sm font-medium">{currentTask}</p>
+                                <p className="text-[8px] sm:text-sm font-medium">{currentTask}</p>
                             </div>
                         </motion.div>
                     )}
@@ -248,25 +248,25 @@ export const PomodoroCard = () => {
                     >
                         {mode === 'work' ? (
                             <>
-                                {timeTheme.icon === 'sun' && <Sun className={`h-3 w-3 sm:h-4 sm:w-4 ${timeTheme.colors.iconColor}`} />}
-                                {timeTheme.icon === 'mountain' && <Mountain className={`h-3 w-3 sm:h-4 sm:w-4 ${timeTheme.colors.iconColor}`} />}
-                                {timeTheme.icon === 'rocket' && <Rocket className={`h-3 w-3 sm:h-4 sm:w-4 ${timeTheme.colors.iconColor}`} />}
-                                {timeTheme.icon === 'moon' && <Moon className={`h-3 w-3 sm:h-4 sm:w-4 ${timeTheme.colors.iconColor}`} />}
-                                <span className={`text-[10px] sm:text-sm font-medium ${timeTheme.colors.text}`}>
+                                {timeTheme.icon === 'sun' && <Sun className={`h-2.5 w-2.5 sm:h-4 sm:w-4 ${timeTheme.colors.iconColor}`} />}
+                                {timeTheme.icon === 'mountain' && <Mountain className={`h-2.5 w-2.5 sm:h-4 sm:w-4 ${timeTheme.colors.iconColor}`} />}
+                                {timeTheme.icon === 'rocket' && <Rocket className={`h-2.5 w-2.5 sm:h-4 sm:w-4 ${timeTheme.colors.iconColor}`} />}
+                                {timeTheme.icon === 'moon' && <Moon className={`h-2.5 w-2.5 sm:h-4 sm:w-4 ${timeTheme.colors.iconColor}`} />}
+                                <span className={`text-[8px] sm:text-sm font-medium ${timeTheme.colors.text}`}>
                                     {timeTheme.text}
                                 </span>
                             </>
                         ) : (
                             <>
-                                <Coffee className="h-3 w-3 sm:h-4 sm:w-4" />
-                                <span className="text-[10px] sm:text-sm font-medium">Break Time</span>
+                                <Coffee className="h-2.5 w-2.5 sm:h-4 sm:w-4" />
+                                <span className="text-[8px] sm:text-sm font-medium">Break Time</span>
                             </>
                         )}
                     </div>
                 </div>
 
                 <div className="flex items-center justify-center mb-6">
-                    <span className="text-6xl font-mono font-bold flex items-center justify-center gap-1">
+                    <span className="text-5xl sm:text-6xl font-mono font-bold flex items-center justify-center gap-1">
                         {formatTime(timeLeft).split('').map((digit, index, array) => (
                             <Fragment key={`${index}-${digit}`}>
                                 {digit === ':' ? (
@@ -283,20 +283,20 @@ export const PomodoroCard = () => {
                     <button
                         onClick={toggleTimer}
                         data-magnetic="true"
-                        className="p-3 rounded-full bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 transition-colors pointer-events-auto"
+                        className="p-2 sm:p-3 rounded-full bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 transition-colors pointer-events-auto"
                     >
                         {isRunning ? (
-                            <Pause className="h-6 w-6" />
+                            <Pause className="h-4 w-4 sm:h-6 sm:w-6" />
                         ) : (
-                            <Play className="h-6 w-6" />
+                            <Play className="h-4 w-4 sm:h-6 sm:w-6" />
                         )}
                     </button>
                     <button
                         onClick={handleReset}
                         data-magnetic="true"
-                        className="p-3 rounded-full bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 transition-colors pointer-events-auto"
+                        className="p-2 sm:p-3 rounded-full bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 transition-colors pointer-events-auto"
                     >
-                        <RotateCcw className="h-6 w-6" />
+                        <RotateCcw className="h-4 w-4 sm:h-6 sm:w-6" />
                     </button>
                 </div>
 

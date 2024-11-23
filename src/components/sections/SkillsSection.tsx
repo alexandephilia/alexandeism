@@ -50,6 +50,7 @@ import {
 import CursorIcon from '../icons/CursorIcon';
 import { RadixIcon } from '../icons/RadixIcon'
 import { ShimmerButton } from "@/components/ui/shimmer-button";
+import { HiChevronDoubleDown } from 'react-icons/hi';
 
 // Interface defining the structure of a tool/technology
 interface Tool {
@@ -108,8 +109,8 @@ const SkillCard: React.FC<Skill & { isExpanded: boolean; onToggle: () => void }>
   return (
     <ShimmerButton className="w-full">
       <Card
-        className="group hover:shadow-lg hover:blur-[2px] transition-all duration-500 cursor-pointer min-h-[400px] flex flex-col"
         onClick={onToggle}
+        className="group hover:shadow-lg hover:blur-[2px] transition-all duration-500 cursor-pointer min-h-[400px] flex flex-col"
       >
         <CardHeader className="flex-1 min-h-[100px]">
           <div className="flex items-center gap-3">
@@ -130,133 +131,202 @@ const SkillCard: React.FC<Skill & { isExpanded: boolean; onToggle: () => void }>
             </div>
           </div>
         </CardHeader>
-        <CardContent className="space-y-4 flex-grow">
-          {/* Updated description text styling for consistency */}
-          <p className="text-sm text-muted-foreground h-[72px] line-clamp-3">{description}</p>
+        <CardContent className="space-y-4 flex-grow flex flex-col justify-between">
+          <div className="space-y-4">
+            {/* Description text */}
+            <p className="text-sm text-muted-foreground h-[72px] line-clamp-3">{description}</p>
 
-          {/* Tools and technologies section */}
-          <div className="space-y-3">
-            <h4 className="text-sm font-medium">Tools & Technologies</h4>
-            <div className="flex flex-wrap gap-2">
-              {tools.map((tool, index) => (
-                <TooltipProvider key={index}>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <div className="flex items-center gap-2 p-2 rounded-md bg-muted hover:bg-accent hover:blur-[2px] transition-all duration-300 cursor-pointer group/tool">
-                        <tool.icon className="h-5 w-5 group-hover/tool:scale-110 transition-transform duration-300" />
-                        <span className="text-sm">{tool.name}</span>
+            {/* Tools and technologies section */}
+            <div className="space-y-3">
+              <h4 className="text-sm font-medium">Tools & Technologies</h4>
+              <div className="flex flex-wrap gap-2">
+                {tools.map((tool, index) => (
+                  <TooltipProvider key={index}>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <div className="flex items-center gap-2 p-2 rounded-md bg-muted hover:bg-accent hover:blur-[2px] transition-all duration-300 cursor-pointer group/tool">
+                          <tool.icon className="h-5 w-5 group-hover/tool:scale-110 transition-transform duration-300" />
+                          <span className="text-sm">{tool.name}</span>
+                        </div>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p className="text-sm">{tool.details}</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                ))}
+              </div>
+            </div>
+
+            {/* Expandable content section */}
+            <div className="overflow-hidden">
+              <AnimatePresence mode="sync" initial={false}>
+                {isExpanded && (
+                  <motion.div
+                    initial={{
+                      height: 0,
+                      opacity: 0,
+                    }}
+                    animate={{
+                      height: "auto",
+                      opacity: 1,
+                      transition: {
+                        height: {
+                          type: "spring",
+                          stiffness: 100,
+                          damping: 20,
+                          mass: 1
+                        },
+                        opacity: {
+                          duration: 0.2,
+                          delay: 0.1
+                        }
+                      }
+                    }}
+                    exit={{
+                      height: 0,
+                      opacity: 0,
+                      transition: {
+                        height: {
+                          type: "spring",
+                          stiffness: 100,
+                          damping: 20,
+                          mass: 1
+                        },
+                        opacity: {
+                          duration: 0.2
+                        }
+                      }
+                    }}
+                    className="pt-4 border-t space-y-4"
+                  >
+                    {/* Detailed description section */}
+                    {detailedDescription && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 10 }}
+                        transition={{
+                          type: "spring",
+                          stiffness: 200,
+                          damping: 20,
+                          mass: 1,
+                          delay: 0.1
+                        }}
+                        className="space-y-2"
+                      >
+                        <h4 className="font-medium">Overview</h4>
+                        <p className="text-sm text-muted-foreground">{detailedDescription}</p>
+                      </motion.div>
+                    )}
+
+                    {/* Key features section */}
+                    {keyFeatures && keyFeatures.length > 0 && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 10 }}
+                        transition={{
+                          type: "spring",
+                          stiffness: 200,
+                          damping: 20,
+                          mass: 1,
+                          delay: 0.2
+                        }}
+                        className="space-y-2"
+                      >
+                        <h4 className="font-medium">Key Features</h4>
+                        <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+                          {keyFeatures.map((feature, index) => (
+                            <motion.div
+                              key={index}
+                              initial={{ opacity: 0, x: -20 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              exit={{ opacity: 0, x: -10 }}
+                              transition={{
+                                type: "spring",
+                                stiffness: 200,
+                                damping: 20,
+                                mass: 1,
+                                delay: 0.2 + index * 0.1
+                              }}
+                            >
+                              <li>{feature}</li>
+                            </motion.div>
+                          ))}
+                        </ul>
+                      </motion.div>
+                    )}
+
+                    {/* Tool proficiency section */}
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 10 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 200,
+                        damping: 20,
+                        mass: 1,
+                        delay: 0.3
+                      }}
+                      className="space-y-2"
+                    >
+                      <h4 className="font-medium">Tool Proficiency</h4>
+                      <div className="grid grid-cols-2 gap-2">
+                        {tools.map((tool, index) => (
+                          <motion.div
+                            key={index}
+                            initial={{ opacity: 0, y: 10, filter: "blur(8px)" }}
+                            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                            transition={{
+                              delay: 0.5 + index * 0.15,
+                              duration: 0.5
+                            }}
+                            className="bg-muted p-3 rounded-lg"
+                          >
+                            <div className="flex items-center gap-2">
+                              <tool.icon className="h-4 w-4" />
+                              <span className="text-sm font-medium">{tool.name}</span>
+                            </div>
+                            {tool.level && (
+                              <Badge
+                                variant="secondary"
+                                className="mt-1 text-xs font-normal hover:blur-[2px] transition-all duration-300 bg-muted-foreground/10"
+                              >
+                                {tool.level}
+                              </Badge>
+                            )}
+                            {tool.details && (
+                              <p className="text-xs text-muted-foreground mt-2">{tool.details}</p>
+                            )}
+                          </motion.div>
+                        ))}
                       </div>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p className="text-sm">{tool.details}</p>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-              ))}
+                    </motion.div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           </div>
 
-          {/* Expandable content section */}
-          <div className="overflow-hidden">
-            <AnimatePresence mode="sync">
-              {isExpanded && (
-                <motion.div
-                  initial={{
-                    height: 0,
-                    opacity: 0,
-                    y: -20,
-                    filter: "blur(10px)"
-                  }}
-                  animate={{
-                    height: "auto",
-                    opacity: 1,
-                    y: 0,
-                    filter: "blur(0px)"
-                  }}
-                  exit={{
-                    height: 0,
-                    opacity: 0,
-                    y: -20,
-                    filter: "blur(10px)"
-                  }}
-                  transition={{
-                    duration: 0.9,
-                    ease: [0.4, 0, 0.2, 1]
-                  }}
-                  className="pt-4 border-t space-y-4"
-                >
-                  {/* Detailed description section */}
-                  {detailedDescription && (
-                    <motion.div
-                      initial={{ opacity: 0, y: -10, filter: "blur(8px)" }}
-                      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                      transition={{ delay: 0.5, duration: 0.7 }}
-                      className="space-y-2"
-                    >
-                      <h4 className="font-medium">Overview</h4>
-                      <p className="text-sm text-muted-foreground">{detailedDescription}</p>
-                    </motion.div>
-                  )}
-
-                  {/* Key features section */}
-                  {keyFeatures && keyFeatures.length > 0 && (
-                    <motion.div
-                      initial={{ opacity: 0, y: -10, filter: "blur(8px)" }}
-                      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                      transition={{ delay: 0.4, duration: 0.5 }}
-                      className="space-y-2"
-                    >
-                      <h4 className="font-medium">Key Features</h4>
-                      <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
-                        {keyFeatures.map((feature, index) => (
-                          <li key={index}>{feature}</li>
-                        ))}
-                      </ul>
-                    </motion.div>
-                  )}
-
-                  {/* Tool proficiency section */}
-                  <motion.div
-                    initial={{ opacity: 0, y: -10, filter: "blur(8px)" }}
-                    animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                    transition={{ delay: 0.5, duration: 0.5 }}
-                    className="space-y-2"
-                  >
-                    <h4 className="font-medium">Tool Proficiency</h4>
-                    <div className="grid grid-cols-2 gap-2">
-                      {tools.map((tool, index) => (
-                        <motion.div
-                          key={index}
-                          initial={{ opacity: 0, y: -10, filter: "blur(8px)" }}
-                          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                          transition={{
-                            delay: 0.5 + index * 0.15,
-                            duration: 0.5
-                          }}
-                          className="bg-muted p-3 rounded-lg"
-                        >
-                          <div className="flex items-center gap-2">
-                            <tool.icon className="h-4 w-4" />
-                            <span className="text-sm font-medium">{tool.name}</span>
-                          </div>
-                          {tool.level && (
-                            <Badge
-                              variant="secondary"
-                              className="mt-1 text-xs font-normal hover:blur-[2px] transition-all duration-300 bg-muted-foreground/10"
-                            >
-                              {tool.level}
-                            </Badge>
-                          )}
-                          {tool.details && (
-                            <p className="text-xs text-muted-foreground mt-2">{tool.details}</p>
-                          )}
-                        </motion.div>
-                      ))}
-                    </div>
-                  </motion.div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+          {/* Arrow icon - now consistently at bottom */}
+          <div className="w-full flex justify-center">
+            <motion.div
+              animate={{
+                y: [0, 3, 0],
+              }}
+              transition={{
+                duration: 1.5,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            >
+              <HiChevronDoubleDown
+                className={`h-5 w-5 text-muted-foreground/50 transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''
+                  }`}
+              />
+            </motion.div>
           </div>
         </CardContent>
       </Card>
