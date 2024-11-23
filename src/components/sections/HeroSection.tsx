@@ -118,12 +118,7 @@ export const HeroSection = ({
             <div
               className="group transition-all duration-500 dark:bg-black bg-white/[0.1] p-8 rounded-lg 
                 border-[1px] border-black/20 ring-1 ring-black/5 
-                dark:border-white/10 dark:ring-white/5 
-                hover:border-black/30 hover:ring-black/10 
-                dark:hover:border-white/20 dark:hover:ring-white/10 
-                hover:shadow-[0_0_15px_rgba(0,0,0,0.1)] 
-                dark:hover:shadow-[0_0_15px_rgba(255,255,255,0.1)]
-                hover:-translate-y-1"
+                dark:border-white/10 dark:ring-white/5"
             >
               <div className="flex flex-col md:flex-row gap-8 items-center">
                 {/* Left Side - Image and Name */}
