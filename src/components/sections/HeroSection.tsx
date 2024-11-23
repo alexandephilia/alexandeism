@@ -108,7 +108,7 @@ export const HeroSection = ({
         <div className="w-full h-full border-b-[1px] border-dashed border-foreground/10" />
       </div>
 
-      <section className="container min-h-[70vh] pt-24 md:pt-32 pb-12 relative flex flex-col items-center justify-center border-l-[1px] border-r-[1px] border-dashed border-foreground/10">
+      <section className="container min-h-[70vh] pt-16 md:pt-32 pb-12 relative flex flex-col items-center justify-center border-l-[1px] border-r-[1px] border-dashed border-foreground/10">
         <div className="relative z-10 w-full max-w-5xl mx-auto">
           <ShimmerButton className="w-full">
             <div
@@ -129,7 +129,7 @@ export const HeroSection = ({
                       }}
                     />
                     <motion.div
-                      className="relative w-32 h-32 md:w-40 md:h-40 overflow-hidden rounded-full composite-layer touch-none select-none"
+                      className="relative w-24 h-24 md:w-40 md:h-40 overflow-hidden rounded-full composite-layer touch-none select-none"
                       variants={imageVariants}
                       initial="initial"
                       animate="animate"
@@ -178,7 +178,7 @@ export const HeroSection = ({
                     </motion.div>
                   </div>
 
-                  <h1 className="text-2xl md:text-xl font-bold group hover:blur-[2px] transition-all duration-300 mt-4">
+                  <h1 className="text-xl md:text-2xl font-bold group hover:blur-[2px] transition-all duration-300 mt-4">
                     {typeof name === 'string' ? name.split("").map((letter, index) => (
                       <span
                         key={index}
@@ -208,22 +208,22 @@ export const HeroSection = ({
 
                 {/* Right Side - Content */}
                 <div className="flex-1 flex flex-col items-center justify-center space-y-6 text-center">
-                  <div className="space-y-4 w-full max-w-xl">
-                    <div className="flex items-center gap-4">
+                  <div className="space-y-3 md:space-y-4 w-full max-w-xl">
+                    <div className="flex items-center gap-3 md:gap-4">
                       <Separator className="flex-1" />
-                      <Skull className="w-4 h-4 text-foreground/20" />
+                      <Skull className="w-3 h-3 md:w-4 md:h-4 text-foreground/20" />
                       <Separator className="flex-1" />
                     </div>
 
-                    <p className="text-xs md:text-base leading-relaxed text-muted-foreground/80 animate-fade-in-up opacity-0 [animation-delay:400ms] [animation-fill-mode:forwards] max-w-[90%] mx-auto">
+                    <p className="text-xs md:text-base leading-relaxed text-muted-foreground/80 animate-fade-in-up opacity-0 [animation-delay:400ms] [animation-fill-mode:forwards] max-w-[95%] md:max-w-[90%] mx-auto">
                       {title}
                     </p>
-                    <p className="text-xs md:text-base leading-relaxed text-muted-foreground/80 animate-fade-in-up opacity-0 [animation-delay:400ms] [animation-fill-mode:forwards] max-w-[90%] mx-auto">
+                    <p className="text-xs md:text-base leading-relaxed text-muted-foreground/80 animate-fade-in-up opacity-0 [animation-delay:400ms] [animation-fill-mode:forwards] max-w-[95%] md:max-w-[90%] mx-auto">
                       {subtitle}
                     </p>
                   </div>
 
-                  <div className="flex gap-5 animate-fade-in-up opacity-0 [animation-delay:600ms] [animation-fill-mode:forwards]">
+                  <div className="flex flex-wrap justify-center gap-3 md:gap-5 animate-fade-in-up opacity-0 [animation-delay:600ms] [animation-fill-mode:forwards]">
                     {socialLinks.map((link, index) => (
                       <TooltipProvider key={index}>
                         <Tooltip>
@@ -231,14 +231,16 @@ export const HeroSection = ({
                             <Button
                               variant="outline"
                               size="icon"
-                              className="h-11 w-11 hover:blur-[2px] transition-all duration-300 bg-background/20"
+                              className="h-9 w-9 md:h-11 md:w-11 hover:blur-[2px] transition-all duration-300 bg-background/20"
                               onClick={() => window.open(link.href, '_blank', 'noopener,noreferrer')}
                             >
-                              {link.icon}
+                              <div className="scale-75 md:scale-100">
+                                {link.icon}
+                              </div>
                             </Button>
                           </TooltipTrigger>
                           <TooltipContent side="bottom">
-                            <p className="text-sm">{link.label}</p>
+                            <p className="text-xs md:text-sm">{link.label}</p>
                           </TooltipContent>
                         </Tooltip>
                       </TooltipProvider>
@@ -251,8 +253,8 @@ export const HeroSection = ({
         </div>
 
         {/* Scroll indicator */}
-        <div className="mt-16 animate-bounce opacity-50 pointer-events-none">
-          <div className="w-6 h-10 border-2 border-foreground/20 rounded-full flex justify-center">
+        <div className="mt-12 md:mt-16 animate-bounce opacity-50 pointer-events-none">
+          <div className="w-4 h-8 md:w-6 md:h-10 border-2 border-foreground/20 rounded-full flex justify-center">
             <div className="w-1 h-2 bg-foreground/20 rounded-full mt-2"></div>
           </div>
         </div>

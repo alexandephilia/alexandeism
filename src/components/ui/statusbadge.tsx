@@ -32,22 +32,24 @@ export function StatusBadge({ status, icon, text }: StatusBadgeProps) {
   return (
     <Badge
       variant="outline"
-      className="flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-background to-muted 
+      className="flex items-center gap-1 md:gap-1.5 px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-background to-muted 
         hover:from-muted hover:to-background hover:shadow-[0_0_15px_rgba(0,0,0,0.1)] 
         dark:hover:shadow-[0_0_15px_rgba(255,255,255,0.1)] 
         hover:scale-[1.01] hover:-translate-y-[1px] 
-        transition-all duration-300 ease-out group"
+        transition-all duration-300 ease-out group scale-90 md:scale-100"
     >
-      <div className="flex items-center gap-1.5">
+      <div className="flex items-center gap-1.5 md:gap-1.5">
         <div className="relative">
           <div className={`absolute inset-0 rounded-full ${getStatusColor(status)}/50 animate-ping ${getStatusGlow(status)}`} />
-          <div className={`relative w-1.5 h-1.5 rounded-full ${getStatusColor(status)} animate-pulse ${getStatusGlow(status)}`} />
+          <div className={`relative w-1 h-1 md:w-1.5 md:h-1.5 rounded-full ${getStatusColor(status)} animate-pulse ${getStatusGlow(status)}`} />
         </div>
-        <span className="text-xs font-medium">{status}</span>
+        <span className="text-[10px] md:text-xs font-medium">{status}</span>
       </div>
-      <div className="flex items-center gap-1 pl-1.5 border-l border-muted-foreground/20">
-        {icon}
-        <span className="text-xs font-semibold">{text}</span>
+      <div className="flex items-center gap-0.5 md:gap-1 pl-1 md:pl-1.5 border-l border-muted-foreground/20">
+        <div className="scale-75 md:scale-100">
+          {icon}
+        </div>
+        <span className="text-[10px] md:text-xs font-semibold">{text}</span>
       </div>
     </Badge>
   );
