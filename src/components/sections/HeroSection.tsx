@@ -116,7 +116,14 @@ export const HeroSection = ({
         <div className="relative z-10 w-full max-w-5xl mx-auto">
           <ShimmerButton className="w-full">
             <div
-              className="group transition-all duration-500 bg-black p-8 rounded-lg border-[1px] border-muted-foreground/10 ring-1 ring-foreground/10"
+              className="group transition-all duration-500 dark:bg-black bg-white/[0.1] p-8 rounded-lg 
+                border-[1px] border-black/20 ring-1 ring-black/5 
+                dark:border-white/10 dark:ring-white/5 
+                hover:border-black/30 hover:ring-black/10 
+                dark:hover:border-white/20 dark:hover:ring-white/10 
+                hover:shadow-[0_0_15px_rgba(0,0,0,0.1)] 
+                dark:hover:shadow-[0_0_15px_rgba(255,255,255,0.1)]
+                hover:-translate-y-1"
             >
               <div className="flex flex-col md:flex-row gap-8 items-center">
                 {/* Left Side - Image and Name */}
@@ -258,8 +265,8 @@ export const HeroSection = ({
 
         {/* Scroll indicator */}
         <div className="mt-12 md:mt-16 animate-bounce opacity-50 pointer-events-none">
-          <div className="w-4 h-8 md:w-6 md:h-10 border-2 border-foreground/20 rounded-full flex justify-center">
-            <div className="w-1 h-2 bg-foreground/20 rounded-full mt-2"></div>
+          <div className="w-4 h-8 md:w-6 md:h-10 border-2 border-foreground/40 rounded-full flex justify-center">
+            <div className="w-1 h-2 bg-foreground/40 rounded-full mt-2"></div>
           </div>
         </div>
       </section>

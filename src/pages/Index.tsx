@@ -255,21 +255,13 @@ const Index = () => {
                       </NavigationMenuContent>
                     </NavigationMenuItem>
                     <NavigationMenuItem>
-                      <NavigationMenuTrigger>Projects</NavigationMenuTrigger>
+                      <NavigationMenuTrigger>Hobbies</NavigationMenuTrigger>
                       <NavigationMenuContent>
-                        <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                          <ListItem href="/projects/web" title="Web Development">
-                            Modern web applications built with React and TypeScript
-                          </ListItem>
-                          <ListItem href="/projects/mobile" title="Mobile Development">
-                            Cross-platform mobile applications
-                          </ListItem>
-                          <ListItem href="/projects/backend" title="Backend Development">
-                            Scalable backend solutions and APIs
-                          </ListItem>
-                          <ListItem href="/projects/design" title="UI/UX Design">
-                            User interface and experience design projects
-                          </ListItem>
+                        <ul className="grid w-[350px] gap-y-[0px] gap-x-[0px] p-2 grid-cols-2 grid-rows-2">
+                          <ListItem href="/projects/ai" title="AI Research" className="h-fit" />
+                          <ListItem href="https://www.notion.so/Experimental-Prompting-86aa8f988fce404cbf70134690d2635a?pvs=9" title="Prompt Engineering" className="h-fit" />
+                          <ListItem href="https://uiverse.io/profile/0xnihilism" title="Web Components" className="h-fit" />
+                          <ListItem href="https://toolfolio.io/" title="Toolfolio" className="h-fit" />
                         </ul>
                       </NavigationMenuContent>
                     </NavigationMenuItem>
@@ -277,11 +269,11 @@ const Index = () => {
                       <NavigationMenuTrigger>Skills</NavigationMenuTrigger>
                       <NavigationMenuContent>
                         <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                          <ListItem href="/skills/frontend" title="Frontend">
-                            React, TypeScript, Tailwind CSS, Next.js
+                          <ListItem href="/skills/frontend" title="Frontend Development">
+                            React, TypeScript, Tailwind CSS, Next.js, Vite
                           </ListItem>
-                          <ListItem href="/skills/backend" title="Backend">
-                            Node.js, Express, PostgreSQL, MongoDB
+                          <ListItem href="/skills/backend" title="Design & Prototyping">
+                            Framer, Webflow, V0
                           </ListItem>
                         </ul>
                       </NavigationMenuContent>
