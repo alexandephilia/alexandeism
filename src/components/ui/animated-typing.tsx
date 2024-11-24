@@ -15,9 +15,6 @@ export const AnimatedTyping = ({ words, className = "", textSize = "text-xs md:t
   const [key, setKey] = useState(0);
   const { theme } = useTheme();
 
-  // Update text color to ensure high visibility in dark mode
-  const textColor = theme === 'dark' ? 'rgb(229, 231, 235)' : '#2a2a29';
-
   useEffect(() => {
     const currentWord = words[currentWordIndex];
     let timeoutId: NodeJS.Timeout;
@@ -83,12 +80,11 @@ export const AnimatedTyping = ({ words, className = "", textSize = "text-xs md:t
               ease: "easeOut",
               delay: isTyping ? index * 0.01 : (displayText.length - index) * 0.01
             }}
+            className="inline-block text-[#2a2a29] dark:text-[#EEEEEE]"
             style={{
-              display: 'inline-block',
               willChange: "transform, opacity, filter",
               backfaceVisibility: "hidden",
               transform: "translateZ(0)",
-              color: textColor,
             }}
           >
             {char === ' ' ? '\u00A0' : char}
@@ -106,12 +102,12 @@ export const AnimatedTyping = ({ words, className = "", textSize = "text-xs md:t
             ease: "steps(2)"
           }
         }}
-        className="inline-block ml-[1px] w-[2px] h-[1.2em] align-middle"
+        className="inline-block ml-[1px] w-[2px] h-[1.2em] align-middle text-[#2a2a29] dark:text-[#EEEEEE]"
         style={{
           willChange: "opacity",
           backfaceVisibility: "hidden",
           transform: "translateZ(0)",
-          background: textColor,
+          background: "currentColor"
         }}
       />
     </div>
