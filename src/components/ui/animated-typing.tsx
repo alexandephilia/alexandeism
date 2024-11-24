@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
+import { useTheme } from "next-themes";
 
 interface AnimatedTypingProps {
   words: string[];
@@ -12,6 +13,10 @@ export const AnimatedTyping = ({ words, className = "", textSize = "text-xs md:t
   const [displayText, setDisplayText] = useState("");
   const [isTyping, setIsTyping] = useState(true);
   const [key, setKey] = useState(0);
+  const { theme } = useTheme();
+
+  // Determine text color based on theme
+  const textColor = theme === 'dark' ? 'white' : '#2a2a29';
 
   useEffect(() => {
     const currentWord = words[currentWordIndex];
@@ -46,8 +51,8 @@ export const AnimatedTyping = ({ words, className = "", textSize = "text-xs md:t
   }, [displayText, isTyping, currentWordIndex, words]);
 
   return (
-    <div className={`inline-block relative ${className}`} style={{ color: 'white' }}>
-      <div className={`inline-block whitespace-pre [&_*]:!text-white ${textSize}`}>
+    <div className={`inline-block relative ${className}`}>
+      <div className={`inline-block whitespace-pre ${textSize}`}>
         {displayText.split('').map((char, index) => (
           <motion.div
             key={`${key}-${index}`}
@@ -83,7 +88,7 @@ export const AnimatedTyping = ({ words, className = "", textSize = "text-xs md:t
               willChange: "transform, opacity, filter",
               backfaceVisibility: "hidden",
               transform: "translateZ(0)",
-              color: 'white',
+              color: textColor,
             }}
           >
             {char === ' ' ? '\u00A0' : char}
@@ -101,11 +106,12 @@ export const AnimatedTyping = ({ words, className = "", textSize = "text-xs md:t
             ease: "steps(2)"
           }
         }}
-        className="inline-block ml-[1px] w-[2px] h-[1.2em] !bg-white align-middle"
+        className="inline-block ml-[1px] w-[2px] h-[1.2em] align-middle"
         style={{
           willChange: "opacity",
           backfaceVisibility: "hidden",
           transform: "translateZ(0)",
+          background: textColor,
         }}
       />
     </div>

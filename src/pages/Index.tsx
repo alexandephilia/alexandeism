@@ -204,29 +204,33 @@ const Index = () => {
                                   variant="outline"
                                   size="sm"
                                   className="hover:blur-[1px] transition-all duration-300"
+                                  asChild
                                 >
-                                  Notion
+                                  <a href="https://www.reddit.com/user/Alexandeisme/" target="_blank" rel="noopener noreferrer">Reddit</a>
                                 </Button>
                                 <Button
                                   variant="outline"
                                   size="sm"
                                   className="hover:blur-[1px] transition-all duration-300"
+                                  asChild
                                 >
-                                  LinkedIn
+                                  <a href="https://www.linkedin.com/in/alexandephilia/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
                                 </Button>
                                 <Button
                                   variant="outline"
                                   size="sm"
                                   className="hover:blur-[1px] transition-all duration-300"
+                                  asChild
                                 >
-                                  Twitter
+                                  <a href="https://x.com/0xnihilism" target="_blank" rel="noopener noreferrer">Twitter</a>
                                 </Button>
                                 <Button
                                   variant="outline"
                                   size="sm"
                                   className="hover:blur-[1px] transition-all duration-300"
+                                  asChild
                                 >
-                                  Email
+                                  <a href="mailto:0xnihilist@gmail.com">Email</a>
                                 </Button>
                                 <Button
                                   variant="outline"
@@ -302,27 +306,26 @@ const Index = () => {
           title={
             <>
               <div className="flex flex-col items-center text-center gap-1">
-                <div className="flex flex-wrap items-center justify-center gap-1 text-sm md:text-base">
+                <div className="flex flex-wrap items-center justify-center gap-1 text-xs md:text-sm lg:text-base">
                   <span>A</span>
                   <strong className="dark:text-white dark:drop-shadow-[0_0_0.3rem_#ffffff70]">front-end developer</strong>
                   <span>&</span>
                   <strong className="dark:text-white dark:drop-shadow-[0_0_0.3rem_#ffffff70]">nihilist</strong>
                   <span className="md:hidden">who contemplate about</span>
                 </div>
-                <div className="hidden md:flex items-center justify-center gap-1 text-base">
+                <div className="hidden md:flex items-center justify-center gap-1 text-xs md:text-sm lg:text-base">
                   <span>who contemplate about</span>
                 </div>
-                <div className="flex flex-wrap items-center justify-center gap-1 text-sm md:text-base">
+                <div className="flex flex-wrap items-center justify-center gap-1">
                   <AnimatedTyping
-                    words={["coffee.", "existence.", "space.", "futurism."]}
-                    className="font-bold text-[#2a2a29] drop-shadow-[0_0_0.0rem_#656564] animate-pulse mix-blend-screen filter brightness-150 dark:text-[#EEEEEE] dark:drop-shadow-[0_0_0.3rem_#00ff9570] dark:animate-pulse dark:mix-blend-screen dark:filter dark:brightness-100"
+                    words={["coffee.", "crypto.", "life.", "space.", "abyss."]}
+                    className="text-xs md:text-sm lg:text-base font-bold text-[#2a2a29] drop-shadow-[0_0_0.0rem_#656564] animate-pulse mix-blend-screen filter brightness-150 dark:text-[#EEEEEE] dark:drop-shadow-[0_0_0.3rem_#00ff9570] dark:animate-pulse dark:mix-blend-screen dark:filter dark:brightness-100"
                   />
                 </div>
               </div>
             </>
           }
-          subtitle="and experiment in the cosmic absurdity of life. 
-           Starting from 0 to 1, or probably creating an accidental masterpiece."
+          subtitle="and experiment in the cosmic absurdity of life. Starting from 0 to 1, or probably creating an accidental masterpiece."
           profileImage="/Untitled.jpeg"
         />
       </div>

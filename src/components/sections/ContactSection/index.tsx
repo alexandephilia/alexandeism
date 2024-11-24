@@ -1,4 +1,4 @@
-import { Mail, Linkedin, Github } from "lucide-react";
+import { Mail, Linkedin, Github, PhoneCall } from "lucide-react";
 import { ContactCard } from "./ContactCard";
 import { ContactForm } from "./ContactForm";
 import { motion, useScroll, useTransform } from "framer-motion";
@@ -6,7 +6,7 @@ import { useRef } from "react";
 
 export const ContactSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
-  
+
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"]
@@ -27,27 +27,27 @@ export const ContactSection = () => {
       title: "Email",
       icon: Mail,
       value: "0xnihilist@gmail.com",
-      color: "hover:border-blue-500/50",
+      color: "hover:border-red-500/50",
       href: "mailto:0xnihilist@gmail.com"
     },
     {
       title: "LinkedIn",
       icon: Linkedin,
       value: "Connect with me",
-      color: "hover:border-purple-500/50",
-      href: "https://linkedin.com/in/your-linkedin-profile"
+      color: "hover:border-blue-500/50",
+      href: "https://www.linkedin.com/in/alexandephilia/"
     },
     {
-      title: "GitHub",
-      icon: Github,
-      value: "See my work",
+      title: "Whatsapp",
+      icon: PhoneCall,
+      value: "Chat with me",
       color: "hover:border-green-500/50",
-      href: "https://github.com/your-github-profile"
+      href: "https://wa.me/6285959300787"
     }
   ];
 
   return (
-    <motion.section 
+    <motion.section
       ref={sectionRef}
       className="container py-16 w-full"
       style={{
@@ -58,9 +58,9 @@ export const ContactSection = () => {
       <div className="max-w-7xl mx-auto">
         <div className="grid md:grid-cols-3 gap-6 mb-8">
           {contactCards.map((card, index) => (
-            <ContactCard 
-              key={index} 
-              {...card} 
+            <ContactCard
+              key={index}
+              {...card}
               delay={index * 0.1}
             />
           ))}

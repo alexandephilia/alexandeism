@@ -221,10 +221,10 @@ export const HeroSection = ({
                       <Separator className="flex-1" />
                     </div>
 
-                    <p className="text-sm md:text-base leading-relaxed text-muted-foreground/80 animate-fade-in-up opacity-0 [animation-delay:400ms] [animation-fill-mode:forwards] max-w-[95%] md:max-w-[90%] mx-auto">
+                    <div className="text-xs md:text-sm lg:text-base leading-relaxed text-muted-foreground/80 animate-fade-in-up opacity-0 [animation-delay:400ms] [animation-fill-mode:forwards] max-w-[85%] md:max-w-[90%] mx-auto">
                       {title}
-                    </p>
-                    <p className="text-sm md:text-base leading-relaxed text-muted-foreground/80 animate-fade-in-up opacity-0 [animation-delay:400ms] [animation-fill-mode:forwards] max-w-[95%] md:max-w-[90%] mx-auto">
+                    </div>
+                    <p className="text-xs md:text-sm lg:text-base leading-relaxed text-muted-foreground/80 animate-fade-in-up opacity-0 [animation-delay:400ms] [animation-fill-mode:forwards] max-w-[85%] md:max-w-[90%] mx-auto">
                       {subtitle}
                     </p>
                   </div>
