@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
-import { useTheme } from "next-themes";
+import { useTheme } from "@/components/theme-provider";
 
 interface AnimatedTypingProps {
   words: string[];
@@ -8,15 +8,15 @@ interface AnimatedTypingProps {
   textSize?: string;
 }
 
-export const AnimatedTyping = ({ words, className = "", textSize = "text-xs md:text-base" }: AnimatedTypingProps) => {
+export const AnimatedTyping = ({ words, className = "", textSize = "text-xs md:text-sm" }: AnimatedTypingProps) => {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [displayText, setDisplayText] = useState("");
   const [isTyping, setIsTyping] = useState(true);
   const [key, setKey] = useState(0);
   const { theme } = useTheme();
 
-  // Determine text color based on theme
-  const textColor = theme === 'dark' ? 'white' : '#2a2a29';
+  // Update text color to ensure high visibility in dark mode
+  const textColor = theme === 'dark' ? 'rgb(229, 231, 235)' : '#2a2a29';
 
   useEffect(() => {
     const currentWord = words[currentWordIndex];
