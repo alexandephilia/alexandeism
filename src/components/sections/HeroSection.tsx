@@ -14,6 +14,7 @@ import { Separator } from "@/components/ui/separator";
 import { ShimmerDot } from "@/components/ui/shimmer-dot";
 import { Skeleton } from "../ui/skeleton";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
+import { ReactNode } from 'react';
 
 interface SocialLink {
   href: string;
@@ -23,8 +24,8 @@ interface SocialLink {
 
 interface HeroSectionProps {
   name: string;
-  title: React.ReactNode;
-  subtitle: string;
+  title: ReactNode;
+  subtitle: ReactNode;
   profileImage: string;
   socialLinks?: SocialLink[];
 }

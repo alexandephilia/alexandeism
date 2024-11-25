@@ -305,26 +305,33 @@ const Index = () => {
           name="Garry Alexander"
           title={
             <>
-              <div className="flex flex-col items-center text-center gap-1">
-                <div className="flex flex-wrap items-center justify-center gap-1 text-xs md:text-sm lg:text-base">
-                  <span>Hey! I am Alex.</span>
-                  <strong className="dark:text-white dark:drop-shadow-[0_0_0.3rem_#ffffff70]">A front-end developer</strong>
+              <div className="flex flex-col items-center text-center gap-1 px-2">
+                {/* First line - Combined description */}
+                <div className="flex flex-wrap items-center justify-center gap-0.5 text-[11px] md:text-sm lg:text-base">
+                  <span>Hey! I am <strong className="dark:text-white dark:drop-shadow-[0_0_0.3rem_#ffffff70]">Alex</strong>│ </span>
+                  <strong className="dark:text-white dark:drop-shadow-[0_0_0.3rem_#ffffff70]">A front-end developer </strong>
                   <span>&</span>
-                  <strong className="dark:text-white dark:drop-shadow-[0_0_0.3rem_#ffffff70]">nihilist</strong>
+                  <strong className="dark:text-white dark:drop-shadow-[0_0_0.3rem_#ffffff70]">nihilist who tend to contemplate about</strong>
                 </div>
-                <div className="hidden md:flex items-center justify-center gap-1 text-xs md:text-sm lg:text-base">
-                  <span>who tend to contemplates about</span>
-                </div>
-                <div className="flex flex-wrap items-center justify-center gap-1">
+
+                {/* Animated typing - Adjusted for mobile */}
+                <div className="flex flex-wrap items-center justify-center">
                   <AnimatedTyping
                     words={["coffee.", "crypto.", "life.", "space.", "abyss."]}
-                    className="text-xs md:text-sm lg:text-base font-bold text-[#2a2a29] drop-shadow-[0_0_0.0rem_#656564] animate-pulse mix-blend-screen filter brightness-150 dark:text-[#EEEEEE] dark:drop-shadow-[0_0_0.3rem_#00ff9570] dark:animate-pulse dark:mix-blend-screen dark:filter dark:brightness-100"
+                    className="text-[11px] md:text-sm lg:text-base font-bold text-[#2a2a29] drop-shadow-[0_0_0.0rem_#656564] animate-pulse mix-blend-screen filter brightness-150 dark:text-[#EEEEEE] dark:drop-shadow-[0_0_0.3rem_#00ff9570] dark:animate-pulse dark:mix-blend-screen dark:filter dark:brightness-100"
                   />
                 </div>
               </div>
             </>
           }
-          subtitle="and experiment in the cosmic absurdity of life. Starting from 0 to 1, or probably creating an accidental masterpiece."
+          subtitle={
+            <>
+              and experiment in the cosmic absurdity of life.{" "}
+              <strong className="dark:text-white dark:drop-shadow-[0_0_0.3rem_#ffffff70]">
+                Starting from 0 to 1, or probably creating an accidental masterpiece.
+              </strong>
+            </>
+          }
           profileImage="/Untitled.jpeg"
         />
       </div>
