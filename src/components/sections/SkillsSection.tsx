@@ -110,10 +110,10 @@ const SkillCard: React.FC<Skill & { isExpanded: boolean; onToggle: () => void }>
     <ShimmerButton className="w-full">
       <Card
         onClick={onToggle}
-        className={`group hover:shadow-lg hover:blur-[2px] transition-all duration-500 cursor-pointer ${isExpanded ? 'min-h-[600px]' : 'h-[480px]'
+        className={`group hover:shadow-lg hover:blur-[2px] transition-all duration-500 cursor-pointer ${isExpanded ? 'min-h-[600px]' : 'h-[420px]'
           } flex flex-col`}
       >
-        <CardHeader className="flex-1 min-h-[100px]">
+        <CardHeader className="h-[90px] py-4">
           <div className="flex items-center gap-3">
             <div className="w-full">
               <CardTitle className="text-xl mb-2">{title}</CardTitle>
@@ -132,10 +132,12 @@ const SkillCard: React.FC<Skill & { isExpanded: boolean; onToggle: () => void }>
             </div>
           </div>
         </CardHeader>
-        <CardContent className="space-y-4 flex-grow flex flex-col justify-between">
+        <CardContent className="pt-2 space-y-4 flex-grow flex flex-col justify-between">
           <div className="space-y-4">
             {/* Description text */}
-            <p className="text-sm text-muted-foreground h-[72px] line-clamp-3">{description}</p>
+            <div className="h-[40px] flex items-start">
+              <p className="text-sm text-muted-foreground line-clamp-2">{description}</p>
+            </div>
 
             {/* Tools and technologies section */}
             <div className="space-y-3">
