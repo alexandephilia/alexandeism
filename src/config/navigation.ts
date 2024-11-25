@@ -33,7 +33,7 @@ export const navSections: NavSection[] = [
     links: [
       { href: "/projects/ai", label: "AI Research", icon: Code, description: "Exploring artificial intelligence" },
       { href: "https://uiverse.io/profile/0xnihilism", label: "Web Components", icon: Globe, description: "Building reusable UI components" },
-      { href: "https://www.notion.so/Experimental-Prompting-86aa8f988fce404cbf70134690d2635a", label: "Prompt Engineering", icon: Palette, description: "Crafting effective AI prompts" },
+      { href: "/projects/prompt", label: "Prompt Engineering", icon: Palette, description: "Crafting effective AI prompts" },
     ],
   },
 ];
