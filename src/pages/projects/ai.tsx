@@ -70,6 +70,20 @@ interface ResearchLink {
 
 const researchLinks: ResearchLink[] = [
     {
+        title: "HuggingFace",
+        description: "Leading hub for machine learning with over 300k models, 50k datasets, and 50k demo apps. Community-driven platform for AI research and deployment.",
+        url: "https://huggingface.co/",
+        category: "AI Platform",
+        tags: ["Open Source", "Models", "Datasets", "Community", "Research"]
+    },
+    {
+        title: "Perplexity",
+        description: "AI-powered search engine and knowledge discovery tool that provides accurate, real-time information with direct source citations and interactive follow-up capabilities.",
+        url: "https://www.perplexity.ai/",
+        category: "AI Search",
+        tags: ["Search", "Knowledge", "Citations", "Interactive", "Real-time"]
+    },
+    {
         title: "Anthropic",
         description: "Explore Claude's capabilities in reasoning, analysis, and coding assistance.",
         url: "https://claude.ai",
@@ -99,10 +113,10 @@ const researchLinks: ResearchLink[] = [
     },
 ];
 
-// Update TerminalWindow component with green borders
+// Update TerminalWindow component with white borders (instead of green)
 const TerminalWindow = ({ children }: { children: React.ReactNode }) => (
-    <div className="rounded-lg border border-green-400/30 bg-black/60 backdrop-blur-sm overflow-hidden relative">
-        <div className="h-8 border-b border-green-400/30 flex items-center px-4 bg-black/20">
+    <div className="rounded-lg border border-white/30 bg-black/60 backdrop-blur-sm overflow-hidden relative">
+        <div className="h-8 border-b border-white/30 flex items-center px-4 bg-black/20">
             <div className="flex gap-2">
                 <div className="w-3 h-3 rounded-full bg-red-500/80" />
                 <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
@@ -115,9 +129,7 @@ const TerminalWindow = ({ children }: { children: React.ReactNode }) => (
     </div>
 );
 
-
-
-// Update TypewriterText component to handle width properly
+// TypewriterText component for terminal-like elements
 const TypewriterText = ({ text, onComplete, className = "" }: {
     text: string;
     onComplete?: () => void;
@@ -150,70 +162,52 @@ const TypewriterText = ({ text, onComplete, className = "" }: {
         <span className={`inline-block ${className}`}>
             {displayedText}
             {isTyping && (
-                <span className="border-r-2 border-green-400 animate-blink ml-[1px]">&nbsp;</span>
+                <span className="border-r-2 border-white animate-blink ml-[1px]">&nbsp;</span>
             )}
         </span>
     );
 };
 
-// Update LoadingAnimation component
-const LoadingAnimation = ({ onComplete }: { onComplete: () => void }) => {
-    const [dots, setDots] = useState("");
-    const [currentLine, setCurrentLine] = useState(0);
-
-    const loadingLines = [
-        "Initializing terminal session",
-        "Establishing secure connection",
-        "Loading AI research data",
-        "Mounting research directory",
-        "Ready"
-    ];
-
-    useEffect(() => {
-        const dotsTimer = setInterval(() => {
-            setDots(d => d.length < 3 ? d + "." : "");
-        }, 200);
-
-        const lineTimer = setTimeout(() => {
-            if (currentLine < loadingLines.length - 1) {
-                setCurrentLine(l => l + 1);
-                setDots("");
-            } else {
-                setTimeout(onComplete, 500);
-            }
-        }, 1500);
-
-        return () => {
-            clearInterval(dotsTimer);
-            clearTimeout(lineTimer);
-        };
-    }, [currentLine, onComplete]);
+// BlurRevealText component for descriptions
+const BlurRevealText = ({ text, delay = 0, className = "" }: {
+    text: string;
+    delay?: number;
+    className?: string;
+}) => {
+    const words = text.split(' ');
 
     return (
-        <div className="text-green-400/80 space-y-1">
-            {loadingLines.slice(0, currentLine + 1).map((line, i) => (
-                <div key={i} className="flex items-center gap-2">
-                    <span className="text-green-400/60">$</span>
-                    <motion.span
-                        initial={{ filter: 'blur(4px)', opacity: 0 }}
-                        animate={{ filter: 'blur(0px)', opacity: 1 }}
-                        transition={{ duration: 0.5 }}
-                    >
-                        {line}{i === currentLine ? dots : ""}
-                        {i !== currentLine && <span className="text-green-400 ml-2">✓</span>}
-                    </motion.span>
-                </div>
+        <span className={className}>
+            {words.map((word, index) => (
+                <motion.span
+                    key={index}
+                    initial={{
+                        opacity: 0,
+                        y: 20,
+                        filter: "blur(10px)",
+                    }}
+                    animate={{
+                        opacity: 1,
+                        y: 0,
+                        filter: "blur(0px)",
+                    }}
+                    transition={{
+                        duration: 0.5,
+                        delay: delay + (index * 0.1),
+                        ease: "easeOut"
+                    }}
+                    className="inline-block whitespace-pre"
+                >
+                    {word}{' '}
+                </motion.span>
             ))}
-        </div>
+        </span>
     );
 };
 
 const AIResearchPage = () => {
-    const [isLoading, setIsLoading] = useState(true);
-    const [showContent, setShowContent] = useState(false);
-
     return (
-        <div className="min-h-screen bg-black/50 text-green-400 font-mono">
+        <div className="min-h-screen bg-black/50 text-white font-mono">
             <Grain opacity={0.08} />
 
             <nav className="fixed w-full top-0 z-50">
@@ -233,91 +227,79 @@ const AIResearchPage = () => {
             </nav>
 
             <div className="container max-w-5xl pt-24 pb-16">
-                {isLoading ? (
-                    <TerminalWindow>
-                        <div className="p-6">
-                            <LoadingAnimation onComplete={() => {
-                                setIsLoading(false);
-                                setTimeout(() => setShowContent(true), 100);
-                            }} />
-                        </div>
-                    </TerminalWindow>
-                ) : (
-                    <div className={`transition-opacity duration-500 ${showContent ? 'opacity-100' : 'opacity-0'}`}>
-                        {researchLinks.map((link, index) => (
-                            <motion.div
-                                key={index}
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{
-                                    delay: index * 0.3,
-                                    duration: 0.5,
-                                    ease: "easeOut"
-                                }}
-                                className="mb-6"
-                            >
-                                <TerminalWindow>
-                                    <div className="p-6 relative">
-                                        <div className="flex items-start">
-                                            <div className="flex-1">
-                                                <div className="flex items-center justify-between">
-                                                    <div className="group flex items-center gap-2 min-w-0 flex-1">
-                                                        <span className="text-green-400/60 shrink-0 group-hover:text-green-400/80 transition-colors">$</span>
-                                                        <TypewriterText
-                                                            text={link.title}
-                                                            className="text-lg font-bold text-green-400 group-hover:text-green-300 transition-colors"
-                                                        />
-                                                    </div>
-                                                    <a
-                                                        href={link.url}
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                        className="text-green-400/80 hover:text-green-300 transition-colors ml-4"
-                                                    >
-                                                        <ExternalLink className="h-4 w-4" />
-                                                    </a>
-                                                </div>
-                                                <div className="mt-4 text-green-300/90 bg-black/20 p-2 rounded">
+                <div className="opacity-100">
+                    {researchLinks.map((link, index) => (
+                        <motion.div
+                            key={index}
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{
+                                delay: index * 0.3,
+                                duration: 0.5,
+                                ease: "easeOut"
+                            }}
+                            className="mb-6"
+                        >
+                            <TerminalWindow>
+                                <div className="p-6 relative">
+                                    <div className="flex items-start">
+                                        <div className="flex-1">
+                                            <div className="flex items-center justify-between">
+                                                <div className="group flex items-center gap-2 min-w-0 flex-1">
+                                                    <span className="text-white/60 shrink-0 group-hover:text-white/80 transition-colors">$</span>
                                                     <TypewriterText
-                                                        text={link.description}
-                                                        className="group-hover:text-green-300 transition-colors"
+                                                        text={link.title}
+                                                        className="text-lg font-bold text-white group-hover:text-white/80 transition-colors"
                                                     />
                                                 </div>
-                                                <div className="flex gap-2 mt-4 flex-wrap">
-                                                    {link.tags.map((tag, tagIndex) => (
-                                                        <motion.div
-                                                            key={tagIndex}
-                                                            initial={{
-                                                                opacity: 0,
-                                                                filter: 'blur(4px)',
-                                                                x: -20
-                                                            }}
-                                                            animate={{
-                                                                opacity: 1,
-                                                                filter: 'blur(0px)',
-                                                                x: 0
-                                                            }}
-                                                            transition={{
-                                                                duration: 0.5,
-                                                                delay: tagIndex * 0.1 + 0.5, // Add delay based on tag index + base delay
-                                                                ease: "easeOut"
-                                                            }}
-                                                        >
-                                                            <TypewriterText
-                                                                text={tag}
-                                                                className="text-xs border border-green-400/30 px-2 py-0.5 rounded-sm bg-black/20 group-hover:text-green-300 transition-colors"
-                                                            />
-                                                        </motion.div>
-                                                    ))}
-                                                </div>
+                                                <a
+                                                    href={link.url}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="text-white/80 hover:text-white transition-colors ml-4"
+                                                >
+                                                    <ExternalLink className="h-4 w-4" />
+                                                </a>
+                                            </div>
+                                            <div className="mt-4 text-white/90 bg-black/20 p-2 rounded">
+                                                <BlurRevealText
+                                                    text={link.description}
+                                                    delay={index * 0.3 + 0.2}
+                                                    className="group-hover:text-white transition-colors"
+                                                />
+                                            </div>
+                                            <div className="flex gap-2 mt-4 flex-wrap">
+                                                {link.tags.map((tag, tagIndex) => (
+                                                    <motion.span
+                                                        key={tagIndex}
+                                                        initial={{
+                                                            opacity: 0,
+                                                            filter: 'blur(4px)',
+                                                            x: -20
+                                                        }}
+                                                        animate={{
+                                                            opacity: 1,
+                                                            filter: 'blur(0px)',
+                                                            x: 0
+                                                        }}
+                                                        transition={{
+                                                            duration: 0.5,
+                                                            delay: tagIndex * 0.1 + 0.5,
+                                                            ease: "easeOut"
+                                                        }}
+                                                        className="text-xs border border-white/30 px-2 py-0.5 rounded-sm bg-black/20 group-hover:text-white transition-colors"
+                                                    >
+                                                        {tag}
+                                                    </motion.span>
+                                                ))}
                                             </div>
                                         </div>
                                     </div>
-                                </TerminalWindow>
-                            </motion.div>
-                        ))}
-                    </div>
-                )}
+                                </div>
+                            </TerminalWindow>
+                        </motion.div>
+                    ))}
+                </div>
             </div>
         </div>
     );

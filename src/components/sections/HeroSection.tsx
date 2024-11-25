@@ -82,7 +82,7 @@ export const HeroSection = ({
       }
     },
     hover: {
-      filter: "blur(3px) grayscale(0%)",
+      filter: "blur(0px) grayscale(0%)",
       transition: {
         duration: 0.3,
         ease: "easeOut"
@@ -162,7 +162,7 @@ export const HeroSection = ({
                       <img
                         src={profileImage}
                         alt="Profile memoji"
-                        className="w-full h-full object-cover transition-all duration-200 prevent-drag select-none touch-none grayscale"
+                        className="w-full h-full object-cover transition-all duration-200 prevent-drag select-none touch-none"
                         style={{
                           transform: 'translateZ(0)',
                           backfaceVisibility: 'hidden',

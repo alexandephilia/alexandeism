@@ -8,6 +8,7 @@ import { ThemeProvider } from "./components/theme-provider";
 import CustomCursor from "./components/CustomCursor";
 import Index from "./pages/Index";
 import AIResearchPage from "./pages/projects/ai";
+import PromptEngineeringPage from "./pages/projects/prompt";
 
 const queryClient = new QueryClient();
 
@@ -22,6 +23,7 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/projects/ai" element={<AIResearchPage />} />
+            <Route path="/projects/prompt" element={<PromptEngineeringPage />} />
           </Routes>
         </Router>
       </TooltipProvider>

@@ -251,7 +251,7 @@ const Index = () => {
                                 About Me
                               </div>
                               <p className="text-sm leading-relaxed text-muted-foreground mt-2">
-                                A nihilist exploring the intersection of code and philosophy. Building thoughtful digital experiences while contemplating existence over coffee.
+                                A digital craftsman at the crossroads of technology and existential thought. Weaving elegant code into meaningful experiences while pondering life's deeper questions. Fueled by curiosity, coffee, and a touch of cosmic nihilism.
                               </p>
                             </div>
                           </div>
@@ -263,7 +263,7 @@ const Index = () => {
                       <NavigationMenuContent>
                         <ul className="grid w-[350px] gap-y-[0px] gap-x-[0px] p-2 grid-cols-2 grid-rows-2">
                           <ListItem href="/projects/ai" title="AI Research" className="h-fit" />
-                          <ListItem href="https://www.notion.so/Experimental-Prompting-86aa8f988fce404cbf70134690d2635a?pvs=9" title="Prompt Engineering" className="h-fit" />
+                          <ListItem href="/projects/prompt" title="Prompt Engineering" className="h-fit" />
                           <ListItem href="https://uiverse.io/profile/0xnihilism" title="Web Components" className="h-fit" />
                           <ListItem href="https://toolfolio.io/" title="Toolfolio" className="h-fit" />
                         </ul>
@@ -308,8 +308,8 @@ const Index = () => {
               <div className="flex flex-col items-center text-center gap-1 px-2">
                 {/* First line - Combined description */}
                 <div className="flex flex-wrap items-center justify-center gap-0.5 text-[11px] md:text-sm lg:text-base">
-                  <span>Hey! I am <strong className="dark:text-white dark:drop-shadow-[0_0_0.3rem_#ffffff70]">Alex</strong>│ </span>
-                  <strong className="dark:text-white dark:drop-shadow-[0_0_0.3rem_#ffffff70]">A front-end developer </strong>
+                  <span>Hey! I am <strong className="dark:text-white dark:drop-shadow-[0_0_0.3rem_#ffffff70]">Alex</strong>. </span>
+                  <strong className="dark:text-white dark:drop-shadow-[0_0_0.3rem_#ffffff70]"> A front-end developer </strong>
                   <span>&</span>
                   <strong className="dark:text-white dark:drop-shadow-[0_0_0.3rem_#ffffff70]">nihilist who tend to contemplate about</strong>
                 </div>

@@ -1,13 +1,12 @@
 import { useEffect, useState, useRef } from "react";
 
 const CustomCursor = () => {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const cursorRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [magneticElement, setMagneticElement] = useState<HTMLElement | null>(null);
   const [cursorVariant, setCursorVariant] = useState<'default' | 'text' | 'link' | 'button'>('default');
-  const [magneticStrength, setMagneticStrength] = useState(0);
-  const lastPosition = useRef({ x: 0, y: 0 });
+  const magneticStrengthRef = useRef(0);
   const animationFrameId = useRef<number>();
 
   const calculateMagneticPull = (
@@ -27,7 +26,7 @@ const CustomCursor = () => {
 
     if (distance < magneticRadius) {
       const pullStrength = Math.pow(1 - (distance / magneticRadius), 1.5);
-      setMagneticStrength(pullStrength);
+      magneticStrengthRef.current = pullStrength;
 
       const boundedX = Math.max(elementRect.left, Math.min(elementRect.right, mouseX));
       const boundedY = Math.max(elementRect.top, Math.min(elementRect.bottom, mouseY));
@@ -39,11 +38,14 @@ const CustomCursor = () => {
       };
     }
 
-    setMagneticStrength(0);
+    magneticStrengthRef.current = 0;
     return { x: mouseX, y: mouseY, strength: 0 };
   };
 
   useEffect(() => {
+    const cursor = cursorRef.current;
+    if (!cursor) return;
+
     const isTouchDevice = () => {
       return (('ontouchstart' in window) ||
         (navigator.maxTouchPoints > 0) ||
@@ -58,6 +60,24 @@ const CustomCursor = () => {
     document.documentElement.style.cursor = 'none';
     document.body.style.cursor = 'none';
 
+    let prevTime = performance.now();
+    const updateCursorPosition = (x: number, y: number) => {
+      const currentTime = performance.now();
+      const deltaTime = currentTime - prevTime;
+
+      if (deltaTime < 16) return; // Skip update if less than ~60fps to prevent excessive updates
+      prevTime = currentTime;
+
+      const transform = `translate(${x}px, ${y}px) translate(-50%, -50%) scale(${1 + magneticStrengthRef.current * 0.8})`;
+      cursor.style.transform = transform;
+
+      if (magneticStrengthRef.current > 0) {
+        cursor.style.filter = `blur(${magneticStrengthRef.current * 1.5}px)`;
+      } else {
+        cursor.style.filter = 'none';
+      }
+    };
+
     const handleMouseMove = (e: MouseEvent) => {
       if (animationFrameId.current) {
         cancelAnimationFrame(animationFrameId.current);
@@ -66,11 +86,10 @@ const CustomCursor = () => {
       animationFrameId.current = requestAnimationFrame(() => {
         if (magneticElement) {
           const rect = magneticElement.getBoundingClientRect();
-          const { x, y, strength } = calculateMagneticPull(e.clientX, e.clientY, rect);
-
-          setPosition({ x, y });
+          const { x, y } = calculateMagneticPull(e.clientX, e.clientY, rect);
+          updateCursorPosition(x, y);
         } else {
-          setPosition({ x: e.clientX, y: e.clientY });
+          updateCursorPosition(e.clientX, e.clientY);
         }
         setIsVisible(true);
       });
@@ -84,7 +103,7 @@ const CustomCursor = () => {
         setMagneticElement(magnetic);
         const rect = magnetic.getBoundingClientRect();
         const { x, y } = calculateMagneticPull(e.clientX, e.clientY, rect);
-        setPosition({ x, y });
+        updateCursorPosition(x, y);
       } else {
         setMagneticElement(null);
       }
@@ -92,7 +111,7 @@ const CustomCursor = () => {
       if (target.closest('button, [role="button"]')) {
         setCursorVariant('button');
         setIsHovered(true);
-      } else if (target.closest('a, [data-magnetic="true"]')) {
+      } else if (target.closest('a, [data-magnetic="true"], .ExternalLink')) {
         setCursorVariant('link');
         setIsHovered(true);
       } else if (target.closest('p, h1, h2, h3, h4, h5, h6, span')) {
@@ -183,32 +202,29 @@ const CustomCursor = () => {
 
   return (
     <div
+      ref={cursorRef}
       className={`
         fixed inset-0 pointer-events-none z-[9999] mix-blend-difference
-        transform -translate-x-1/2 -translate-y-1/2 will-change-transform
+        transform will-change-transform
         transition-all duration-150
         ${cursorVariant === 'default' ? 'w-2 h-2 rounded-full bg-white' : ''}
         ${cursorVariant === 'text' ? 'w-1.5 h-1.5 rounded-full bg-white' : ''}
         ${cursorVariant === 'link' ? 'w-3 h-3 rounded-full bg-white/90 blur-[0.5px]' : ''}
         ${cursorVariant === 'button' ? 'w-4 h-4 rounded-full bg-white/80 blur-[1px]' : ''}
-        ${isHovered ? 'scale-[2] mix-blend-difference' : 'scale-100'}
+        ${isHovered ? 'scale-[1.5] mix-blend-difference' : 'scale-100'}
       `}
       style={{
-        left: `${position.x}px`,
-        top: `${position.y}px`,
         transition: magneticElement ? 'none' : 'transform 0.2s ease-out',
-        transform: `translate(-50%, -50%) scale(${1 + magneticStrength * 0.8})`,
-        filter: magneticStrength > 0 ? `blur(${magneticStrength * 1.5}px)` : 'none',
       }}
     >
-      {magneticStrength > 0 && (
+      {magneticStrengthRef.current > 0 && (
         <>
           <div
             className="absolute inset-0 rounded-full"
             style={{
               background: `radial-gradient(circle, rgba(255,255,255,0.9) 0%, transparent 70%)`,
-              transform: `scale(${1 + magneticStrength * 1.2})`,
-              opacity: magneticStrength * 0.6,
+              transform: `scale(${1 + magneticStrengthRef.current * 1.2})`,
+              opacity: magneticStrengthRef.current * 0.6,
               animation: 'pulse 1.5s ease-in-out infinite'
             }}
           />
@@ -216,8 +232,8 @@ const CustomCursor = () => {
             className="absolute inset-0 rounded-full"
             style={{
               border: '1px solid rgba(255,255,255,0.3)',
-              transform: `scale(${1 + magneticStrength * 1.5})`,
-              opacity: magneticStrength * 0.3
+              transform: `scale(${1 + magneticStrengthRef.current * 1.5})`,
+              opacity: magneticStrengthRef.current * 0.3
             }}
           />
         </>
@@ -228,7 +244,7 @@ const CustomCursor = () => {
           className="absolute inset-0 rounded-full bg-white/20"
           style={{
             animation: 'ping 1s cubic-bezier(0, 0, 0.2, 1) infinite',
-            opacity: magneticStrength > 0 ? 0.3 : 0.2
+            opacity: magneticStrengthRef.current > 0 ? 0.3 : 0.2
           }}
         />
       )}
