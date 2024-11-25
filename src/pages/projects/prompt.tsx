@@ -1267,7 +1267,7 @@ Special Commands:
                         </CardContent>
                     </Card>
 
-                    <div className="grid gap-4 md:grid-cols-3">
+                    <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
                         {prompts.map((prompt, index) => (
                             <motion.div
                                 key={index}
@@ -1280,17 +1280,17 @@ Special Commands:
                                 }}
                             >
                                 <Card
-                                    className="flex flex-col h-full cursor-pointer"
+                                    className="flex flex-col h-full cursor-pointer hover:shadow-lg transition-shadow duration-200"
                                     onMouseEnter={() => setHoveredCard(index)}
                                     onMouseLeave={() => setHoveredCard(null)}
                                     onClick={() => setSelectedPrompt(index)}
                                 >
-                                    <CardHeader className="p-4">
-                                        <CardTitle className="text-lg">{prompt.title}</CardTitle>
+                                    <CardHeader className="p-3 sm:p-4">
+                                        <CardTitle className="text-base sm:text-lg">{prompt.title}</CardTitle>
                                     </CardHeader>
-                                    <CardContent className="p-4 pt-0 flex-grow">
+                                    <CardContent className="p-3 sm:p-4 pt-0 flex-grow">
                                         <div className="relative">
-                                            <pre className="bg-muted/50 p-2.5 rounded-md text-xs overflow-hidden h-[160px] font-mono">
+                                            <pre className="bg-muted/50 p-2 sm:p-2.5 rounded-md text-[10px] sm:text-xs overflow-hidden h-[120px] sm:h-[160px] font-mono">
                                                 <code className="block opacity-70">
                                                     {prompt.content}
                                                 </code>
@@ -1298,12 +1298,12 @@ Special Commands:
                                             <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-muted/50 pointer-events-none" />
                                         </div>
                                     </CardContent>
-                                    <CardFooter className="p-4 pt-0 flex justify-between items-center mt-auto">
-                                        <div className="text-sm text-muted-foreground">
+                                    <CardFooter className="p-3 sm:p-4 pt-0 flex justify-between items-center mt-auto">
+                                        <div className="text-xs sm:text-sm text-muted-foreground">
                                             {prompt.author}
                                         </div>
                                         <div className="flex items-center gap-2">
-                                            <Badge variant="secondary">{prompt.tag}</Badge>
+                                            <Badge variant="secondary" className="text-xs">{prompt.tag}</Badge>
                                         </div>
                                     </CardFooter>
                                 </Card>
