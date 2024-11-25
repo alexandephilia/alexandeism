@@ -12,10 +12,27 @@ import { useEffect, useState } from "react";
 export function ModeToggle() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const [systemTheme, setSystemTheme] = useState<'dark' | 'light'>('light');
+
+  // Detect system theme
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    setSystemTheme(mediaQuery.matches ? 'dark' : 'light');
+
+    const handler = (e: MediaQueryListEvent) => {
+      setSystemTheme(e.matches ? 'dark' : 'light');
+    };
+
+    mediaQuery.addEventListener('change', handler);
+    return () => mediaQuery.removeEventListener('change', handler);
+  }, []);
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  // Get effective theme (actual theme being displayed)
+  const effectiveTheme = theme === 'system' ? systemTheme : theme;
 
   if (!mounted) {
     return (
@@ -28,21 +45,21 @@ export function ModeToggle() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button 
-          variant="outline" 
+        <Button
+          variant="outline"
           size="icon"
           className="transition-all duration-300 hover:blur-[2px] focus:blur-[2px] active:blur-[1px] 
             select-none outline-none focus:outline-none focus-visible:outline-none 
             ring-transparent focus:ring-transparent focus-visible:ring-transparent
             [&>*]:select-none [&_*]:pointer-events-none"
         >
-          <Sun 
+          <Sun
             className={`h-[1.2rem] w-[1.2rem] transition-all duration-300 
-              ${theme === 'dark' ? 'rotate-90 scale-0 opacity-0' : 'rotate-0 scale-100 opacity-100'}`} 
+              ${effectiveTheme === 'dark' ? 'rotate-90 scale-0 opacity-0' : 'rotate-0 scale-100 opacity-100'}`}
           />
-          <Moon 
+          <Moon
             className={`absolute h-[1.2rem] w-[1.2rem] transition-all duration-300
-              ${theme === 'dark' ? 'rotate-0 scale-100 opacity-100' : '-rotate-90 scale-0 opacity-0'}`}
+              ${effectiveTheme === 'dark' ? 'rotate-0 scale-100 opacity-100' : '-rotate-90 scale-0 opacity-0'}`}
           />
           <span className="sr-only">Toggle theme</span>
         </Button>

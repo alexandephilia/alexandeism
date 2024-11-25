@@ -1,5 +1,5 @@
 import { motion, useAnimationControls } from "framer-motion";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useTheme } from "@/components/theme-provider";
 
 interface AnimatedTextProps {
@@ -10,6 +10,20 @@ interface AnimatedTextProps {
 export const AnimatedGradientText = ({ text, className = "" }: AnimatedTextProps) => {
   const controls = useAnimationControls();
   const { theme } = useTheme();
+  const [systemTheme, setSystemTheme] = useState<'dark' | 'light'>('light');
+
+  // Detect system theme
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    setSystemTheme(mediaQuery.matches ? 'dark' : 'light');
+
+    const handler = (e: MediaQueryListEvent) => {
+      setSystemTheme(e.matches ? 'dark' : 'light');
+    };
+
+    mediaQuery.addEventListener('change', handler);
+    return () => mediaQuery.removeEventListener('change', handler);
+  }, []);
 
   useEffect(() => {
     controls.start({
@@ -22,12 +36,15 @@ export const AnimatedGradientText = ({ text, className = "" }: AnimatedTextProps
     });
   }, [controls]);
 
+  // Get effective theme (actual theme being displayed)
+  const effectiveTheme = theme === 'system' ? systemTheme : theme;
+
   return (
     <motion.div
       animate={controls}
       className={`font-bold ${className}`}
       style={{
-        backgroundImage: theme === 'dark'
+        backgroundImage: effectiveTheme === 'dark'
           ? "linear-gradient(to right, #ffffff, #6b7280, #6b7280, #6b7280, #ffffff)"
           : "linear-gradient(to right, #000000, #4b5563, #4b5563, #4b5563, #000000)",
         backgroundSize: "200% 100%",
