@@ -8,7 +8,7 @@ interface AnimatedTypingProps {
   textSize?: string;
 }
 
-export const AnimatedTyping = ({ words, className = "", textSize = "text-xs md:text-sm" }: AnimatedTypingProps) => {
+export const AnimatedTyping = ({ words, className = "", textSize = "text-[11px] md:text-sm lg:text-base" }: AnimatedTypingProps) => {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [displayText, setDisplayText] = useState("");
   const [isTyping, setIsTyping] = useState(true);
@@ -80,7 +80,7 @@ export const AnimatedTyping = ({ words, className = "", textSize = "text-xs md:t
               ease: "easeOut",
               delay: isTyping ? index * 0.01 : (displayText.length - index) * 0.01
             }}
-            className="inline-block text-[#2a2a29] dark:text-[#EEEEEE]"
+            className="inline-block text-[#2a2a29] dark:text-[#EEEEEE] dark:drop-shadow-[0_0_0.3rem_#ffffff70]"
             style={{
               willChange: "transform, opacity, filter",
               backfaceVisibility: "hidden",
@@ -102,7 +102,7 @@ export const AnimatedTyping = ({ words, className = "", textSize = "text-xs md:t
             ease: "steps(2)"
           }
         }}
-        className="inline-block ml-[1px] w-[2px] h-[1.2em] align-middle text-[#2a2a29] dark:text-[#EEEEEE]"
+        className="inline-block ml-[1px] w-[2px] h-[1.2em] align-middle text-[#2a2a29] dark:text-[#EEEEEE] dark:drop-shadow-[0_0_0.3rem_#ffffff70]"
         style={{
           willChange: "opacity",
           backfaceVisibility: "hidden",
