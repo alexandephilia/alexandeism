@@ -222,12 +222,14 @@ export const HeroSection = ({
                       <Separator className="flex-1" />
                     </div>
 
-                    <div className="text-xs md:text-sm lg:text-base leading-relaxed text-muted-foreground/80 animate-fade-in-up opacity-0 [animation-delay:400ms] [animation-fill-mode:forwards] max-w-[85%] md:max-w-[90%] mx-auto">
-                      {title}
+                    <div className="space-y-3 max-w-[85%] md:max-w-[90%] mx-auto">
+                      <p className="text-xs md:text-sm lg:text-base leading-relaxed text-muted-foreground/80 animate-fade-in-up opacity-0 [animation-delay:400ms] [animation-fill-mode:forwards]">
+                        {title}
+                      </p>
+                      <p className="text-xs md:text-sm lg:text-base leading-relaxed text-muted-foreground/80 animate-fade-in-up opacity-0 [animation-delay:400ms] [animation-fill-mode:forwards]">
+                        {subtitle}
+                      </p>
                     </div>
-                    <p className="text-xs md:text-sm lg:text-base leading-relaxed text-muted-foreground/80 animate-fade-in-up opacity-0 [animation-delay:400ms] [animation-fill-mode:forwards] max-w-[85%] md:max-w-[90%] mx-auto">
-                      {subtitle}
-                    </p>
                   </div>
 
                   <div className="flex flex-wrap justify-center gap-3 md:gap-5 animate-fade-in-up opacity-0 [animation-delay:600ms] [animation-fill-mode:forwards]">
