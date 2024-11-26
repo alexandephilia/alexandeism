@@ -104,7 +104,7 @@ export const ExperienceSection = () => {
       <div className="absolute inset-0 bg-[radial-gradient(circle,hsl(var(--foreground))_1px,transparent_1px)] [background-size:24px_24px] opacity-[0.08] [mask-image:linear-gradient(to_bottom,transparent,black_20%,black_80%,transparent)]" />
       <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-background to-transparent opacity-90" />
       <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-background to-transparent opacity-90" />
-      <h2 className="text-3xl font-bold text-center mb-12">Experience Timeline</h2>
+      <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">Experience Timeline</h2>
       <div className="relative max-w-3xl mx-auto px-4">
         <div className="absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-border hidden md:block" />
 
@@ -149,12 +149,12 @@ export const ExperienceSection = () => {
                 <ShimmerButton className="w-full">
                   <Card>
                     <CardHeader>
-                      <CardTitle>{item.title}</CardTitle>
-                      <p className="text-sm text-muted-foreground">{item.company}</p>
-                      <p className="text-sm text-muted-foreground">{item.date}</p>
+                      <CardTitle className="text-lg md:text-xl">{item.title}</CardTitle>
+                      <p className="text-xs md:text-sm text-muted-foreground">{item.company}</p>
+                      <p className="text-xs md:text-sm text-muted-foreground">{item.date}</p>
                     </CardHeader>
                     <CardContent>
-                      <p className="text-sm">{item.description}</p>
+                      <p className="text-xs md:text-sm">{item.description}</p>
                     </CardContent>
                   </Card>
                 </ShimmerButton>

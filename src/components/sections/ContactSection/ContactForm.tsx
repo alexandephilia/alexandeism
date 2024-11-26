@@ -98,13 +98,13 @@ export const ContactForm = () => {
         <Card className="overflow-hidden w-full backdrop-blur-md bg-white/30 dark:bg-zinc-900/30 border border-gray-200 dark:border-zinc-700/30 relative">
           <div className="md:grid md:grid-cols-5">
             <div className="p-8 md:col-span-2 dark:text-white backdrop-blur-md bg-white/30 dark:bg-zinc-900/30">
-              <h3 className="text-2xl font-bold mb-6">Get in Touch</h3>
-              <p className="mb-8 text-lg dark:text-gray-300">
+              <h3 className="text-xl md:text-2xl font-bold mb-6">Get in Touch</h3>
+              <p className="mb-8 text-base md:text-lg dark:text-gray-300">
                 I'm always interested in hearing about new projects and opportunities.
               </p>
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
-                  <Badge variant="outline" className="px-4 py-1.5 text-sm flex items-center gap-2 dark:border-zinc-700 dark:text-white">
+                  <Badge variant="outline" className="px-4 py-1.5 text-xs md:text-sm flex items-center gap-2 dark:border-zinc-700 dark:text-white">
                     <span className="relative flex h-2 w-2">
                       <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                       <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
@@ -113,7 +113,7 @@ export const ContactForm = () => {
                   </Badge>
                 </div>
                 <div className="flex items-center gap-3">
-                  <Badge variant="outline" className="px-4 py-1.5 text-sm flex items-center gap-2 dark:border-zinc-700 dark:text-white">
+                  <Badge variant="outline" className="px-4 py-1.5 text-xs md:text-sm flex items-center gap-2 dark:border-zinc-700 dark:text-white">
                     <span className="relative flex h-2 w-2">
                       <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                       <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
@@ -129,65 +129,53 @@ export const ContactForm = () => {
                 {/* Responsive Container for Name and Email */}
                 <div className="flex flex-col md:flex-row gap-6">
                   <div className="flex-1 space-y-2">
-                    <label className="text-sm font-medium dark:text-white">Name</label>
+                    <label className="text-xs md:text-sm font-medium dark:text-white">Name</label>
                     <input
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
-                      className="w-full rounded-md border backdrop-blur-sm bg-white/20 dark:bg-zinc-800/20 
-          border-gray-200 dark:border-zinc-700/30 px-4 py-3 text-base dark:text-white 
-          placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-200 
-          dark:focus:ring-zinc-700/30 transition-all"
+                      className="w-full rounded-md border backdrop-blur-sm bg-white/20 dark:bg-zinc-800/20 border-gray-200 dark:border-zinc-700/30 px-4 py-3 text-sm md:text-base dark:text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:focus:ring-zinc-700/30 transition-all"
                       required
                     />
                   </div>
                   <div className="flex-1 space-y-2">
-                    <label className="text-sm font-medium dark:text-white">Email</label>
+                    <label className="text-xs md:text-sm font-medium dark:text-white">Email</label>
                     <input
                       name="email"
                       type="email"
                       value={formData.email}
                       onChange={handleChange}
-                      className="w-full rounded-md border backdrop-blur-sm bg-white/20 dark:bg-zinc-800/20 
-          border-gray-200 dark:border-zinc-700/30 px-4 py-3 text-base dark:text-white 
-          placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-200 
-          dark:focus:ring-zinc-700/30 transition-all"
+                      className="w-full rounded-md border backdrop-blur-sm bg-white/20 dark:bg-zinc-800/20 border-gray-200 dark:border-zinc-700/30 px-4 py-3 text-sm md:text-base dark:text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:focus:ring-zinc-700/30 transition-all"
                       required
                     />
                   </div>
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-sm font-medium dark:text-white">Subject</label>
+                  <label className="text-xs md:text-sm font-medium dark:text-white">Subject</label>
                   <input
                     name="subject"
                     value={formData.subject}
                     onChange={handleChange}
-                    className="w-full rounded-md border backdrop-blur-sm bg-white/20 dark:bg-zinc-800/20 
-        border-gray-200 dark:border-zinc-700/30 px-4 py-3 text-base dark:text-white 
-        placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-200 
-        dark:focus:ring-zinc-700/30 transition-all"
+                    className="w-full rounded-md border backdrop-blur-sm bg-white/20 dark:bg-zinc-800/20 border-gray-200 dark:border-zinc-700/30 px-4 py-3 text-sm md:text-base dark:text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:focus:ring-zinc-700/30 transition-all"
                     required
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-sm font-medium dark:text-white">Message</label>
+                  <label className="text-xs md:text-sm font-medium dark:text-white">Message</label>
                   <textarea
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
-                    className="w-full rounded-md border backdrop-blur-sm bg-white/20 dark:bg-zinc-800/20 
-        border-gray-200 dark:border-zinc-700/30 px-4 py-3 h-40 resize-none text-base text-black dark:text-white 
-        placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-200 
-        dark:focus:ring-zinc-700/30 transition-all"
+                    className="w-full rounded-md border backdrop-blur-sm bg-white/20 dark:bg-zinc-800/20 border-gray-200 dark:border-zinc-700/30 px-4 py-3 h-40 resize-none text-base text-black dark:text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:focus:ring-zinc-700/30 transition-all"
                     required
                   />
                 </div>
 
                 <motion.div
                   ref={buttonRef}
-                  className="relative h-16 w-full cursor-pointer overflow-hidden rounded-full p-[1.5px]"
+                  className="relative h-12 md:h-16 w-full cursor-pointer overflow-hidden rounded-full p-[1.5px]"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   onMouseEnter={() => setIsHovered(true)}
@@ -231,8 +219,7 @@ export const ContactForm = () => {
                   <div className="absolute inset-[1.5px] rounded-full bg-black dark:bg-zinc-950" />
                   <Button
                     type="submit"
-                    className="relative h-full w-full rounded-full bg-black dark:bg-zinc-950 font-medium 
-        text-white transition-all hover:text-white hover:shadow-[0_0_15px_rgba(255,255,255,0.5)]"
+                    className="relative h-full w-full rounded-full bg-black dark:bg-zinc-950 font-medium text-xs md:text-sm text-white transition-all hover:text-white hover:shadow-[0_0_15px_rgba(255,255,255,0.5)]"
                   >
                     Send Message
                   </Button>

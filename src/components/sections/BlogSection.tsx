@@ -468,7 +468,7 @@ const BlogSection = () => {
         willChange: "transform"
       }}
     >
-      <h2 className="text-3xl font-bold mb-8 text-center">Latest Contemplations</h2>
+      <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center">Latest Contemplations</h2>
 
       {/* Search and Filter Controls */}
       <div className="mb-8 flex flex-col sm:flex-row gap-4">
@@ -478,9 +478,9 @@ const BlogSection = () => {
             placeholder="Search contemplations..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full px-4 py-2 pl-10 rounded-md border border-input bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+            className="w-full px-4 py-2 pl-10 rounded-md border border-input bg-background text-xs md:text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary placeholder:text-xs md:placeholder:text-sm"
           />
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-3 w-3 md:h-4 md:w-4" />
         </div>
         <div className="relative">
           <select
@@ -488,7 +488,7 @@ const BlogSection = () => {
             onChange={(e) => setSelectedCategory(e.target.value || null)}
             data-magnetic="true"
             data-hover-effect="true"
-            className="w-full px-4 py-2 pr-10 rounded-md border border-input bg-background text-foreground 
+            className="w-full px-4 py-2 pr-10 rounded-md border border-input bg-background text-xs md:text-sm text-foreground 
               focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-200
               hover:border-primary/50 relative cursor-none select-none
               appearance-none"
@@ -506,7 +506,7 @@ const BlogSection = () => {
           </select>
           <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
             <svg
-              className="w-4 h-4 text-muted-foreground"
+              className="w-3 h-3 md:w-4 md:h-4 text-muted-foreground"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -559,29 +559,29 @@ const BlogSection = () => {
                 <div className="p-6 flex flex-col h-[280px]">
                   {/* Top section with category and date */}
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-[10px] font-medium bg-primary/10 text-primary px-2 py-0.5 rounded-full">
+                    <span className="text-[10px] md:text-xs font-medium bg-primary/10 text-primary px-2 py-0.5 rounded-full">
                       {post.category}
                     </span>
-                    <span className="text-xs text-muted-foreground">{post.date}</span>
+                    <span className="text-xs md:text-sm text-muted-foreground">{post.date}</span>
                   </div>
 
                   {/* Title and preview with controlled height */}
                   <div className="flex-1 overflow-hidden">
-                    <h3 className="text-xl font-semibold mb-2 line-clamp-2">{post.title}</h3>
-                    <p className="text-sm text-muted-foreground line-clamp-4">{post.preview}</p>
+                    <h3 className="text-lg md:text-xl font-semibold mb-2 line-clamp-2">{post.title}</h3>
+                    <p className="text-xs md:text-sm text-muted-foreground line-clamp-4">{post.preview}</p>
                   </div>
 
-                  {/* Bottom section - will stay at bottom */}
+                  {/* Bottom section */}
                   <div className="flex items-center justify-between mt-4 pt-2 border-t border-border">
-                    <div className="flex items-center text-xs">
+                    <div className="flex items-center text-[10px] md:text-xs">
                       <span className="flex items-center gap-1 px-2 py-1 rounded-full bg-primary/10 text-primary">
-                        <Book className="h-3 w-3" />
+                        <Book className="h-3 w-3 md:h-3.5 md:w-3.5" />
                         {post.readTime}
                       </span>
                     </div>
                     <button
                       onClick={() => setSelectedPost(post)}
-                      className="text-sm font-medium text-primary hover:underline focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded"
+                      className="text-xs md:text-sm font-medium text-primary hover:underline focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded"
                     >
                       Read more
                     </button>
@@ -635,7 +635,7 @@ const BlogSection = () => {
                   >
                     <h2
                       id="modal-title"
-                      className="text-xl sm:text-2xl font-bold tracking-tight"
+                      className="text-lg md:text-xl font-bold tracking-tight"
                     >
                       {selectedPost.title}
                     </h2>
@@ -651,7 +651,7 @@ const BlogSection = () => {
                   {/* Post Metadata */}
                   <motion.div
                     variants={containerVariants}
-                    className="flex flex-wrap items-center gap-2 sm:gap-3 mb-4 sm:mb-6 text-[10px] sm:text-xs text-muted-foreground border-b border-border pb-2 sm:pb-3"
+                    className="flex flex-wrap items-center gap-2 sm:gap-3 mb-4 sm:mb-6 text-[10px] md:text-xs text-muted-foreground border-b border-border pb-2 sm:pb-3"
                   >
                     {[
                       { icon: <User className="h-3 w-3 sm:h-3.5 sm:w-3.5 mr-1" />, text: selectedPost.author },
@@ -673,7 +673,7 @@ const BlogSection = () => {
                   {/* Introduction */}
                   <motion.p
                     variants={itemVariants}
-                    className="text-sm sm:text-base leading-relaxed text-muted-foreground mb-6"
+                    className="text-xs md:text-sm leading-relaxed text-muted-foreground mb-6"
                   >
                     {selectedPost.content.introduction}
                   </motion.p>
@@ -689,7 +689,7 @@ const BlogSection = () => {
                         {section.heading && (
                           <motion.h3
                             variants={itemVariants}
-                            className="text-base sm:text-lg font-semibold tracking-tight mt-4 sm:mt-6 mb-2 sm:mb-3"
+                            className="text-sm md:text-base font-semibold tracking-tight mt-4 sm:mt-6 mb-2 sm:mb-3"
                           >
                             {section.heading}
                           </motion.h3>
@@ -699,7 +699,7 @@ const BlogSection = () => {
                           <motion.p
                             key={pIndex}
                             variants={itemVariants}
-                            className="text-xs sm:text-sm leading-relaxed"
+                            className="text-xs md:text-sm leading-relaxed"
                           >
                             {addInlineIcons(paragraph)}
                           </motion.p>
@@ -708,7 +708,7 @@ const BlogSection = () => {
                         {section.quote && (
                           <motion.blockquote
                             variants={itemVariants}
-                            className="border-l-3 border-primary pl-4 sm:pl-6 my-12 sm:my-16 italic text-xs sm:text-sm relative mx-8 sm:mx-12 pr-4 sm:pr-6 max-w-[85%]"
+                            className="border-l-3 border-primary pl-4 sm:pl-6 my-12 sm:my-16 italic text-xs md:text-sm relative mx-8 sm:mx-12 pr-4 sm:pr-6 max-w-[85%]"
                           >
                             <span
                               className="absolute -left-1 -top-1 text-primary text-xl sm:text-2xl leading-none"
@@ -748,7 +748,7 @@ const BlogSection = () => {
                       <motion.span
                         key={tag}
                         variants={itemVariants}
-                        className="inline-flex items-center px-1.5 sm:px-2 py-0.5 rounded-full text-[9px] sm:text-[10px] font-medium 
+                        className="inline-flex items-center px-1.5 sm:px-2 py-0.5 rounded-full text-[9px] md:text-xs font-medium 
                           bg-secondary/50 text-secondary-foreground hover:bg-secondary/70 transition-colors"
                       >
                         {tag}

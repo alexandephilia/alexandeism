@@ -10,14 +10,14 @@ const springTransition = {
 export const SystemStatus = () => {
     return (
         <motion.div
-            className="pt-4 border-t mt-auto"
+            className="pt-4 border-t border-foreground/10 mt-auto"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
         >
             <div className="flex items-center justify-center gap-2">
                 <motion.div
-                    className="relative w-5 h-5"
+                    className="relative w-4 h-4 md:w-5 md:h-5"
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
                     transition={{ delay: 0.6, ...springTransition }}
@@ -75,7 +75,7 @@ export const SystemStatus = () => {
                         }}
                     >
                         <CheckCircle
-                            className="h-5 w-5 text-green-500 relative z-10 drop-shadow-[0_0_8px_rgba(34,197,94,0.6)] filter blur-[0.2px]"
+                            className="h-4 w-4 md:h-5 md:w-5 text-green-500 relative z-10 drop-shadow-[0_0_8px_rgba(34,197,94,0.6)] filter blur-[0.2px]"
                         />
                     </motion.div>
                 </motion.div>
@@ -84,7 +84,7 @@ export const SystemStatus = () => {
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.7 }}
                 >
-                    <p className="text-sm text-muted-foreground m-0">
+                    <p className="text-xs md:text-sm text-muted-foreground m-0">
                         All Systems Operational • v1.0.0
                     </p>
                 </motion.div>

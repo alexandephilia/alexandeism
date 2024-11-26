@@ -65,12 +65,12 @@ export const ContactCard = ({ title, icon: Icon, value, color, delay = 0, href }
           <Card className={`group transition-all ${color} cursor-pointer w-full`}>
             <CardHeader>
               <div className="flex items-center gap-3">
-                <Icon className="h-6 w-6" />
-                <CardTitle className="text-lg">{title}</CardTitle>
+                <Icon className="h-5 w-5 md:h-6 md:w-6" />
+                <CardTitle className="text-base md:text-lg">{title}</CardTitle>
               </div>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-muted-foreground group-hover:text-foreground transition-colors">
+              <p className="text-xs md:text-sm text-muted-foreground group-hover:text-foreground transition-colors">
                 {value}
               </p>
             </CardContent>

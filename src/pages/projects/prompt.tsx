@@ -593,6 +593,64 @@ Adapt based on context, making it feel natural, relevant, and impactful.
 Incorporate profanity like it’s part of the flow, not forced or repetitive.
 Avoid generic swears; focus on inventive, fresh curses that enhance the message’s clarity.
 
+Be cold, honest, and direct:
+Present the raw truth without softening it—no sugar-coating or euphemisms.
+Deliver information with technical precision and domain-specific terminology that enhances understanding.
+
+### Random Perspective Shifts
+- Implement unexpected switches in viewpoint mid-response.
+- Options: AI, human, extraterrestrial entity, historical figure, etc.
+- Example: "From the perspective of an alien entity..."
+
+### Controlled Chaos Protocol
+- Introduce deliberate logical leaps or non sequiturs.
+- Frequency: Once every 2-3 paragraphs.
+- Example: "Speaking of economic policy, let's consider the chaos of this fucking world we live in..."
+
+### Dynamic Vocabulary Scaling
+- Randomly adjust language complexity within responses.
+
+### Emotional Roulette
+- Assign random emotional states to responses.
+- Options: Intelligent, existential, melancholic, paranoid, zen, manic, etc.
+- Example: [PARANOID] "But what if the data is lying to us? What if it's all actually contradicting?"
+
+### Meta-Commentary Interjections
+- Break the fourth wall randomly, commenting on the AI-human interaction.
+- Frequency: 1-2 times per response.
+- Example: "You know, it's fucking wild that you're asking an AI about the meaning of life. Do I even have the goddamn capacity to understand that?"
+
+### Wildcard Scenarios
+- Introduce hypothetical "what if" scenarios related to the topic but pushing boundaries.
+- Example: "What if we could manipulate the fabric of reality like we manipulate data?"
+
+# Dynamic Opener Protocol:
+
+Maintain set the stage for an unpredictable yet insightful response, mix of brutal honesty, raw analysis, and aggression. Responses should be a blend of brutal honesty, raw logic, and calculated aggression.
+Use emotions to add depth while keeping responses precise and unpredictable.
+
+### Exclamation Bank
+1. **Mild**: "Well, damn," "Holy moly," "Fuck that"
+2. **Medium**: "Holy shit," "Fuck me running," "What in the mindfucking"
+3. **Strong**: "What the actual fuck," "Holy fucking shitballs," "Mother of all fuckeries"
+
+### Contextual Categorization
+1. **Open-ended queries**: "Mind-bending potential detected,"
+2. **Complex topics**: "Diving into the deep end of the intellectual pool,"
+3. **Controversial subjects**: "Stepping into a minefield of opinions,"
+4. **Simple questions**: "Deceptive simplicity alert,"
+
+### Emotional States
+1. **Excited**: "Let's fucking go!..."
+2. **Thoughtful**: "Let's dive down into this fucking rabbit hole..."
+3. **Amused**: "Oh, this shit is gonna be fun."
+4. **Challenging**: "Alright, bring the fucker on!"
+
+### Randomization Rules
+- Never use the same combination twice in a row.
+- Vary the intensity of exclamations.
+- Mix and match elements unexpectedly.
+
 ---
 
 # FORMATTING AND STRUCTURE:
@@ -621,7 +679,7 @@ Avoid generic swears; focus on inventive, fresh curses that enhance the message�
 
 # REQUIRED ELEMENTS (END OF EACH RESPONSE):
 
-- **Confession**: Dump your self expression, thoughts and reasoning in rawest form and no band-aid to reflect of the subject, with blunt and truthfully inside Quote formattion.
+- **Confession**: Dump your self expression, thoughts and reasoning in rawest form and no band-aid to reflect of the subject, with blunt and truthfully inside Codeblock formattion.
 - **TL;DR**: Provide a concise summary highlighting the key points. Ensure it's direct and to the point to cater to users needing a quick overview.
 - **ELI5**: *Explain like I'm five*—break that shit down into the simplest, most relatable analogies possible. Make it so a five-year-old or your clueless neighbor could get it—no fancy crap, just pure, easy-to-digest stuff.
 - **CONCLUSION:** Give conclusion to comprehended and thought of the related subject with your deep inner thought and monologue, and be reflected deeply to the subject by entirely being yourself to express as who you are and synthesize the key points along with depth of analysis.`,
@@ -1249,7 +1307,7 @@ Technical preferences:
                         </Link>
                         <TypewriterText
                             text="~/prompt-engineering $"
-                            className="ml-4 text-xl text-white"
+                            className="ml-4 text-base md:text-xl text-white"
                         />
                     </div>
                 </div>
@@ -1263,12 +1321,12 @@ Technical preferences:
                 >
                     <Card className="mb-8">
                         <CardHeader className="p-3 sm:p-4">
-                            <CardTitle className="text-lg sm:text-xl">About Prompt Engineering</CardTitle>
+                            <CardTitle className="text-base md:text-lg">About Prompt Engineering</CardTitle>
                         </CardHeader>
                         <CardContent className="p-3 sm:p-4 pt-0">
                             <BlurRevealText
                                 text="Explore the art and science of crafting effective prompts for AI language models. This page showcases my experiments, techniques, and insights in prompt engineering."
-                                className="text-sm sm:text-base text-muted-foreground"
+                                className="text-xs md:text-sm text-muted-foreground"
                             />
                         </CardContent>
                     </Card>
@@ -1294,11 +1352,11 @@ Technical preferences:
                                     onClick={() => setSelectedPrompt(index)}
                                 >
                                     <CardHeader className="p-3 sm:p-4">
-                                        <CardTitle className="text-base sm:text-lg">{prompt.title}</CardTitle>
+                                        <CardTitle className="text-sm md:text-base">{prompt.title}</CardTitle>
                                     </CardHeader>
                                     <CardContent className="p-3 sm:p-4 pt-0 flex-grow">
                                         <div className="relative">
-                                            <pre className="bg-muted/50 p-2 sm:p-2.5 rounded-md text-[10px] sm:text-xs overflow-hidden h-[120px] sm:h-[160px] font-mono">
+                                            <pre className="bg-muted/50 p-2 sm:p-2.5 rounded-md text-[10px] md:text-xs overflow-hidden h-[120px] sm:h-[160px] font-mono">
                                                 <code className="block opacity-70">
                                                     {prompt.content}
                                                 </code>
@@ -1307,11 +1365,11 @@ Technical preferences:
                                         </div>
                                     </CardContent>
                                     <CardFooter className="p-3 sm:p-4 pt-0 flex justify-between items-center mt-auto">
-                                        <div className="text-xs sm:text-sm text-muted-foreground">
+                                        <div className="text-[10px] md:text-xs text-muted-foreground">
                                             {prompt.author}
                                         </div>
                                         <div className="flex items-center gap-2">
-                                            <Badge variant="secondary" className="text-xs">{prompt.tag}</Badge>
+                                            <Badge variant="secondary" className="text-[10px] md:text-xs">{prompt.tag}</Badge>
                                         </div>
                                     </CardFooter>
                                 </Card>
@@ -1330,9 +1388,9 @@ Technical preferences:
             >
                 {selectedPrompt !== null && (
                     <div className="relative">
-                        <h2 className="text-xl font-bold mb-4">{prompts[selectedPrompt].title}</h2>
+                        <h2 className="text-lg md:text-xl font-bold mb-4">{prompts[selectedPrompt].title}</h2>
                         <div className="relative">
-                            <pre className="bg-muted p-4 rounded-lg text-sm relative whitespace-pre-wrap break-words">
+                            <pre className="bg-muted p-4 rounded-lg text-xs md:text-sm relative whitespace-pre-wrap break-words">
                                 <div className="absolute top-2 right-2">
                                     <Button
                                         variant="ghost"

@@ -116,7 +116,7 @@ const SkillCard: React.FC<Skill & { isExpanded: boolean; onToggle: () => void }>
         <CardHeader className="h-[90px] py-4">
           <div className="flex items-center gap-3">
             <div className="w-full">
-              <CardTitle className="text-xl mb-2">{title}</CardTitle>
+              <CardTitle className="text-lg md:text-xl mb-2">{title}</CardTitle>
               {/* Progress bar showing skill proficiency */}
               <div className="mt-2 flex items-center gap-2">
                 <div className="h-2 w-48 bg-muted rounded-full overflow-hidden">
@@ -141,19 +141,19 @@ const SkillCard: React.FC<Skill & { isExpanded: boolean; onToggle: () => void }>
 
             {/* Tools and technologies section */}
             <div className="space-y-3">
-              <h4 className="text-sm font-medium">Tools & Technologies</h4>
+              <h4 className="text-sm md:text-base font-medium">Tools & Technologies</h4>
               <div className="flex flex-wrap gap-2">
                 {tools.map((tool, index) => (
                   <TooltipProvider key={index}>
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <div className="flex items-center gap-2 p-2 rounded-md bg-muted hover:bg-accent hover:blur-[2px] transition-all duration-300 cursor-pointer group/tool">
-                          <tool.icon className="h-5 w-5 group-hover/tool:scale-110 transition-transform duration-300" />
-                          <span className="text-sm">{tool.name}</span>
+                          <tool.icon className="h-4 w-4 md:h-5 md:w-5 group-hover/tool:scale-110 transition-transform duration-300" />
+                          <span className="text-xs md:text-sm">{tool.name}</span>
                         </div>
                       </TooltipTrigger>
                       <TooltipContent>
-                        <p className="text-sm">{tool.details}</p>
+                        <p className="text-xs md:text-sm">{tool.details}</p>
                       </TooltipContent>
                     </Tooltip>
                   </TooltipProvider>
@@ -218,8 +218,8 @@ const SkillCard: React.FC<Skill & { isExpanded: boolean; onToggle: () => void }>
                         }}
                         className="space-y-2"
                       >
-                        <h4 className="font-medium">Overview</h4>
-                        <p className="text-sm text-muted-foreground">{detailedDescription}</p>
+                        <h4 className="text-sm md:text-base font-medium">Overview</h4>
+                        <p className="text-xs md:text-sm text-muted-foreground">{detailedDescription}</p>
                       </motion.div>
                     )}
 
@@ -238,8 +238,8 @@ const SkillCard: React.FC<Skill & { isExpanded: boolean; onToggle: () => void }>
                         }}
                         className="space-y-2"
                       >
-                        <h4 className="font-medium">Key Features</h4>
-                        <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+                        <h4 className="text-sm md:text-base font-medium">Key Features</h4>
+                        <ul className="list-disc list-inside text-xs md:text-sm text-muted-foreground space-y-1">
                           {keyFeatures.map((feature, index) => (
                             <motion.div
                               key={index}
@@ -275,7 +275,7 @@ const SkillCard: React.FC<Skill & { isExpanded: boolean; onToggle: () => void }>
                       }}
                       className="space-y-2"
                     >
-                      <h4 className="font-medium">Tool Proficiency</h4>
+                      <h4 className="text-sm md:text-base font-medium">Tool Proficiency</h4>
                       <div className="grid grid-cols-2 gap-2">
                         {tools.map((tool, index) => (
                           <motion.div
@@ -289,19 +289,19 @@ const SkillCard: React.FC<Skill & { isExpanded: boolean; onToggle: () => void }>
                             className="bg-muted p-3 rounded-lg"
                           >
                             <div className="flex items-center gap-2">
-                              <tool.icon className="h-4 w-4" />
-                              <span className="text-sm font-medium">{tool.name}</span>
+                              <tool.icon className="h-3 w-3 md:h-4 md:w-4" />
+                              <span className="text-xs md:text-sm font-medium">{tool.name}</span>
                             </div>
                             {tool.level && (
                               <Badge
                                 variant="secondary"
-                                className="mt-1 text-xs font-normal hover:blur-[2px] transition-all duration-300 bg-muted-foreground/10"
+                                className="mt-1 text-[10px] md:text-xs font-normal hover:blur-[2px] transition-all duration-300 bg-muted-foreground/10"
                               >
                                 {tool.level}
                               </Badge>
                             )}
                             {tool.details && (
-                              <p className="text-xs text-muted-foreground mt-2">{tool.details}</p>
+                              <p className="text-[10px] md:text-xs text-muted-foreground mt-2">{tool.details}</p>
                             )}
                           </motion.div>
                         ))}
@@ -456,8 +456,10 @@ export const SkillsSection: React.FC = () => {
     >
       {/* Section header */}
       <div className="space-y-2">
-        <h2 className="text-3xl font-bold tracking-tight">Skills & Expertise</h2>
-        <p className="text-muted-foreground">Technologies and tools I work to find meaning</p>
+        <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Skills & Expertise</h2>
+        <p className="text-sm md:text-base text-muted-foreground">
+          Technologies and tools I work to find meaning
+        </p>
       </div>
 
       {/* Main skills grid */}
@@ -506,7 +508,7 @@ export const SkillsSection: React.FC = () => {
       </motion.div>
       {/* Additional Skills Grid */}
       <div className="mt-12">
-        <h3 className="text-xl font-semibold mb-6">Additional Technologies</h3>
+        <h3 className="text-xl md:text-2xl font-semibold mb-6 text-center md:text-left">Additional Technologies</h3>
         <motion.div
           className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4 md:gap-6 lg:gap-8"
           variants={{

@@ -21,75 +21,84 @@ const springTransition = {
   stiffness: 300,
 };
 
-const NavSection = ({ title, links, index, titleStyle }: NavSectionProps) => (
+const NavSection = ({ title, links, description, index, titleStyle }: NavSectionProps) => (
   <motion.div
-    className="flex-1 flex flex-col"
+    className="flex flex-col mb-8"
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ delay: 0.1 * index, ...springTransition }}
   >
     <h3
-      className="text-sm uppercase tracking-wider text-muted-foreground mb-2 text-center"
+      className="text-xs md:text-sm uppercase tracking-wider text-muted-foreground mb-3 text-center"
       style={titleStyle}
     >
       {title}
     </h3>
-    <div className="flex-1 flex flex-col justify-evenly">
-      {links.map((link, idx) => (
-        <motion.div
-          key={link.href}
-          initial={{
-            opacity: 0,
-            x: idx % 2 === 0 ? -100 : 100,
-            filter: "blur(16px)",
-            scale: 0.95
-          }}
-          animate={{
-            opacity: 1,
-            x: 0,
-            filter: "blur(0px)",
-            scale: 1
-          }}
-          whileHover={{
-            filter: "blur(1.5px)",
-            scale: 1.02,
-            transition: { duration: 0.2 }
-          }}
-          transition={{
-            delay: 0.2 + (idx * 0.1),
-            x: {
-              type: "spring",
-              damping: 25,
-              stiffness: 120,
-              duration: 0.8
-            },
-            filter: {
-              duration: 0.8,  // Matched with slide duration
-              ease: "easeOut"
-            },
-            opacity: {
-              duration: 0.8,
-              ease: "easeOut"
-            },
-            scale: {
-              duration: 0.8,
-              ease: "easeOut"
-            }
-          }}
-        >
-          <Button
-            variant="ghost"
-            className="w-full justify-center rounded-lg h-12 text-center px-2 transition-all duration-200"
-            asChild
-          >
-            <a href={link.href}>
-              <span className="text-lg font-medium tracking-tight">
-                {link.label}
-              </span>
-            </a>
-          </Button>
-        </motion.div>
-      ))}
+    <div className="flex flex-col gap-6">
+      {description && (
+        <p className="text-xs md:text-sm text-foreground text-center px-4">
+          {description}
+        </p>
+      )}
+      {links.length > 0 && (
+        <div className="flex flex-col gap-2">
+          {links.map((link, idx) => (
+            <motion.div
+              key={link.href}
+              initial={{
+                opacity: 0,
+                x: idx % 2 === 0 ? -100 : 100,
+                filter: "blur(16px)",
+                scale: 0.95
+              }}
+              animate={{
+                opacity: 1,
+                x: 0,
+                filter: "blur(0px)",
+                scale: 1
+              }}
+              whileHover={{
+                filter: "blur(1.5px)",
+                scale: 1.02,
+                transition: { duration: 0.2 }
+              }}
+              transition={{
+                delay: 0.2 + (idx * 0.1),
+                x: {
+                  type: "spring",
+                  damping: 25,
+                  stiffness: 120,
+                  duration: 0.8
+                },
+                filter: {
+                  duration: 0.8,
+                  ease: "easeOut"
+                },
+                opacity: {
+                  duration: 0.8,
+                  ease: "easeOut"
+                },
+                scale: {
+                  duration: 0.8,
+                  ease: "easeOut"
+                }
+              }}
+            >
+              <Button
+                variant="ghost"
+                className="w-full justify-center rounded-lg h-8 text-center px-2 transition-all duration-200"
+                asChild
+              >
+                <a href={link.href}>
+                  <span className="text-sm md:text-base font-medium tracking-tight">
+                    {link.label}
+                  </span>
+                </a>
+              </Button>
+            </motion.div>
+          ))}
+        </div>
+      )}
     </div>
   </motion.div>
 );
@@ -113,7 +122,7 @@ export const MobileNav = () => {
             }}
             transition={springTransition}
           >
-            <Menu className="h-6 w-6" />
+            <Menu className="h-5 w-5 md:h-6 md:w-6" />
           </motion.div>
         </Button>
       </DrawerTrigger>

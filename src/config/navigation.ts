@@ -10,20 +10,18 @@ export interface NavLink {
 export interface NavSection {
   title: string;
   titleStyle?: React.CSSProperties;
+  description?: string;
   links: NavLink[];
 }
 
 export const navSections: NavSection[] = [
   {
-    title: "About",
+    title: "About Me",
     titleStyle: {
       fontFamily: '"Fira Code", "Courier New", monospace',
     },
-    links: [
-      { href: "/about", label: "About Me", icon: User, description: "Learn more about my background" },
-      { href: "#experience", label: "Experience", icon: Briefcase, description: "My professional journey" },
-      { href: "mailto:0xnihilist@gmail.com", label: "Contact", icon: Mail, description: "Get in touch" },
-    ],
+    description: "A digital craftsman at the crossroads of technology and existential thought. Weaving elegant code into meaningful experiences while pondering life's deeper questions. Fueled by curiosity, coffee, and a touch of cosmic nihilism.",
+    links: [],
   },
   {
     title: "Hobbies",

@@ -103,8 +103,10 @@ export const ProjectsSection = () => {
       }}
     >
       <div className="space-y-2 mb-8">
-        <h2 className="text-3xl font-bold">Existence Kits</h2>
-        <p className="text-muted-foreground">Some tools to help this life less absurd</p>
+        <h2 className="text-2xl md:text-3xl font-bold">Existence Kits</h2>
+        <p className="text-sm md:text-base text-muted-foreground">
+          Some tools to help this life less absurd
+        </p>
       </div>
       <motion.div
         variants={containerVariants}

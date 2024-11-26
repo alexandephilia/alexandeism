@@ -220,7 +220,7 @@ const AIResearchPage = () => {
                         </Link>
                         <TypewriterText
                             text="~/ai-research $"
-                            className="ml-4 text-xl text-white"
+                            className="ml-4 text-base md:text-xl text-white"
                         />
                     </div>
                 </div>
@@ -249,23 +249,23 @@ const AIResearchPage = () => {
                                                     <span className="text-white/60 shrink-0 group-hover:text-white/80 transition-colors">$</span>
                                                     <TypewriterText
                                                         text={link.title}
-                                                        className="text-lg font-bold text-white group-hover:text-white/80 transition-colors"
+                                                        className="text-base md:text-lg font-bold text-white group-hover:text-white/80 transition-colors"
                                                     />
                                                 </div>
                                                 <a
                                                     href={link.url}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
-                                                    className="text-white/80 hover:text-white transition-colors ml-4"
+                                                    className="text-white/80 hover:text-white transition-colors ml-4 h-3 w-3 md:h-4 md:w-4"
                                                 >
-                                                    <ExternalLink className="h-4 w-4" />
+                                                    <ExternalLink className="h-3 w-3 md:h-4 md:w-4" />
                                                 </a>
                                             </div>
                                             <div className="mt-4 text-white/90 bg-black/20 p-2 rounded">
                                                 <BlurRevealText
                                                     text={link.description}
                                                     delay={index * 0.3 + 0.2}
-                                                    className="group-hover:text-white transition-colors"
+                                                    className="text-xs md:text-sm group-hover:text-white transition-colors"
                                                 />
                                             </div>
                                             <div className="flex gap-2 mt-4 flex-wrap">
@@ -287,7 +287,7 @@ const AIResearchPage = () => {
                                                             delay: tagIndex * 0.1 + 0.5,
                                                             ease: "easeOut"
                                                         }}
-                                                        className="text-xs border border-white/30 px-2 py-0.5 rounded-sm bg-black/20 group-hover:text-white transition-colors"
+                                                        className="text-[10px] md:text-xs border border-white/30 px-2 py-0.5 rounded-sm bg-black/20 group-hover:text-white transition-colors"
                                                     >
                                                         {tag}
                                                     </motion.span>
