@@ -310,7 +310,7 @@ const Index = () => {
                 <div className="flex flex-wrap items-center justify-center gap-0.5 text-[11px] md:text-sm lg:text-base">
                   <span>Hey! I am <strong className="dark:text-white dark:drop-shadow-[0_0_0.3rem_#ffffff70]">Alex</strong>. </span>
                   <strong className="dark:text-white dark:drop-shadow-[0_0_0.3rem_#ffffff70]"> A front-end developer </strong>
-                  <span>&</span>
+                  <span>and</span>
                   <strong className="dark:text-white dark:drop-shadow-[0_0_0.3rem_#ffffff70]">nihilist who tend to contemplate about</strong>
                 </div>
 
