@@ -128,11 +128,12 @@ export const HeroSection = ({
                     <div
                       className="absolute -inset-[2px] rounded-full animate-gradient-rotate"
                       style={{
-                        background: 'linear-gradient(90deg, #3f3f46, #71717a, #3f3f46)',
+                        background: 'transparent',
+                        border: '1px solid',
+                        borderColor: '#3f3f46',
+                        borderRadius: '50%',
                         backgroundSize: '200% 200%',
-                        filter: 'blur(4px)',
-                        maskImage: 'radial-gradient(circle at center, transparent 65%, black 70%)',
-                        WebkitMaskImage: 'radial-gradient(circle at center, transparent 65%, black 70%)',
+                        filter: 'blur(2px)',
                       }}
                     />
                     <motion.div
