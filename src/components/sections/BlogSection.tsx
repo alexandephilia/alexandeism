@@ -468,7 +468,7 @@ const BlogSection = () => {
         willChange: "transform"
       }}
     >
-      <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center">Latest Contemplations</h2>
+      <h2 className="text-xl md:text-2xl font-bold mb-8 text-center">Latest Contemplations</h2>
 
       {/* Search and Filter Controls */}
       <div className="mb-8 flex flex-col sm:flex-row gap-4">
@@ -478,9 +478,9 @@ const BlogSection = () => {
             placeholder="Search contemplations..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full px-4 py-2 pl-10 rounded-md border border-input bg-background text-xs md:text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary placeholder:text-xs md:placeholder:text-sm"
+            className="w-full px-4 py-2 pl-10 rounded-md border border-input bg-background text-[10px] md:text-xs text-foreground focus:outline-none focus:ring-2 focus:ring-primary placeholder:text-[10px] md:placeholder:text-xs"
           />
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-3 w-3 md:h-4 md:w-4" />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-3 w-3 md:h-3.5 md:w-3.5" />
         </div>
         <div className="relative">
           <select
@@ -488,7 +488,7 @@ const BlogSection = () => {
             onChange={(e) => setSelectedCategory(e.target.value || null)}
             data-magnetic="true"
             data-hover-effect="true"
-            className="w-full px-4 py-2 pr-10 rounded-md border border-input bg-background text-xs md:text-sm text-foreground 
+            className="w-full px-4 py-2 pr-10 rounded-md border border-input bg-background text-[10px] md:text-xs text-foreground 
               focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-200
               hover:border-primary/50 relative cursor-none select-none
               appearance-none"
@@ -567,21 +567,21 @@ const BlogSection = () => {
 
                   {/* Title and preview with controlled height */}
                   <div className="flex-1 overflow-hidden">
-                    <h3 className="text-lg md:text-xl font-semibold mb-2 line-clamp-2">{post.title}</h3>
-                    <p className="text-xs md:text-sm text-muted-foreground line-clamp-4">{post.preview}</p>
+                    <h3 className="text-base md:text-lg font-semibold mb-2 line-clamp-2">{post.title}</h3>
+                    <p className="text-[10px] md:text-xs text-muted-foreground line-clamp-4">{post.preview}</p>
                   </div>
 
                   {/* Bottom section */}
                   <div className="flex items-center justify-between mt-4 pt-2 border-t border-border">
-                    <div className="flex items-center text-[10px] md:text-xs">
+                    <div className="flex items-center text-[9px] md:text-[10px]">
                       <span className="flex items-center gap-1 px-2 py-1 rounded-full bg-primary/10 text-primary">
-                        <Book className="h-3 w-3 md:h-3.5 md:w-3.5" />
+                        <Book className="h-2.5 w-2.5 md:h-3 md:w-3" />
                         {post.readTime}
                       </span>
                     </div>
                     <button
                       onClick={() => setSelectedPost(post)}
-                      className="text-xs md:text-sm font-medium text-primary hover:underline focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded"
+                      className="text-[10px] md:text-xs font-medium text-primary hover:underline focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded"
                     >
                       Read more
                     </button>
@@ -635,7 +635,7 @@ const BlogSection = () => {
                   >
                     <h2
                       id="modal-title"
-                      className="text-lg md:text-xl font-bold tracking-tight"
+                      className="text-base md:text-lg font-bold tracking-tight"
                     >
                       {selectedPost.title}
                     </h2>
@@ -673,7 +673,7 @@ const BlogSection = () => {
                   {/* Introduction */}
                   <motion.p
                     variants={itemVariants}
-                    className="text-xs md:text-sm leading-relaxed text-muted-foreground mb-6"
+                    className="text-[10px] md:text-xs leading-relaxed text-muted-foreground mb-6"
                   >
                     {selectedPost.content.introduction}
                   </motion.p>
@@ -689,7 +689,7 @@ const BlogSection = () => {
                         {section.heading && (
                           <motion.h3
                             variants={itemVariants}
-                            className="text-sm md:text-base font-semibold tracking-tight mt-4 sm:mt-6 mb-2 sm:mb-3"
+                            className="text-xs md:text-sm font-semibold tracking-tight mt-4 sm:mt-6 mb-2 sm:mb-3"
                           >
                             {section.heading}
                           </motion.h3>
@@ -699,7 +699,7 @@ const BlogSection = () => {
                           <motion.p
                             key={pIndex}
                             variants={itemVariants}
-                            className="text-xs md:text-sm leading-relaxed"
+                            className="text-[10px] md:text-xs leading-relaxed"
                           >
                             {addInlineIcons(paragraph)}
                           </motion.p>
@@ -708,7 +708,7 @@ const BlogSection = () => {
                         {section.quote && (
                           <motion.blockquote
                             variants={itemVariants}
-                            className="border-l-3 border-primary pl-4 sm:pl-6 my-12 sm:my-16 italic text-xs md:text-sm relative mx-8 sm:mx-12 pr-4 sm:pr-6 max-w-[85%]"
+                            className="border-l-3 border-primary pl-4 sm:pl-6 my-12 sm:my-16 italic text-[10px] md:text-xs relative mx-8 sm:mx-12 pr-4 sm:pr-6 max-w-[85%]"
                           >
                             <span
                               className="absolute -left-1 -top-1 text-primary text-xl sm:text-2xl leading-none"

@@ -8,20 +8,62 @@ interface ExperienceItem {
   title: string;
   company: string;
   description: string;
+  responsibilities?: string[];
+  technologies?: string[];
+  achievements?: string[];
 }
 
 const experienceData: ExperienceItem[] = [
   {
     date: "2017 - 2021",
     title: "Quality Control in Software",
-    company: "Full Time",
-    description: "Specialized in implementing robust testing frameworks and quality assurance processes. Developed automated testing solutions and maintained high code quality standards."
+    company: "PT Realta Chkaradrama (Full Time)",
+    description: "Specialized in implementing robust testing frameworks and quality assurance processes. Developed testing solutions, crafted user manuals and maintained high code quality standards.",
+    responsibilities: [
+      "Developed and maintained automated testing frameworks",
+      "Performed thorough software quality assurance testing",
+      "Created detailed test documentation and reports",
+      "Collaborated with development teams to resolve issues"
+    ],
+    technologies: ["Selenium", "Robohelp", "SVN", "Google Docs", "XML"],
+    achievements: [
+      "Reduced bug detection time by 40% through automated testing",
+      "Improved overall software quality metrics by 25%"
+    ]
+  },
+  {
+    date: "2020 - 2021",
+    title: "IT Consultant On-Site Temporary",
+    company: "Bumame Pharmacy",
+    description: "Deployed, trained, and implemented comprehensive COVID-19 testing programs including registration systems, swab and rapid testing protocols, and laboratory result testing workflows.",
+    responsibilities: [
+      "Designed and implemented COVID-19 testing registration system",
+      "Trained staff on new testing protocols and systems",
+      "Managed laboratory result testing workflows",
+      "Ensured data accuracy and patient privacy"
+    ],
+    technologies: ["Healthcare Systems", "Database Management", "Testing Protocols"],
+    achievements: [
+      "Successfully processed over 1000+ COVID-19 tests",
+      "Reduced registration time by 50% through system optimization"
+    ]
   },
   {
     date: "2021 - Now",
     title: "Front End Developer",
-    company: "Full Time",
-    description: "Built responsive web development using HTML, CSS, JavaScript. Bootstrap, React, Next.js and TypeScript. Implemented modern UI/UX designs and optimized performance."
+    company: "PT Realta Chkaradrama (Full Time)",
+    description: "Built responsive web development using HTML, CSS, JavaScript. Bootstrap, React, Next.js and TypeScript. Implemented modern UI/UX designs and optimized performance.",
+    responsibilities: [
+      "Develop responsive and interactive web applications",
+      "Implement modern UI/UX designs",
+      "Optimize application performance",
+      "Collaborate with backend teams for API integration"
+    ],
+    technologies: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Bootstrap"],
+    achievements: [
+      "Improved website load times by 60%",
+      "Successfully delivered 10+ major web applications"
+    ]
   }
 ];
 
@@ -147,14 +189,57 @@ export const ExperienceSection = () => {
             >
               <div className="w-full md:w-1/2 p-4">
                 <ShimmerButton className="w-full">
-                  <Card>
+                  <Card className="border-2 hover:border-primary/50 transition-colors duration-300">
                     <CardHeader>
-                      <CardTitle className="text-lg md:text-xl">{item.title}</CardTitle>
-                      <p className="text-xs md:text-sm text-muted-foreground">{item.company}</p>
-                      <p className="text-xs md:text-sm text-muted-foreground">{item.date}</p>
+                      <div className="flex justify-between items-start">
+                        <div>
+                          <CardTitle className="text-sm md:text-base font-bold">{item.title}</CardTitle>
+                          <p className="text-[7px] md:text-[9px] font-medium text-primary/80 tracking-tight">{item.company}</p>
+                        </div>
+                        <span className="text-[7px] md:text-[9px] whitespace-nowrap text-muted-foreground/70 bg-secondary/40 px-1 py-0.5 rounded-full font-medium tracking-tight">
+                          {item.date}
+                        </span>
+                      </div>
                     </CardHeader>
-                    <CardContent>
-                      <p className="text-xs md:text-sm">{item.description}</p>
+                    <CardContent className="space-y-3">
+                      <div>
+                        <p className="text-[10px] md:text-xs mb-2">{item.description}</p>
+                      </div>
+
+                      {item.responsibilities && (
+                        <div>
+                          <h4 className="text-xs font-semibold mb-1 text-primary">Key Responsibilities:</h4>
+                          <ul className="list-disc list-inside text-[10px] md:text-xs space-y-0.5">
+                            {item.responsibilities.map((resp, idx) => (
+                              <li key={idx}>{resp}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+
+                      {item.technologies && (
+                        <div>
+                          <h4 className="text-xs font-semibold mb-1 text-primary">Technologies:</h4>
+                          <div className="flex flex-wrap gap-1.5">
+                            {item.technologies.map((tech, idx) => (
+                              <span key={idx} className="text-[10px] px-1.5 py-0.5 bg-secondary rounded-full">
+                                {tech}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+
+                      {item.achievements && (
+                        <div>
+                          <h4 className="text-xs font-semibold mb-1 text-primary">Key Achievements:</h4>
+                          <ul className="list-disc list-inside text-[10px] md:text-xs space-y-0.5">
+                            {item.achievements.map((achievement, idx) => (
+                              <li key={idx}>{achievement}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
                     </CardContent>
                   </Card>
                 </ShimmerButton>
