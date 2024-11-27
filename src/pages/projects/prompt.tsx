@@ -46,14 +46,14 @@ const Grain = ({ opacity = 0.8 }) => {
                     background: theme === 'dark'
                         ? "url('https://framerusercontent.com/images/rR6HYXBrMmX4cRpXfXUOvpvpB0.png')"
                         : "url('https://framerusercontent.com/images/rR6HYXBrMmX4cRpXfXUOvpvpB0.png')",
-                    opacity: theme === 'dark' ? opacity : opacity * 0.8,
+                    opacity: theme === 'dark' ? opacity : opacity * 0.5,
                     inset: "-200%",
                     width: "400%",
                     height: "400%",
                     position: "absolute",
                     filter: theme === 'dark'
                         ? 'none'
-                        : 'invert(1) brightness(0.8)',
+                        : 'invert(1) brightness(1.2)',
                     backfaceVisibility: "hidden",
                     perspective: 1000,
                     transformStyle: "preserve-3d"
@@ -109,14 +109,14 @@ const Modal = ({ isOpen, onClose, children }: {
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 bg-black/80 z-40 flex items-start justify-center overflow-y-auto pt-24 px-4 pb-8">
-            <div className="bg-card rounded-lg w-full max-w-3xl relative">
+        <div className="fixed inset-0 bg-background/80 backdrop-blur-sm z-40 flex items-start justify-center overflow-y-auto pt-24 px-4 pb-8">
+            <div className="bg-card border border-border rounded-lg w-full max-w-3xl relative">
                 <div className="absolute right-2 top-2 z-10">
                     <Button
                         variant="ghost"
                         size="sm"
                         onClick={onClose}
-                        className="h-8 w-8 p-0 hover:bg-background/30 bg-background/20 backdrop-blur-sm transition-colors"
+                        className="h-8 w-8 p-0 hover:bg-muted/30 bg-muted/20 backdrop-blur-sm transition-colors"
                     >
                         <X className="h-4 w-4" />
                     </Button>
@@ -1298,16 +1298,16 @@ Technical preferences:
             <Grain opacity={0.08} />
 
             <nav className="fixed w-full top-0 z-50">
-                <div className="bg-black/80 backdrop-blur-sm border-b border-white/20">
+                <div className="bg-background/80 backdrop-blur-sm border-b border-border">
                     <div className="container max-w-5xl flex h-16 items-center">
                         <Link to="/">
-                            <Button variant="ghost" size="icon" className="text-white hover:text-white/80">
+                            <Button variant="ghost" size="sm" className="text-foreground hover:text-foreground/80 p-2">
                                 <ArrowLeft className="h-5 w-5" />
                             </Button>
                         </Link>
                         <TypewriterText
                             text="~/prompt-engineering $"
-                            className="ml-4 text-base md:text-xl text-white"
+                            className="ml-4 text-base md:text-xl text-foreground"
                         />
                     </div>
                 </div>
@@ -1319,9 +1319,9 @@ Technical preferences:
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5 }}
                 >
-                    <Card className="mb-8">
+                    <Card className="mb-8 border border-border bg-card">
                         <CardHeader className="p-3 sm:p-4">
-                            <CardTitle className="text-base md:text-lg">About Prompt Engineering</CardTitle>
+                            <CardTitle className="text-base md:text-lg text-foreground">About Prompt Engineering</CardTitle>
                         </CardHeader>
                         <CardContent className="p-3 sm:p-4 pt-0">
                             <BlurRevealText
@@ -1356,8 +1356,8 @@ Technical preferences:
                                     </CardHeader>
                                     <CardContent className="p-3 sm:p-4 pt-0 flex-grow">
                                         <div className="relative">
-                                            <pre className="bg-muted/50 p-2 sm:p-2.5 rounded-md text-[10px] md:text-xs overflow-hidden h-[120px] sm:h-[160px] font-mono">
-                                                <code className="block opacity-70">
+                                            <pre className="bg-muted p-2 sm:p-2.5 rounded-md text-[10px] md:text-xs overflow-hidden h-[120px] sm:h-[160px] font-mono">
+                                                <code className="block text-foreground/70">
                                                     {prompt.content}
                                                 </code>
                                             </pre>
@@ -1396,7 +1396,7 @@ Technical preferences:
                                         variant="ghost"
                                         size="sm"
                                         onClick={() => copyToClipboard(prompts[selectedPrompt].content)}
-                                        className="h-8 w-8 p-0 hover:bg-background/30 bg-background/20 backdrop-blur-sm transition-all duration-200 relative"
+                                        className="h-8 w-8 p-0 hover:bg-muted/30 bg-muted/20 backdrop-blur-sm transition-all duration-200 relative"
                                     >
                                         <motion.div
                                             initial={{ scale: 0, opacity: 0 }}
@@ -1423,7 +1423,7 @@ Technical preferences:
                                         </motion.div>
                                     </Button>
                                 </div>
-                                <code>{prompts[selectedPrompt].content}</code>
+                                <code className="text-foreground">{prompts[selectedPrompt].content}</code>
                             </pre>
                         </div>
                     </div>

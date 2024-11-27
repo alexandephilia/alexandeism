@@ -115,8 +115,8 @@ const researchLinks: ResearchLink[] = [
 
 // Update TerminalWindow component with white borders (instead of green)
 const TerminalWindow = ({ children }: { children: React.ReactNode }) => (
-    <div className="rounded-lg border border-white/30 bg-black/60 backdrop-blur-sm overflow-hidden relative">
-        <div className="h-8 border-b border-white/30 flex items-center px-4 bg-black/20">
+    <div className="rounded-lg border border-border bg-card/60 backdrop-blur-sm overflow-hidden relative">
+        <div className="h-8 border-b border-border flex items-center px-4 bg-muted/20">
             <div className="flex gap-2">
                 <div className="w-3 h-3 rounded-full bg-red-500/80" />
                 <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
@@ -162,7 +162,7 @@ const TypewriterText = ({ text, onComplete, className = "" }: {
         <span className={`inline-block ${className}`}>
             {displayedText}
             {isTyping && (
-                <span className="border-r-2 border-white animate-blink ml-[1px]">&nbsp;</span>
+                <span className="border-r-2 border-foreground animate-blink ml-[1px]">&nbsp;</span>
             )}
         </span>
     );
@@ -207,20 +207,20 @@ const BlurRevealText = ({ text, delay = 0, className = "" }: {
 
 const AIResearchPage = () => {
     return (
-        <div className="min-h-screen bg-black/50 text-white font-mono">
+        <div className="min-h-screen bg-background/50 text-foreground font-mono">
             <Grain opacity={0.08} />
 
             <nav className="fixed w-full top-0 z-50">
-                <div className="bg-black/80 backdrop-blur-sm border-b border-white/20">
+                <div className="bg-background/80 backdrop-blur-sm border-b border-border">
                     <div className="container max-w-5xl flex h-16 items-center">
                         <Link to="/">
-                            <Button variant="ghost" size="icon" className="text-white hover:text-white/80">
+                            <Button variant="ghost" size="sm" className="text-foreground hover:text-foreground/80">
                                 <ArrowLeft className="h-5 w-5" />
                             </Button>
                         </Link>
                         <TypewriterText
                             text="~/ai-research $"
-                            className="ml-4 text-base md:text-xl text-white"
+                            className="ml-4 text-base md:text-xl text-foreground"
                         />
                     </div>
                 </div>
@@ -246,26 +246,26 @@ const AIResearchPage = () => {
                                         <div className="flex-1">
                                             <div className="flex items-center justify-between">
                                                 <div className="group flex items-center gap-2 min-w-0 flex-1">
-                                                    <span className="text-white/60 shrink-0 group-hover:text-white/80 transition-colors">$</span>
+                                                    <span className="text-muted-foreground shrink-0 group-hover:text-foreground transition-colors">$</span>
                                                     <TypewriterText
                                                         text={link.title}
-                                                        className="text-base md:text-lg font-bold text-white group-hover:text-white/80 transition-colors"
+                                                        className="text-base md:text-lg font-bold text-foreground group-hover:text-foreground/80 transition-colors"
                                                     />
                                                 </div>
                                                 <a
                                                     href={link.url}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
-                                                    className="text-white/80 hover:text-white transition-colors ml-4 h-3 w-3 md:h-4 md:w-4"
+                                                    className="text-muted-foreground hover:text-foreground transition-colors ml-4"
                                                 >
                                                     <ExternalLink className="h-3 w-3 md:h-4 md:w-4" />
                                                 </a>
                                             </div>
-                                            <div className="mt-4 text-white/90 bg-black/20 p-2 rounded">
+                                            <div className="mt-4 text-foreground/90 bg-muted/20 p-2 rounded">
                                                 <BlurRevealText
                                                     text={link.description}
                                                     delay={index * 0.3 + 0.2}
-                                                    className="text-xs md:text-sm group-hover:text-white transition-colors"
+                                                    className="text-xs md:text-sm group-hover:text-foreground transition-colors"
                                                 />
                                             </div>
                                             <div className="flex gap-2 mt-4 flex-wrap">
@@ -287,7 +287,7 @@ const AIResearchPage = () => {
                                                             delay: tagIndex * 0.1 + 0.5,
                                                             ease: "easeOut"
                                                         }}
-                                                        className="text-[10px] md:text-xs border border-white/30 px-2 py-0.5 rounded-sm bg-black/20 group-hover:text-white transition-colors"
+                                                        className="text-[10px] md:text-xs border border-border px-2 py-0.5 rounded-sm bg-muted/20 text-muted-foreground group-hover:text-foreground transition-colors"
                                                     >
                                                         {tag}
                                                     </motion.span>

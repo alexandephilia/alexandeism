@@ -76,8 +76,8 @@ const ListItem = React.forwardRef<
           )}
           {...props}
         >
-          <div className="text-sm font-bold leading-none">{title}</div>
-          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+          <div className="text-xs font-bold leading-none">{title}</div>
+          <p className="line-clamp-2 text-xs leading-snug text-muted-foreground">
             {children}
           </p>
         </a>
@@ -87,7 +87,11 @@ const ListItem = React.forwardRef<
 });
 ListItem.displayName = "ListItem";
 
-const Grain = ({ opacity = 0.8 }) => {
+interface GrainProps {
+  opacity?: number;
+}
+
+const Grain = React.memo(({ opacity = 0.8 }: GrainProps) => {
   const controls = useAnimationControls();
   const { theme } = useTheme();
 
@@ -99,47 +103,56 @@ const Grain = ({ opacity = 0.8 }) => {
         duration: 8,
         ease: "linear",
         repeat: Infinity,
+        willChange: "transform",
+        backfaceVisibility: "hidden",
+        translateZ: 0,
+        type: "tween"
       }
     });
   }, [controls]);
 
+  const grainStyle = React.useMemo(() => ({
+    width: "100%",
+    height: "100%",
+    position: "fixed" as const,
+    top: 0,
+    left: 0,
+    pointerEvents: "none" as const,
+    zIndex: 9999,
+    overflow: "hidden",
+    willChange: "transform",
+    transform: "translateZ(0)"
+  }), []);
+
+  const overlayStyle = React.useMemo(() => ({
+    backgroundSize: "64px 64px",
+    backgroundRepeat: "repeat" as const,
+    background: theme === 'dark'
+      ? "url('https://framerusercontent.com/images/rR6HYXBrMmX4cRpXfXUOvpvpB0.png')"
+      : "url('https://framerusercontent.com/images/rR6HYXBrMmX4cRpXfXUOvpvpB0.png')",
+    opacity: theme === 'dark' ? opacity : opacity * 0.8,
+    inset: "-200%",
+    width: "400%",
+    height: "400%",
+    position: "absolute" as const,
+    filter: theme === 'dark'
+      ? 'none'
+      : 'invert(1) brightness(0.8)',
+    backfaceVisibility: "hidden" as const,
+    perspective: 1000,
+    transformStyle: "preserve-3d" as const
+  }), [theme, opacity]);
+
   return (
-    <div style={{
-      width: "100%",
-      height: "100%",
-      position: "fixed",
-      top: 0,
-      left: 0,
-      pointerEvents: "none",
-      zIndex: 9999,
-      overflow: "hidden",
-      willChange: "transform",
-      transform: "translateZ(0)"
-    }}>
+    <div style={grainStyle}>
       <motion.div
         animate={controls}
-        style={{
-          backgroundSize: "64px 64px",
-          backgroundRepeat: "repeat",
-          background: theme === 'dark'
-            ? "url('https://framerusercontent.com/images/rR6HYXBrMmX4cRpXfXUOvpvpB0.png')"
-            : "url('https://framerusercontent.com/images/rR6HYXBrMmX4cRpXfXUOvpvpB0.png')",
-          opacity: theme === 'dark' ? opacity : opacity * 0.8,
-          inset: "-200%",
-          width: "400%",
-          height: "400%",
-          position: "absolute",
-          filter: theme === 'dark'
-            ? 'none'
-            : 'invert(1) brightness(0.8)',
-          backfaceVisibility: "hidden",
-          perspective: 1000,
-          transformStyle: "preserve-3d"
-        }}
+        style={overlayStyle}
+        initial={false}
       />
     </div>
   );
-};
+});
 
 const Index = () => {
   useEffect(() => {
@@ -193,49 +206,49 @@ const Index = () => {
                           <div className="grid grid-cols-[250px_1fr] gap-4">
                             {/* Profile Card - Left Side */}
                             <div className="flex flex-col h-full rounded-md bg-gradient-to-b from-muted/30 to-muted/20 p-4">
-                              <div className="text-lg font-bold">
+                              <div className="text-base font-bold">
                                 Garry Alexander
                               </div>
-                              <p className="text-sm leading-tight text-muted-foreground mb-4 mt-2">
+                              <p className="text-xs leading-tight text-muted-foreground mb-4 mt-2">
                                 A <strong>nihilist</strong> who loves to code and coffee ☕
                               </p>
                               <div className="grid grid-cols-2 gap-2 mt-auto">
                                 <Button
                                   variant="outline"
-                                  size="sm"
-                                  className="hover:blur-[1px] transition-all duration-300"
+                                  size="xs"
+                                  className="hover:blur-[1px] transition-all duration-300 text-xs py-1"
                                   asChild
                                 >
                                   <a href="https://www.reddit.com/user/Alexandeisme/" target="_blank" rel="noopener noreferrer">Reddit</a>
                                 </Button>
                                 <Button
                                   variant="outline"
-                                  size="sm"
-                                  className="hover:blur-[1px] transition-all duration-300"
+                                  size="xs"
+                                  className="hover:blur-[1px] transition-all duration-300 text-xs py-1"
                                   asChild
                                 >
                                   <a href="https://www.linkedin.com/in/alexandephilia/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
                                 </Button>
                                 <Button
                                   variant="outline"
-                                  size="sm"
-                                  className="hover:blur-[1px] transition-all duration-300"
+                                  size="xs"
+                                  className="hover:blur-[1px] transition-all duration-300 text-xs py-1"
                                   asChild
                                 >
                                   <a href="https://x.com/0xnihilism" target="_blank" rel="noopener noreferrer">Twitter</a>
                                 </Button>
                                 <Button
                                   variant="outline"
-                                  size="sm"
-                                  className="hover:blur-[1px] transition-all duration-300"
+                                  size="xs"
+                                  className="hover:blur-[1px] transition-all duration-300 text-xs py-1"
                                   asChild
                                 >
                                   <a href="mailto:0xnihilist@gmail.com">Email</a>
                                 </Button>
                                 <Button
                                   variant="outline"
-                                  size="sm"
-                                  className="hover:blur-[1px] transition-all duration-300 col-span-2"
+                                  size="xs"
+                                  className="hover:blur-[1px] transition-all duration-300 text-xs py-1 col-span-2"
                                   asChild
                                 >
                                   <a href="resume.pdf" target="_blank" rel="noopener noreferrer">
@@ -247,10 +260,10 @@ const Index = () => {
 
                             {/* About Section - Right Side */}
                             <div className="flex flex-col h-full mt-1">
-                              <div className="text-lg font-bold mt-3">
+                              <div className="text-base font-bold mt-3">
                                 About Me
                               </div>
-                              <p className="text-sm leading-relaxed text-muted-foreground mt-2">
+                              <p className="text-xs leading-relaxed text-muted-foreground mt-2">
                                 A digital craftsman at the crossroads of technology and existential thought. Weaving elegant code into meaningful experiences while pondering life's deeper questions. Fueled by curiosity, coffee, and a touch of cosmic nihilism.
                               </p>
                             </div>
