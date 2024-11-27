@@ -63,7 +63,7 @@ export const HeroSection = ({
     animate: {
       opacity: 1,
       scale: 1,
-      filter: "blur(0px) grayscale(100%)",
+      filter: "blur(0px) grayscale(0%)",
       transition: {
         duration: 1.2,
         ease: [0.34, 1.56, 0.64, 1],
@@ -82,7 +82,7 @@ export const HeroSection = ({
       }
     },
     hover: {
-      filter: "blur(0px) grayscale(0%)",
+      filter: "blur(2px) grayscale(100%)",
       transition: {
         duration: 0.3,
         ease: "easeOut"
@@ -239,7 +239,7 @@ export const HeroSection = ({
                           <TooltipTrigger>
                             <Button
                               variant="outline"
-                              size="icon"
+                              size="sm"
                               className="h-9 w-9 md:h-11 md:w-11 hover:blur-[2px] transition-all duration-300 bg-background/20"
                               onClick={() => window.open(link.href, '_blank', 'noopener,noreferrer')}
                             >

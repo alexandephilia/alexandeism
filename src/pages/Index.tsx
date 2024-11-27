@@ -192,7 +192,7 @@ const Index = () => {
             {/* Left side - Logo and Desktop Navigation */}
             <div className="flex items-center gap-6">
               <AnimatedGradientText
-                text="Portfolio"
+                text="Alexandeism"
                 className="text-xl"
               />
               {/* Desktop Navigation - Moved here */}
