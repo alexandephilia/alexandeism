@@ -303,10 +303,12 @@ const Index = () => {
             {/* Right side - Mobile Menu and Theme Toggle */}
             <div className="flex items-center gap-2">
               {/* Mobile Navigation */}
-              <div className="md:hidden">
+              <div className="md:hidden flex items-center">
                 <MobileNav />
               </div>
-              <ModeToggle />
+              <div className="flex items-center">
+                <ModeToggle />
+              </div>
             </div>
           </div>
         </div>
