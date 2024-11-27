@@ -185,26 +185,31 @@ export const HeroSection = ({
                     </motion.div>
                   </div>
 
-                  <h1 className="text-xl md:text-2xl font-bold group hover:blur-[2px] transition-all duration-300 mt-4">
-                    {typeof name === 'string' ? name.split("").map((letter, index) => (
-                      <span
-                        key={index}
-                        className="inline-block hover:animate-wave transition-all duration-300 group-hover:animate-wave touch-none"
-                        style={{
-                          fontFamily: '"Libre Bodoni", serif',
-                          fontWeight: 600,
-                          fontStyle: 'italic',
-                          animationDelay: `${index * 0.05}s`,
-                          animationFillMode: "forwards",
-                          letterSpacing: '0.02em'
-                        }}
-                      >
-                        {letter === " " ? "\u00A0" : letter}
-                      </span>
-                    )) : name}
-                  </h1>
+                  <div className="space-y-0.5 text-center">
+                    <h1 className="text-xl md:text-2xl font-bold group hover:blur-[2px] transition-all duration-300 text-center">
+                      {typeof name === 'string' ? name.split("").map((letter, index) => (
+                        <span
+                          key={index}
+                          className="inline-block hover:animate-wave transition-all duration-300 group-hover:animate-wave touch-none"
+                          style={{
+                            fontFamily: '"Libre Bodoni", serif',
+                            fontWeight: 500,
+                            animationDelay: `${index * 0.05}s`,
+                            animationFillMode: "forwards",
+                            letterSpacing: '0.02em'
+                          }}
+                        >
+                          {letter === " " ? "\u00A0" : letter}
+                        </span>
+                      )) : name}
+                    </h1>
 
-                  <div className="flex items-center gap-2 opacity-0 animate-[fadeInBlur_0.8s_ease_forwards] [animation-delay:300ms]">
+                    <p className="text-sm md:text-base text-muted-foreground/80 text-center mx-auto" style={{ fontFamily: '"Libre Bodoni", serif' }}>
+                      I'm based in Indonesia
+                    </p>
+                  </div>
+
+                  <div className="flex items-center gap-2 opacity-0 animate-[fadeInBlur_0.8s_ease_forwards] [animation-delay:300ms] mt-4">
                     <StatusBadge
                       status="Working on"
                       icon={<SiCardano className="h-4 w-4" />}
