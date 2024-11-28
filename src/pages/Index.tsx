@@ -60,6 +60,7 @@ import { HeroSection } from "@/components/sections/HeroSection";
 import { AnimatedGradientText } from "@/components/ui/animated-text";
 import { AnimatedTyping } from "@/components/ui/animated-typing";
 import { GradientBlur } from "@/components/ui/gradient-blur";
+import { MyProjectsSection } from "@/components/sections/MyProjectsSection";
 
 const ListItem = React.forwardRef<
   React.ElementRef<"a">,
@@ -372,6 +373,11 @@ const Index = () => {
         <ExperienceSection />
       </div>
 
+
+      {/* My Projects Section */}
+      <div className="container max-w-5xl px-4 sm:px-6 md:px-8">
+        <MyProjectsSection />
+      </div>
 
       {/* Contact Section */}
       <div className="container max-w-5xl px-4 sm:px-6 md:px-8">

@@ -16,7 +16,7 @@ interface ExperienceItem {
 const experienceData: ExperienceItem[] = [
   {
     date: "2017 - 2021",
-    title: "Quality Control in Software",
+    title: "Quality Control",
     company: "PT Realta Chkaradrama (Full Time)",
     description: "Specialized in implementing robust testing frameworks and quality assurance processes. Developed testing solutions, crafted user manuals and maintained high code quality standards.",
     responsibilities: [
@@ -196,7 +196,7 @@ export const ExperienceSection = () => {
                           <CardTitle className="text-sm md:text-base font-bold">{item.title}</CardTitle>
                           <p className="text-[7px] md:text-[9px] font-medium text-primary/80 tracking-tight">{item.company}</p>
                         </div>
-                        <span className="text-[7px] md:text-[9px] whitespace-nowrap text-muted-foreground/70 bg-secondary/40 px-1 py-0.5 rounded-full font-medium tracking-tight">
+                        <span className="text-[7px] md:text-[9px] whitespace-nowrap dark:text-amber-400 text-muted-foreground/70 bg-secondary/40 px-1 py-0.5 rounded-full font-medium tracking-tight">
                           {item.date}
                         </span>
                       </div>
