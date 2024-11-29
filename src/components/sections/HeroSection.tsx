@@ -187,7 +187,7 @@ export const HeroSection = ({
                   </div>
 
                   <div className="space-y-0.5 text-center">
-                    <h1 className="text-xl md:text-2xl font-bold group hover:blur-[2px] transition-all duration-300 text-center">
+                    <h1 className="text-[15px] md:text-xl lg:text-2xl font-bold group hover:blur-[2px] transition-all duration-300 text-center">
                       {typeof name === 'string' ? name.split("").map((letter, index) => (
                         <span
                           key={index}
@@ -205,8 +205,9 @@ export const HeroSection = ({
                       )) : name}
                     </h1>
 
-                    <p className="text-sm md:text-base text-muted-foreground/80 text-center mx-auto" style={{ fontFamily: '"Libre Bodoni", serif' }}>
-                      I'm based in Indonesia
+                    <p className="text-[11px] md:text-sm lg:text-base text-muted-foreground/80 text-center mx-auto">
+                      <span style={{ fontFamily: '"Libre Bodoni", serif' }}>I'm based in </span>
+                      <span style={{ fontFamily: '"Libre Bodoni", serif' }}>Indonesia</span>
                     </p>
                   </div>
 
