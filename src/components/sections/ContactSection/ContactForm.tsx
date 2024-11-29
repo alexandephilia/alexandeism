@@ -43,8 +43,8 @@ export const ContactForm = () => {
       <Card className="overflow-hidden w-full backdrop-blur-md bg-white/30 dark:bg-zinc-900/30 border border-gray-200 dark:border-zinc-700/30">
         <div className="md:grid md:grid-cols-5">
           <div className="p-8 md:col-span-2 dark:text-white backdrop-blur-md bg-white/30 dark:bg-zinc-900/30">
-            <h3 className="text-xl md:text-2xl font-bold mb-6">Get in Touch</h3>
-            <p className="mb-8 text-base md:text-lg dark:text-gray-300">
+            <h3 className="text-lg md:text-2xl font-bold mb-6">Get in Touch</h3>
+            <p className="mb-8 text-sm md:text-lg dark:text-gray-300">
               I'm always interested in hearing about new projects and opportunities.
             </p>
             <div className="space-y-4">
