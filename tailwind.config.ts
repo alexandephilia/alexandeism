@@ -74,6 +74,14 @@ export default {
           "0%": { opacity: "0", filter: "blur(10px)" },
           "100%": { opacity: "1", filter: "blur(0)" },
         },
+        "shine": {
+          "0%": {
+            transform: "translateX(-100%) translateY(-100%) rotate(0deg)",
+          },
+          "100%": {
+            transform: "translateX(100%) translateY(100%) rotate(0deg)",
+          },
+        },
         "fade-in-up": {
           "0%": {
             opacity: "0",
@@ -119,6 +127,7 @@ export default {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "fade-in": "fade-in 0.5s ease-out",
+        "shine": "shine 2s infinite linear",
         "fade-in-up": "fade-in-up 0.5s ease-out",
         "tooltip-show": "tooltip-show 0.2s ease-out",
         "tooltip-hide": "tooltip-hide 0.15s ease-in forwards",

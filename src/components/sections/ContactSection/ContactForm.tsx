@@ -12,31 +12,7 @@ export const ContactForm = () => {
     message: ''
   });
 
-  const [isNear, setIsNear] = useState(false);
-  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
   const buttonRef = useRef<HTMLDivElement>(null);
-  const [isHovered, setIsHovered] = useState(false);
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (buttonRef.current) {
-        const rect = buttonRef.current.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const isNearButton = x >= -50 && x <= rect.width + 50 && y >= -50 && y <= rect.height + 50;
-
-        setIsNear(isNearButton);
-        if (isNearButton) {
-          setCursorPosition({ x, y });
-        }
-      }
-    };
-
-    document.addEventListener('mousemove', handleMouseMove);
-    return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-    };
-  }, []);
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -73,7 +49,16 @@ export const ContactForm = () => {
             </p>
             <div className="space-y-4">
               <div className="flex items-center gap-3">
-                <Badge variant="outline" className="px-4 py-1.5 text-xs md:text-sm flex items-center gap-2 dark:border-zinc-700 dark:text-white">
+                <Badge variant="outline" className="relative px-4 py-1.5 text-xs md:text-sm flex items-center gap-2 dark:border-zinc-700 dark:text-white overflow-hidden">
+                  <div className="absolute inset-0 pointer-events-none">
+                    <div
+                      className="absolute w-[200%] h-[200%] -top-[50%] -left-[50%] animate-shine"
+                      style={{
+                        background: 'linear-gradient(135deg, transparent 45%, rgba(255,255,255,0.2) 48%, rgba(255,255,255,0.5) 50%, rgba(255,255,255,0.2) 52%, transparent 55%)',
+                        transform: 'translateX(-100%) translateY(-100%) rotate(0deg)',
+                      }}
+                    />
+                  </div>
                   <span className="relative flex h-2 w-2">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                     <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
@@ -82,7 +67,16 @@ export const ContactForm = () => {
                 </Badge>
               </div>
               <div className="flex items-center gap-3">
-                <Badge variant="outline" className="px-4 py-1.5 text-xs md:text-sm flex items-center gap-2 dark:border-zinc-700 dark:text-white">
+                <Badge variant="outline" className="relative px-4 py-1.5 text-xs md:text-sm flex items-center gap-2 dark:border-zinc-700 dark:text-white overflow-hidden">
+                  <div className="absolute inset-0 pointer-events-none">
+                    <div
+                      className="absolute w-[200%] h-[200%] -top-[50%] -left-[50%] animate-shine"
+                      style={{
+                        background: 'linear-gradient(135deg, transparent 45%, rgba(255,255,255,0.2) 48%, rgba(255,255,255,0.5) 50%, rgba(255,255,255,0.2) 52%, transparent 55%)',
+                        transform: 'translateX(-100%) translateY(-100%) rotate(0deg)',
+                      }}
+                    />
+                  </div>
                   <span className="relative flex h-2 w-2">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                     <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
@@ -144,51 +138,62 @@ export const ContactForm = () => {
 
               <motion.div
                 ref={buttonRef}
-                className="relative h-12 md:h-16 w-full cursor-pointer overflow-hidden rounded-full p-[1.5px]"
+                className="relative h-12 md:h-16 w-full cursor-pointer overflow-hidden rounded-full p-[1.5px] group"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                onMouseEnter={() => setIsHovered(true)}
-                onMouseLeave={() => setIsHovered(false)}
                 style={{
                   background: 'rgba(255, 255, 255, 0.1)'
                 }}
               >
+                {/* Default rotating gradient */}
                 <motion.div
-                  className="absolute inset-0"
+                  className="absolute inset-0 group-hover:opacity-0 transition-opacity"
                   style={{
-                    opacity: isNear && !isHovered ? 1 : 0,
-                    background: `radial-gradient(circle 150px at ${cursorPosition.x}px ${cursorPosition.y}px, rgba(255,255,255,0.9), transparent 40%)`,
+                    background: `conic-gradient(
+                      from 0deg at 50% 50%,
+                      transparent 0deg,
+                      rgba(255,255,255,0.9) 60deg,
+                      transparent 120deg,
+                      transparent 360deg
+                    )`,
+                    filter: 'blur(8px)',
                   }}
-                  transition={{ opacity: { duration: 0.3 } }}
+                  animate={{
+                    rotate: [0, 360],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "linear",
+                  }}
                 />
-                {isHovered && (
-                  <motion.div
-                    className="absolute inset-0"
-                    style={{
-                      background: `conic-gradient(
-                        from 0deg at 50% 50%,
-                        transparent,
-                        rgba(255,255,255,0.8),
-                        rgba(255,255,255,0.9),
-                        rgba(255,255,255,0.8),
-                        transparent
-                      )`,
-                      filter: 'blur(8px)',
-                    }}
-                    animate={{
-                      rotate: [0, 360],
-                    }}
-                    transition={{
-                      duration: 3,
-                      repeat: Infinity,
-                      ease: "linear",
-                    }}
-                  />
-                )}
+                {/* Hover gradient */}
+                <motion.div
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity"
+                  style={{
+                    background: `conic-gradient(
+                      from 0deg at 50% 50%,
+                      transparent,
+                      rgba(255,255,255,0.8),
+                      rgba(255,255,255,0.9),
+                      rgba(255,255,255,0.8),
+                      transparent
+                    )`,
+                    filter: 'blur(8px)',
+                  }}
+                  animate={{
+                    rotate: [0, 360],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "linear",
+                  }}
+                />
                 <div className="absolute inset-[1.5px] rounded-full bg-black dark:bg-zinc-950" />
                 <Button
                   type="submit"
-                  className="relative h-full w-full rounded-full bg-black dark:bg-zinc-950 font-medium text-xs md:text-sm text-white transition-all hover:text-white hover:shadow-[0_0_15px_rgba(255,255,255,0.5)]"
+                  className="relative h-full w-full rounded-full bg-black dark:bg-zinc-950 font-medium text-xs md:text-sm text-white transition-all hover:text-white"
                 >
                   Send Message
                 </Button>
