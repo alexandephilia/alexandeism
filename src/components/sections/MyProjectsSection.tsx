@@ -1,4 +1,4 @@
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { useRef, useState } from 'react';
 import { Card } from "@/components/ui/card";
 
@@ -38,11 +38,35 @@ export const MyProjectsSection = () => {
     const containerRef = useRef<HTMLDivElement>(null);
     const { scrollYProgress } = useScroll({
         target: containerRef,
-        offset: ["start start", "end end"]
+        offset: ["start end", "end start"]
     });
+
+    // Add spring physics for smoother animations
+    const smoothProgress = useSpring(scrollYProgress, {
+        stiffness: 100,
+        damping: 30,
+        restDelta: 0.001
+    });
+
+    // Create smooth transformations for opacity and blur
+    const opacity = useTransform(
+        smoothProgress,
+        [0, 0.2, 0.8, 1],
+        [0, 1, 1, 0]
+    );
+
+    const blurFilter = useTransform(
+        smoothProgress,
+        [0, 0.2, 0.8, 1],
+        ["blur(8px)", "blur(0px)", "blur(0px)", "blur(8px)"]
+    );
 
     // First card animates from 0-30% scroll
     const card1Y = useTransform(scrollYProgress,
+        [0, 0.3],
+        [0, 0]
+    );
+    const card1Rotate = useTransform(scrollYProgress,
         [0, 0.3],
         [0, 0]
     );
@@ -52,14 +76,23 @@ export const MyProjectsSection = () => {
         [0.3, 0.5],
         [400, 20]
     );
+    const card2Rotate = useTransform(scrollYProgress,
+        [0.3, 0.5],
+        [-10, 0]
+    );
 
     // Third card starts when second ends, 50-70% scroll
     const card3Y = useTransform(scrollYProgress,
         [0.5, 0.8],
         [800, 40]
     );
+    const card3Rotate = useTransform(scrollYProgress,
+        [0.5, 0.8],
+        [10, 0]
+    );
 
     const transforms = [card1Y, card2Y, card3Y];
+    const rotations = [card1Rotate, card2Rotate, card3Rotate];
 
     // Add state for hover effect
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
@@ -73,7 +106,13 @@ export const MyProjectsSection = () => {
 
     return (
         <div ref={containerRef} className="min-h-[300vh]">
-            <div className="sticky top-0 py-16">
+            <motion.div
+                className="sticky top-0 py-16"
+                style={{
+                    opacity,
+                    filter: blurFilter
+                }}
+            >
                 <div className="container max-w-3xl mx-auto px-4">
                     <h2 className="text-2xl md:text-3xl font-bold text-center mb-16">My Projects</h2>
 
@@ -87,6 +126,7 @@ export const MyProjectsSection = () => {
                                     left: 0,
                                     right: 0,
                                     y: transforms[index],
+                                    rotate: rotations[index],
                                     zIndex: index,
                                 }}
                                 transition={{
@@ -182,7 +222,7 @@ export const MyProjectsSection = () => {
                         ))}
                     </div>
                 </div>
-            </div>
+            </motion.div>
         </div>
     );
 }; 

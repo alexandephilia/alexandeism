@@ -32,11 +32,16 @@ export function StatusBadge({ status, icon, text }: StatusBadgeProps) {
   return (
     <Badge
       variant="outline"
-      className="flex items-center gap-1 md:gap-1.5 px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-background to-muted 
-        hover:from-muted hover:to-background hover:shadow-[0_0_15px_rgba(0,0,0,0.1)] 
+      className="flex items-center gap-1 md:gap-1.5 px-2 md:px-3 py-1 md:py-1.5 
+        bg-gradient-to-r from-background via-background to-background
+        hover:from-muted hover:via-muted hover:to-muted
+        hover:shadow-[0_0_15px_rgba(0,0,0,0.1)] 
         dark:hover:shadow-[0_0_15px_rgba(255,255,255,0.1)] 
         hover:scale-[1.01] hover:-translate-y-[1px] 
-        transition-all duration-300 ease-out group scale-90 md:scale-100"
+        transition-all duration-300 ease-out group scale-90 md:scale-100
+        border-2 border-white/20 dark:border-white/10
+        outline outline-2 outline-black/5 dark:outline-white/5
+        relative overflow-hidden"
     >
       <div className="flex items-center gap-1.5 md:gap-1.5">
         <div className="relative scale-75 md:scale-100">

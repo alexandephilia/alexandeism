@@ -110,7 +110,7 @@ const SkillCard: React.FC<Skill & { isExpanded: boolean; onToggle: () => void }>
     <ShimmerButton className="w-full">
       <Card
         onClick={onToggle}
-        className={`group hover:shadow-lg hover:blur-[2px] transition-all duration-500 cursor-pointer ${isExpanded ? 'min-h-[600px]' : 'h-[420px]'
+        className={`group hover:shadow-lg transition-all duration-500 cursor-pointer ${isExpanded ? 'min-h-[600px]' : 'h-[420px]'
           } flex flex-col`}
       >
         <CardHeader className="h-[90px] py-4">
@@ -572,7 +572,7 @@ export const SkillsSection: React.FC = () => {
                 }}
               >
                 <ShimmerButton className="w-full">
-                  <Card className="group hover:blur-[2px] transition-all duration-300 aspect-square">
+                  <Card className="group transition-all duration-300 aspect-square">
                     <CardContent className="flex flex-col items-center justify-between h-full p-3">
                       <div className="flex-1 flex items-center">
                         <skill.icon className="h-7 w-7 group-hover:scale-110 transition-transform duration-300" />

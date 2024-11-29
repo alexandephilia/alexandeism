@@ -117,10 +117,78 @@ export const HeroSection = ({
         <div className="relative z-10 w-full max-w-5xl mx-auto">
           <ShimmerButton className="w-full">
             <div
-              className="group transition-all duration-500 dark:bg-black bg-white/[0.1] p-8 rounded-lg 
+              className="group relative transition-all duration-500 dark:bg-black bg-white/[0.1] p-8 rounded-lg 
                 border-[1px] border-black/20 ring-1 ring-black/5 
                 dark:border-white/10 dark:ring-white/5"
             >
+              {/* Grid Pattern Overlay - Light Mode */}
+              <div className="absolute inset-0 w-full h-full dark:opacity-0">
+                <svg
+                  className="w-full h-full opacity-[0.08]"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="100%"
+                  height="100%"
+                >
+                  <defs>
+                    <pattern
+                      id="grid-light"
+                      width="24"
+                      height="24"
+                      patternUnits="userSpaceOnUse"
+                    >
+                      <path
+                        d="M 24 0 L 0 0 0 24"
+                        fill="none"
+                        stroke="black"
+                        strokeWidth="0.5"
+                      />
+                    </pattern>
+                    <linearGradient id="fade-light" x1="0" y1="1" x2="0.5" y2="0.5">
+                      <stop offset="0" stopColor="white" />
+                      <stop offset="1" stopColor="white" stopOpacity="0" />
+                    </linearGradient>
+                    <mask id="fade-mask-light">
+                      <rect width="100%" height="100%" fill="url(#fade-light)" />
+                    </mask>
+                  </defs>
+                  <rect width="100%" height="100%" fill="url(#grid-light)" mask="url(#fade-mask-light)" />
+                </svg>
+              </div>
+
+              {/* Grid Pattern Overlay - Dark Mode */}
+              <div className="absolute inset-0 w-full h-full opacity-0 dark:opacity-100">
+                <svg
+                  className="w-full h-full opacity-[0.45]"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="100%"
+                  height="100%"
+                >
+                  <defs>
+                    <pattern
+                      id="grid-dark"
+                      width="24"
+                      height="24"
+                      patternUnits="userSpaceOnUse"
+                    >
+                      <path
+                        d="M 24 0 L 0 0 0 24"
+                        fill="none"
+                        stroke="rgba(255, 255, 255, 0.3)"
+                        strokeWidth="0.5"
+                      />
+                    </pattern>
+                    <linearGradient id="fade-dark" x1="0" y1="1" x2="0.5" y2="0.5">
+                      <stop offset="0" stopColor="white" />
+                      <stop offset="1" stopColor="white" stopOpacity="0" />
+                    </linearGradient>
+                    <mask id="fade-mask-dark">
+                      <rect width="100%" height="100%" fill="url(#fade-dark)" />
+                    </mask>
+                  </defs>
+                  <rect width="100%" height="100%" fill="url(#grid-dark)" mask="url(#fade-mask-dark)" />
+                </svg>
+              </div>
+
               <div className="flex flex-col md:flex-row gap-8 items-center">
                 {/* Left Side - Image and Name */}
                 <div className="flex flex-col items-center space-y-4">
@@ -193,7 +261,7 @@ export const HeroSection = ({
                           key={index}
                           className="inline-block hover:animate-wave transition-all duration-300 group-hover:animate-wave touch-none"
                           style={{
-                            fontFamily: '"Libre Bodoni", serif',
+                            fontFamily: '"Instrument Serif", serif',
                             fontWeight: 500,
                             animationDelay: `${index * 0.05}s`,
                             animationFillMode: "forwards",
