@@ -562,7 +562,7 @@ const BlogSection = () => {
                     <span className="text-[10px] md:text-xs font-medium bg-primary/10 text-primary px-2 py-0.5 rounded-full">
                       {post.category}
                     </span>
-                    <span className="text-xs md:text-sm text-muted-foreground">{post.date}</span>
+                    <span className="text-xs md:text-sm dark:text-amber-400 text-muted-foreground">{post.date}</span>
                   </div>
 
                   {/* Title and preview with controlled height */}

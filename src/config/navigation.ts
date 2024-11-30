@@ -20,7 +20,7 @@ export const navSections: NavSection[] = [
     titleStyle: {
       fontFamily: '"Fira Code", "Courier New", monospace',
     },
-    description: "A nihilist at the crossroads of technology and existential thought. Weaving elegant code into meaningful experiences while pondering life's deeper questions. Fueled by curiosity, coffee, and a touch of cosmic void.",
+    description: "A digital craftsman at the crossroads of technology and existential thought. Weaving elegant code into meaningful experiences while pondering life's deeper questions. Fueled by curiosity, coffee, and a touch of cosmic nihilism.",
     links: [],
   },
   {
@@ -30,8 +30,8 @@ export const navSections: NavSection[] = [
     },
     links: [
       { href: "/projects/ai", label: "AI Research", icon: Code, description: "Exploring artificial intelligence" },
-      { href: "https://uiverse.io/profile/0xnihilism", label: "Web Components", icon: Globe, description: "Building reusable UI components" },
       { href: "/projects/prompt", label: "Prompt Engineering", icon: Palette, description: "Crafting effective AI prompts" },
+      { href: "https://toolfolio.io/", label: "Toolfolio", icon: Globe, description: "Building reusable UI components" },
     ],
   },
 ];

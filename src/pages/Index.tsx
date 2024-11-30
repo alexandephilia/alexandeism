@@ -60,6 +60,7 @@ import { HeroSection } from "@/components/sections/HeroSection";
 import { AnimatedGradientText } from "@/components/ui/animated-text";
 import { AnimatedTyping } from "@/components/ui/animated-typing";
 import { GradientBlur } from "@/components/ui/gradient-blur";
+import { MyProjectsSection } from "@/components/sections/MyProjectsSection";
 
 const ListItem = React.forwardRef<
   React.ElementRef<"a">,
@@ -341,10 +342,12 @@ const Index = () => {
           }
           subtitle={
             <>
-              and experiment in the cosmic absurdity of life.{" "}
-              <strong className="dark:text-white dark:drop-shadow-[0_0_0.3rem_#ffffff70]">
-                Starting from 0 to 1, or probably creating an accidental masterpiece.
-              </strong>
+              <span className="text-[11px] md:text-sm lg:text-base">
+                and experiment in the cosmic absurdity of life.{" "}
+                <strong className="dark:text-white dark:drop-shadow-[0_0_0.3rem_#ffffff70]">
+                  Starting from 0 to 1, or probably creating an accidental masterpiece.
+                </strong>
+              </span>
             </>
           }
           profileImage="/Untitled.jpeg"
@@ -372,6 +375,11 @@ const Index = () => {
         <ExperienceSection />
       </div>
 
+
+      {/* My Projects Section */}
+      <div className="container max-w-5xl px-4 sm:px-6 md:px-8">
+        <MyProjectsSection />
+      </div>
 
       {/* Contact Section */}
       <div className="container max-w-5xl px-4 sm:px-6 md:px-8">

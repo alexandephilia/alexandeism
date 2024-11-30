@@ -16,7 +16,6 @@ import { Skeleton } from "../ui/skeleton";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
 import { ReactNode } from 'react';
 
-
 interface SocialLink {
   href: string;
   icon: React.ReactNode;
@@ -59,7 +58,7 @@ export const HeroSection = ({
     initial: {
       opacity: 0,
       scale: 0.1,
-      filter: "blur(20px) grayscale(0%)",
+      filter: "blur(20px) grayscale(100%)",
     },
     animate: {
       opacity: 1,
@@ -83,14 +82,14 @@ export const HeroSection = ({
       }
     },
     hover: {
-      filter: "blur(0px) grayscale(100%)",
+      filter: "blur(2px) grayscale(100%)",
       transition: {
         duration: 0.3,
         ease: "easeOut"
       }
     },
     tap: {
-      filter: "blur(3px) grayscale(100%)",
+      filter: "blur(3px) grayscale(0%)",
       scale: 0.95,
       transition: {
         duration: 0.3,
@@ -118,10 +117,78 @@ export const HeroSection = ({
         <div className="relative z-10 w-full max-w-5xl mx-auto">
           <ShimmerButton className="w-full">
             <div
-              className="group transition-all duration-500 dark:bg-black bg-white/[0.1] p-8 rounded-lg 
+              className="group relative transition-all duration-500 dark:bg-black bg-white/[0.1] p-8 rounded-lg 
                 border-[1px] border-black/20 ring-1 ring-black/5 
                 dark:border-white/10 dark:ring-white/5"
             >
+              {/* Grid Pattern Overlay - Light Mode */}
+              <div className="absolute inset-0 w-full h-full dark:opacity-0">
+                <svg
+                  className="w-full h-full opacity-[0.08]"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="100%"
+                  height="100%"
+                >
+                  <defs>
+                    <pattern
+                      id="grid-light"
+                      width="24"
+                      height="24"
+                      patternUnits="userSpaceOnUse"
+                    >
+                      <path
+                        d="M 24 0 L 0 0 0 24"
+                        fill="none"
+                        stroke="black"
+                        strokeWidth="0.5"
+                      />
+                    </pattern>
+                    <linearGradient id="fade-light" x1="0" y1="1" x2="0.5" y2="0.5">
+                      <stop offset="0" stopColor="white" />
+                      <stop offset="1" stopColor="white" stopOpacity="0" />
+                    </linearGradient>
+                    <mask id="fade-mask-light">
+                      <rect width="100%" height="100%" fill="url(#fade-light)" />
+                    </mask>
+                  </defs>
+                  <rect width="100%" height="100%" fill="url(#grid-light)" mask="url(#fade-mask-light)" />
+                </svg>
+              </div>
+
+              {/* Grid Pattern Overlay - Dark Mode */}
+              <div className="absolute inset-0 w-full h-full opacity-0 dark:opacity-100">
+                <svg
+                  className="w-full h-full opacity-[0.45]"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="100%"
+                  height="100%"
+                >
+                  <defs>
+                    <pattern
+                      id="grid-dark"
+                      width="24"
+                      height="24"
+                      patternUnits="userSpaceOnUse"
+                    >
+                      <path
+                        d="M 24 0 L 0 0 0 24"
+                        fill="none"
+                        stroke="rgba(255, 255, 255, 0.3)"
+                        strokeWidth="0.5"
+                      />
+                    </pattern>
+                    <linearGradient id="fade-dark" x1="0" y1="1" x2="0.5" y2="0.5">
+                      <stop offset="0" stopColor="white" />
+                      <stop offset="1" stopColor="white" stopOpacity="0" />
+                    </linearGradient>
+                    <mask id="fade-mask-dark">
+                      <rect width="100%" height="100%" fill="url(#fade-dark)" />
+                    </mask>
+                  </defs>
+                  <rect width="100%" height="100%" fill="url(#grid-dark)" mask="url(#fade-mask-dark)" />
+                </svg>
+              </div>
+
               <div className="flex flex-col md:flex-row gap-8 items-center">
                 {/* Left Side - Image and Name */}
                 <div className="flex flex-col items-center space-y-4">
@@ -129,11 +196,12 @@ export const HeroSection = ({
                     <div
                       className="absolute -inset-[2px] rounded-full animate-gradient-rotate"
                       style={{
-                        background: 'linear-gradient(90deg, #3f3f46, #71717a, #3f3f46)',
+                        background: 'transparent',
+                        border: '1px solid',
+                        borderColor: '#3f3f46',
+                        borderRadius: '50%',
                         backgroundSize: '200% 200%',
-                        filter: 'blur(4px)',
-                        maskImage: 'radial-gradient(circle at center, transparent 65%, black 70%)',
-                        WebkitMaskImage: 'radial-gradient(circle at center, transparent 65%, black 70%)',
+                        filter: 'blur(2px)',
                       }}
                     />
                     <motion.div
@@ -146,7 +214,19 @@ export const HeroSection = ({
                       onTouchStart={preventTouchActions}
                       onTouchMove={preventTouchActions}
                       onTouchEnd={preventTouchActions}
-                      style={{ backfaceVisibility: "hidden" as const }}
+                      style={{
+                        transform: 'translateZ(0)',
+                        backfaceVisibility: 'hidden',
+                        WebkitBackfaceVisibility: 'hidden',
+                        willChange: 'transform',
+                        contain: 'paint layout',
+                        cursor: 'pointer',
+                        WebkitTapHighlightColor: 'transparent',
+                        touchAction: 'none',
+                        userSelect: 'none',
+                        WebkitUserSelect: 'none',
+                        WebkitTouchCallout: 'none'
+                      }}
                     >
                       <img
                         src={profileImage}
@@ -174,26 +254,32 @@ export const HeroSection = ({
                     </motion.div>
                   </div>
 
-                  <h1 className="text-xl md:text-2xl font-bold group hover:blur-[2px] transition-all duration-300 mt-4">
-                    {typeof name === 'string' ? name.split("").map((letter, index) => (
-                      <span
-                        key={index}
-                        className="inline-block hover:animate-wave transition-all duration-300 group-hover:animate-wave touch-none"
-                        style={{
-                          fontFamily: '"Libre Bodoni", serif',
-                          fontWeight: 600,
-                          fontStyle: 'italic',
-                          animationDelay: `${index * 0.05}s`,
-                          animationFillMode: "forwards",
-                          letterSpacing: '0.02em'
-                        }}
-                      >
-                        {letter === " " ? "\u00A0" : letter}
-                      </span>
-                    )) : name}
-                  </h1>
+                  <div className="space-y-0.5 text-center">
+                    <h1 className="text-[25px] md:text-xl lg:text-2xl font-bold group hover:blur-[2px] transition-all duration-300 text-center">
+                      {typeof name === 'string' ? name.split("").map((letter, index) => (
+                        <span
+                          key={index}
+                          className="inline-block hover:animate-wave transition-all duration-300 group-hover:animate-wave touch-none"
+                          style={{
+                            fontFamily: '"Instrument Serif", serif',
+                            fontWeight: 500,
+                            animationDelay: `${index * 0.05}s`,
+                            animationFillMode: "forwards",
+                            letterSpacing: '0.02em'
+                          }}
+                        >
+                          {letter === " " ? "\u00A0" : letter}
+                        </span>
+                      )) : name}
+                    </h1>
 
-                  <div className="flex items-center gap-2 opacity-0 animate-[fadeInBlur_0.8s_ease_forwards] [animation-delay:300ms]">
+                    <p className="text-[11px] md:text-sm lg:text-base text-muted-foreground/80 text-center mx-auto">
+                      <span style={{ fontFamily: '"Libre Bodoni", serif' }}>I'm based in </span>
+                      <span style={{ fontFamily: '"Libre Bodoni", serif' }}>Indonesia</span>
+                    </p>
+                  </div>
+
+                  <div className="flex items-center gap-2 opacity-0 animate-[fadeInBlur_0.8s_ease_forwards] [animation-delay:300ms] mt-4">
                     <StatusBadge
                       status="Working on"
                       icon={<SiCardano className="h-4 w-4" />}
