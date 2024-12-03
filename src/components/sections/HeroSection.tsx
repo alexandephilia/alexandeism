@@ -255,7 +255,7 @@ export const HeroSection = ({
                   </div>
 
                   <div className="space-y-0.5 text-center">
-                    <h1 className="text-[15px] md:text-xl lg:text-2xl font-bold group hover:blur-[2px] transition-all duration-300 text-center">
+                    <h1 className="text-[25px] md:text-xl lg:text-2xl font-bold group hover:blur-[2px] transition-all duration-300 text-center">
                       {typeof name === 'string' ? name.split("").map((letter, index) => (
                         <span
                           key={index}

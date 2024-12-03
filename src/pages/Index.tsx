@@ -72,7 +72,7 @@ const ListItem = React.forwardRef<
         <a
           ref={ref}
           className={cn(
-            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-all hover:text-accent-foreground hover:blur-[2px]",
+            "block select-none space-y-1 space-x-0 rounded-md p-3 leading-none no-underline outline-none transition-all hover:text-accent-foreground hover:blur-[2px]",
             className
           )}
           {...props}
@@ -275,11 +275,35 @@ const Index = () => {
                     <NavigationMenuItem>
                       <NavigationMenuTrigger>Hobbies</NavigationMenuTrigger>
                       <NavigationMenuContent>
-                        <ul className="grid w-[350px] gap-y-[0px] gap-x-[0px] p-2 grid-cols-2 grid-rows-2">
-                          <ListItem href="/projects/ai" title="AI Research" className="h-fit" />
-                          <ListItem href="/projects/prompt" title="Prompt Engineering" className="h-fit" />
-                          <ListItem href="https://uiverse.io/profile/0xnihilism" title="Web Components" className="h-fit" />
-                          <ListItem href="https://toolfolio.io/" title="Toolfolio" className="h-fit" />
+                        <ul className="grid w-[400px] grid-cols-2 gap-0 p-4">
+                          <ListItem
+                            href="/projects/ai"
+                            title="AI Research"
+                            className="h-auto p-3"
+                          >
+                            Exploring research of the latest LLMs
+                          </ListItem>
+                          <ListItem
+                            href="/projects/prompt"
+                            title="Prompt Engineering"
+                            className="h-auto p-3"
+                          >
+                            Crafting effective prompts for AI systems
+                          </ListItem>
+                          <ListItem
+                            href="https://uiverse.io/profile/0xnihilism"
+                            title="Web Components"
+                            className="h-auto p-3"
+                          >
+                            Building reusable UI components
+                          </ListItem>
+                          <ListItem
+                            href="https://toolfolio.io/"
+                            title="Toolfolio"
+                            className="h-auto p-3"
+                          >
+                            Collection of developer tools
+                          </ListItem>
                         </ul>
                       </NavigationMenuContent>
                     </NavigationMenuItem>

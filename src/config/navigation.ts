@@ -30,8 +30,8 @@ export const navSections: NavSection[] = [
     },
     links: [
       { href: "/projects/ai", label: "AI Research", icon: Code, description: "Exploring artificial intelligence" },
-      { href: "https://uiverse.io/profile/0xnihilism", label: "Web Components", icon: Globe, description: "Building reusable UI components" },
       { href: "/projects/prompt", label: "Prompt Engineering", icon: Palette, description: "Crafting effective AI prompts" },
+      { href: "https://toolfolio.io/", label: "Toolfolio", icon: Globe, description: "Building reusable UI components" },
     ],
   },
 ];
