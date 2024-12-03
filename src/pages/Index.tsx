@@ -172,7 +172,6 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Grain opacity={0.06} />
       {/* Navigation */}
 
       <nav className="fixed w-full top-0 z-50">
