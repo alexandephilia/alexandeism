@@ -55,9 +55,9 @@ export const AnimatedTyping = ({ words, className = "", textSize = "text-[11px] 
             key={`${key}-${index}`}
             initial={isTyping ? {
               opacity: 0,
-              filter: "blur(2px)",
-              y: 5,
-              scale: 0.95
+              filter: "blur(8px)",
+              y: 10,
+              scale: 0.9
             } : {
               opacity: 1,
               filter: "blur(0px)",
@@ -71,20 +71,21 @@ export const AnimatedTyping = ({ words, className = "", textSize = "text-[11px] 
               scale: 1
             } : {
               opacity: 0,
-              filter: "blur(2px)",
-              y: -5,
-              scale: 0.95
+              filter: "blur(8px)",
+              y: -10,
+              scale: 0.9
             }}
             transition={{
-              duration: isTyping ? 0.08 : 0.06,
-              ease: "easeOut",
-              delay: isTyping ? index * 0.01 : (displayText.length - index) * 0.01
+              duration: isTyping ? 0.15 : 0.12,
+              ease: "easeInOut",
+              delay: isTyping ? index * 0.025 : (displayText.length - index) * 0.02
             }}
             className="inline-block text-[#2a2a29] dark:text-[#EEEEEE] dark:drop-shadow-[0_0_0.3rem_#ffffff70]"
             style={{
               willChange: "transform, opacity, filter",
               backfaceVisibility: "hidden",
               transform: "translateZ(0)",
+              transformStyle: "preserve-3d"
             }}
           >
             {char === ' ' ? '\u00A0' : char}
@@ -92,7 +93,7 @@ export const AnimatedTyping = ({ words, className = "", textSize = "text-[11px] 
         ))}
       </div>
 
-      <motion.div
+      <motion.span
         animate={{
           opacity: [1, 0],
           transition: {
@@ -102,14 +103,15 @@ export const AnimatedTyping = ({ words, className = "", textSize = "text-[11px] 
             ease: "steps(2)"
           }
         }}
-        className="inline-block ml-[1px] w-[2px] h-[1.2em] align-middle text-[#2a2a29] dark:text-[#EEEEEE] dark:drop-shadow-[0_0_0.3rem_#ffffff70]"
+        className="inline-block ml-[1px] text-[#2a2a29] dark:text-[#EEEEEE] dark:drop-shadow-[0_0_0.3rem_#ffffff70]"
         style={{
           willChange: "opacity",
           backfaceVisibility: "hidden",
           transform: "translateZ(0)",
-          background: "currentColor"
         }}
-      />
+      >
+        _
+      </motion.span>
     </div>
   );
 }; 
