@@ -19,51 +19,49 @@ const queryClient = new QueryClient();
 
 // Scrambling text loader for project pages
 const ScrambleLoader = () => {
-  const [currentWordIndex, setCurrentWordIndex] = useState(0);
-  const words = ["Loading", "System", "Modules", "Complete"];
-  
+  const [scrambledText, setScrambledText] = useState("Loading");
+  const targetText = "Loading";
+  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
   useEffect(() => {
+    let frame = 0;
+    const totalFrames = 20;
+
     const interval = setInterval(() => {
-      setCurrentWordIndex(prev => (prev + 1) % words.length);
-    }, 800); // Change word every 800ms
+      frame++;
+
+      const scrambled = targetText
+        .split("")
+        .map((char, index) => {
+          if (frame / totalFrames > index / targetText.length) {
+            return `<span class="no-blur">${char}</span>`;
+          }
+          return `<span class="blur-sm">${characters[Math.floor(Math.random() * characters.length)]}</span>`;
+        })
+        .join("");
+
+      setScrambledText(scrambled);
+
+      if (frame >= totalFrames) {
+        frame = 0;
+      }
+    }, 50);
 
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <motion.div 
+    <motion.div
       className="min-h-screen bg-background flex items-center justify-center"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
       <div className="font-mono text-foreground/80 text-lg flex items-center">
-        <AnimatePresence mode="wait">
-          <motion.span
-            key={words[currentWordIndex]}
-            initial={{ 
-              opacity: 0,
-              filter: "blur(10px)",
-              y: 10
-            }}
-            animate={{ 
-              opacity: 1,
-              filter: "blur(0px)",
-              y: 0
-            }}
-            exit={{
-              opacity: 0,
-              filter: "blur(10px)",
-              y: -10
-            }}
-            transition={{
-              duration: 0.3,
-              ease: "easeOut"
-            }}
-          >
-            {words[currentWordIndex]}
-          </motion.span>
-        </AnimatePresence>
+        <motion.span 
+          dangerouslySetInnerHTML={{ __html: scrambledText }}
+          className="[&_.blur-sm]:blur-[2px] [&_.no-blur]:blur-none"
+        />
         <motion.span
           initial={{ opacity: 0 }}
           animate={{ opacity: [0, 1, 1, 0] }}

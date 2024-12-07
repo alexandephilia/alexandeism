@@ -208,20 +208,31 @@ const BlurRevealText = ({ text, delay = 0, className = "" }: {
 const AIResearchPage = () => {
     const navigate = useNavigate();
     const [isExiting, setIsExiting] = useState(false);
+    const [exitingIndex, setExitingIndex] = useState<number | null>(null);
 
     const handleBack = () => {
         setIsExiting(true);
+        // Start from the last item
+        setExitingIndex(researchLinks.length - 1);
     };
 
-    const onAnimationComplete = () => {
-        if (isExiting) {
-            navigate('/');
+    useEffect(() => {
+        if (exitingIndex !== null) {
+            const timer = setTimeout(() => {
+                if (exitingIndex > 0) {
+                    setExitingIndex(exitingIndex - 1);
+                } else if (exitingIndex === 0) {
+                    setExitingIndex(null);
+                    navigate('/');
+                }
+            }, 200);
+            return () => clearTimeout(timer);
         }
-    };
+    }, [exitingIndex, navigate]);
 
     return (
-        <AnimatePresence mode="wait" onExitComplete={() => navigate('/')}>
-            {!isExiting && (
+        <AnimatePresence mode="wait">
+            {!isExiting ? (
                 <motion.div
                     key="ai-research"
                     className="min-h-screen bg-background/50 text-foreground font-mono"
@@ -229,10 +240,11 @@ const AIResearchPage = () => {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{
                         opacity: 0,
-                        y: 20,
+                        y: -20,
                         transition: {
                             duration: 0.35,
-                            ease: [0.32, 0.72, 0, 1]
+                            ease: [0.32, 0.72, 0, 1],
+                            delay: 0.5 // Delay the container exit until items have animated
                         }
                     }}
                     transition={{
@@ -269,6 +281,15 @@ const AIResearchPage = () => {
                                     key={index}
                                     initial={{ opacity: 0, y: 20 }}
                                     animate={{ opacity: 1, y: 0 }}
+                                    exit={{
+                                        opacity: 0,
+                                        y: -20,
+                                        transition: {
+                                            duration: 0.2,
+                                            ease: "easeIn",
+                                            delay: isExiting ? Math.max(0, (researchLinks.length - 1 - index) * 0.1) : 0
+                                        }
+                                    }}
                                     transition={{
                                         delay: index * 0.3,
                                         duration: 0.5,
@@ -338,7 +359,7 @@ const AIResearchPage = () => {
                         </div>
                     </div>
                 </motion.div>
-            )}
+            ) : null}
         </AnimatePresence>
     );
 };

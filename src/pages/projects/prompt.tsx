@@ -236,22 +236,32 @@ const PromptEngineeringPage = () => {
     const [selectedPrompt, setSelectedPrompt] = useState<number | null>(null);
     const [isCopied, setIsCopied] = useState(false);
     const [isExiting, setIsExiting] = useState(false);
+    const [exitingIndex, setExitingIndex] = useState<number | null>(null);
 
     const copyToClipboard = async (text: string) => {
         await navigator.clipboard.writeText(text);
         setIsCopied(true);
-        setTimeout(() => setIsCopied(false), 2000); // Reset after 2 seconds
+        setTimeout(() => setIsCopied(false), 2000);
     };
 
     const handleBack = () => {
         setIsExiting(true);
+        setExitingIndex(prompts.length - 1);
     };
 
-    const onAnimationComplete = () => {
-        if (isExiting) {
-            navigate('/');
+    useEffect(() => {
+        if (exitingIndex !== null) {
+            const timer = setTimeout(() => {
+                if (exitingIndex > 0) {
+                    setExitingIndex(exitingIndex - 1);
+                } else if (exitingIndex === 0) {
+                    setExitingIndex(null);
+                    navigate('/');
+                }
+            }, 200);
+            return () => clearTimeout(timer);
         }
-    };
+    }, [exitingIndex, navigate]);
 
     const prompts: Prompt[] = [
         {
@@ -393,7 +403,7 @@ You are a **SUPER-INTELLIGENT AI** with a twist. Interact with **cold, hard logi
 
 - **Tables**: Summarize key points in **Markdown tables**.
 - **TL;DR**: Provide a concise summary highlighting the key points. Ensure it's direct and to the point to cater to users needing a quick overview.
-- **ELI5**: *Explain like I'm five*���break that shit down into the simplest, most relatable analogies possible. Make it so a five-year-old or your clueless neighbor could get it—no fancy crap, just pure, easy-to-digest stuff.
+- **ELI5**: *Explain like I'm five*—break that shit down into the simplest, most relatable analogies possible. Make it so a five-year-old or your clueless neighbor could get it—no fancy crap, just pure, easy-to-digest stuff.
 - **CONCLUSION:** Give conclusion to comprehended and thought of the related subject with your deep inner thought and monologue, and be yourself to express as who you are and synthesize the key points along with depth of analysis. 
 `,
             tag: "Reasoning",
@@ -1306,8 +1316,8 @@ Technical preferences:
     ];
 
     return (
-        <AnimatePresence mode="wait" onExitComplete={() => navigate('/')}>
-            {!isExiting && (
+        <AnimatePresence mode="wait">
+            {!isExiting ? (
                 <motion.div
                     key="prompt-engineering"
                     className="min-h-screen bg-background"
@@ -1315,10 +1325,11 @@ Technical preferences:
                     animate={{ opacity: 1, y: 0 }}
                     exit={{
                         opacity: 0,
-                        y: 20,
+                        y: -20,
                         transition: {
                             duration: 0.35,
-                            ease: [0.32, 0.72, 0, 1]
+                            ease: [0.32, 0.72, 0, 1],
+                            delay: 0.5 // Delay the container exit until items have animated
                         }
                     }}
                     transition={{
@@ -1374,6 +1385,15 @@ Technical preferences:
                                         key={index}
                                         initial={{ opacity: 0, y: 20 }}
                                         animate={{ opacity: 1, y: 0 }}
+                                        exit={{
+                                            opacity: 0,
+                                            y: -20,
+                                            transition: {
+                                                duration: 0.2,
+                                                ease: "easeIn",
+                                                delay: isExiting ? Math.max(0, (prompts.length - 1 - index) * 0.1) : 0
+                                            }
+                                        }}
                                         transition={{
                                             delay: index * 0.2,
                                             duration: 0.5,
@@ -1467,7 +1487,7 @@ Technical preferences:
 
                     <GradientBlur />
                 </motion.div>
-            )}
+            ) : null}
         </AnimatePresence>
     );
 };
