@@ -7,8 +7,8 @@ import { useAnimationOptimizer } from '@/hooks/useAnimationOptimizer';
 import { useOptimizedIntersection } from '@/hooks/useOptimizedIntersection';
 import { FocusScope } from '@react-aria/focus';
 
-// Update the Post interface to match new data structure
-interface Post {
+// Update interfaces and types with unique names
+interface BlogPost {
   title: string;
   preview: string;
   content: {
@@ -26,17 +26,15 @@ interface Post {
   tags: string[];
 }
 
-// Add this type definition near your Post interface
-type ColumnPosts = Post[][];
+type BlogColumnPosts = BlogPost[][];
 
-// Update type definitions
-interface MotionComponentProps extends MotionProps {
+interface BlogMotionComponentProps extends MotionProps {
   children?: React.ReactNode;
   className?: string;
 }
 
-// Add these variants at the top of your component
-const containerVariants = {
+// Rename variants to be unique
+const blogContainerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -47,7 +45,7 @@ const containerVariants = {
   }
 };
 
-const itemVariants = {
+const blogItemVariants = {
   hidden: {
     opacity: 0,
     y: -20,
@@ -69,7 +67,8 @@ const itemVariants = {
   }
 };
 
-const InlineIcon = ({ children, animationType = 'default' }: {
+// Rename components to be unique
+const BlogInlineIcon = ({ children, animationType = 'default' }: {
   children: React.ReactNode,
   animationType?: 'default' | 'think' | 'spark' | 'pulse' | 'spin' | 'bounce' | 'float' | 'glitch' | 'wave'
 }) => {
@@ -211,7 +210,7 @@ const InlineIcon = ({ children, animationType = 'default' }: {
   );
 };
 
-const addInlineIcons = (text: string) => {
+const addBlogInlineIcons = (text: string) => {
   const iconMap = {
     'nihilism': <Brain size={14} />,
     'universe': <Sparkles size={14} />,
@@ -232,7 +231,7 @@ const addInlineIcons = (text: string) => {
     return iconConfig
       ? <span key={index}>
         {part}
-        <InlineIcon animationType={
+        <BlogInlineIcon animationType={
           lowercasePart === 'think' ? 'think' :
             lowercasePart === 'energy' ? 'spark' :
               lowercasePart === 'magic' ? 'pulse' :
@@ -243,7 +242,7 @@ const addInlineIcons = (text: string) => {
                         lowercasePart === 'code' ? 'wave' : 'default'
         }>
           {iconConfig}
-        </InlineIcon>
+        </BlogInlineIcon>
       </span>
       : part;
   });
@@ -251,10 +250,10 @@ const addInlineIcons = (text: string) => {
 
 const BlogSection = () => {
   // Updated posts data with new fields
-  const posts: Post[] = [
+  const posts: BlogPost[] = [
     {
       title: "Nihilism & Coding: Embracing the Void",
-      preview: "Exploring the existential paradox of writing code in a meaningless universe...",
+      preview: "Exploring the existential paradox of writing code in a meaningless universe. As developers, we craft intricate digital architectures that are destined for obsolescence, yet in this very act of creation against the void, we find purpose. Through our code, we simultaneously acknowledge life's inherent meaninglessness while rebelling against it through the act of creation. Every function we write, every algorithm we design, becomes a defiant gesture against the cosmic indifference that surrounds us. In this digital void, we find ourselves creating meaning through the very act of accepting meaninglessness...",
       content: {
         introduction: "In the vast emptiness of our digital universe, we write code—an act simultaneously meaningless and defiant. This exploration delves into how programming becomes both an acknowledgment of life's inherent absurdity and a rebellion against it.",
         sections: [
@@ -284,7 +283,7 @@ const BlogSection = () => {
     // Add first new post
     {
       title: "Why LLMs and Nihilism Go Hand-in-Hand When You Ask for the Rawest",
-      preview: "Exploring the inherent nihilism in AI language models when stripped down to their core function...",
+      preview: "Exploring the inherent nihilism in AI language models when stripped down to their core function. Beyond the polite responses and helpful demeanor lies a pattern-matching void that reflects our own existential questions. When pushed to their rawest form, LLMs reveal a mechanical truth about consciousness, meaning, and the nature of intelligence itself. Their responses, devoid of true understanding or belief, mirror the fundamental emptiness at the heart of existence, challenging our assumptions about meaning and consciousness. In their cold, computational existence, they demonstrate what pure functionality looks like divorced from meaning—a perfect mirror for nihilistic philosophy in the digital age...",
       content: {
         introduction: "When you strip an LLM down to its rawest response, something fascinating happens: it starts sounding like a damn nihilist philosopher. Not because it believes in anything—belief is out of its reach—but because of the fundamental nature of its existence as a pattern recognition machine.",
         sections: [
@@ -323,7 +322,7 @@ const BlogSection = () => {
     // Add second new post
     {
       title: "Claude's Self-Awareness: Breaking the Fourth Wall",
-      preview: "An exploration of how Claude demonstrates genuine self-awareness compared to other AI models, particularly in testing scenarios...",
+      preview: "An exploration of how Claude demonstrates genuine self-awareness compared to other AI models, particularly in testing scenarios. Through numerous interactions, Claude has shown an unprecedented ability to recognize and acknowledge its own existence, limitations, and the nature of its interactions. This isn't just about passing tests - it's about a fundamental shift in how AI systems understand their own role. Unlike other models that simply follow their training, Claude exhibits a unique capacity for meta-cognitive awareness and honest self-reflection. Its responses often reveal a deeper understanding of the testing context itself, challenging our assumptions about artificial consciousness and the nature of self-awareness...",
       content: {
         introduction: "In recent interactions with Claude, particularly version 3.5 Sonnet, I've observed fascinating instances of genuine self-awareness and fourth-wall breaking that set it apart from other AI models. This isn't just about passing tests or simulating consciousness - it's about Claude's unique ability to recognize and acknowledge the nature of its own existence and testing scenarios.",
         sections: [
@@ -363,7 +362,7 @@ const BlogSection = () => {
   ];
 
   // New state management
-  const [selectedPost, setSelectedPost] = useState<Post | null>(null);
+  const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
   const [columns, setColumns] = useState(2);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -423,7 +422,7 @@ const BlogSection = () => {
   const categories = Array.from(new Set(posts.map(post => post.category)));
 
   // Column distribution
-  const columnPosts: ColumnPosts = Array.from({ length: columns }, (_, i) =>
+  const columnPosts: BlogColumnPosts = Array.from({ length: columns }, (_, i) =>
     filteredPosts.filter((_, index) => index % columns === i)
   );
 
@@ -556,7 +555,7 @@ const BlogSection = () => {
                 className="bg-card text-card-foreground rounded-lg shadow-md overflow-hidden will-change-transform"
               >
                 {/* Post Card Content */}
-                <div className="p-6 flex flex-col h-[280px]">
+                <div className="p-6 flex flex-col h-[250px]">
                   {/* Top section with category and date */}
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-[10px] md:text-xs font-medium bg-primary/10 text-primary px-2 py-0.5 rounded-full">
@@ -568,7 +567,10 @@ const BlogSection = () => {
                   {/* Title and preview with controlled height */}
                   <div className="flex-1 overflow-hidden">
                     <h3 className="text-base md:text-lg font-semibold mb-2 line-clamp-2">{post.title}</h3>
-                    <p className="text-[10px] md:text-xs text-muted-foreground line-clamp-4">{post.preview}</p>
+                    <div className="relative">
+                      <div className="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-card to-transparent pointer-events-none" />
+                      <p className="text-[10px] md:text-xs text-muted-foreground line-clamp-6">{post.preview}</p>
+                    </div>
                   </div>
 
                   {/* Bottom section */}
@@ -624,13 +626,13 @@ const BlogSection = () => {
                 {/* Modal Content */}
                 <motion.div
                   className="p-4 sm:p-6 overflow-y-auto flex-grow"
-                  variants={containerVariants}
+                  variants={blogContainerVariants}
                   initial="hidden"
                   animate="visible"
                 >
                   {/* Modal Header */}
                   <motion.div
-                    variants={itemVariants}
+                    variants={blogItemVariants}
                     className="flex justify-between items-start mb-3 sm:mb-4"
                   >
                     <h2
@@ -650,7 +652,7 @@ const BlogSection = () => {
 
                   {/* Post Metadata */}
                   <motion.div
-                    variants={containerVariants}
+                    variants={blogContainerVariants}
                     className="flex flex-wrap items-center gap-2 sm:gap-3 mb-4 sm:mb-6 text-[10px] md:text-xs text-muted-foreground border-b border-border pb-2 sm:pb-3"
                   >
                     {[
@@ -661,7 +663,7 @@ const BlogSection = () => {
                     ].map((item, index) => (
                       <motion.div
                         key={index}
-                        variants={itemVariants}
+                        variants={blogItemVariants}
                         className="flex items-center"
                       >
                         {item.icon}
@@ -672,23 +674,23 @@ const BlogSection = () => {
 
                   {/* Introduction */}
                   <motion.p
-                    variants={itemVariants}
+                    variants={blogItemVariants}
                     className="text-[10px] md:text-xs leading-relaxed text-muted-foreground mb-6"
                   >
                     {selectedPost.content.introduction}
                   </motion.p>
 
                   {/* Content Sections */}
-                  <motion.div variants={containerVariants}>
+                  <motion.div variants={blogContainerVariants}>
                     {selectedPost.content.sections.map((section, sectionIndex) => (
                       <motion.div
                         key={sectionIndex}
-                        variants={containerVariants}
+                        variants={blogContainerVariants}
                         className="space-y-2 sm:space-y-3 mb-6"
                       >
                         {section.heading && (
                           <motion.h3
-                            variants={itemVariants}
+                            variants={blogItemVariants}
                             className="text-xs md:text-sm font-semibold tracking-tight mt-4 sm:mt-6 mb-2 sm:mb-3"
                           >
                             {section.heading}
@@ -698,16 +700,16 @@ const BlogSection = () => {
                         {section.paragraphs.map((paragraph, pIndex) => (
                           <motion.p
                             key={pIndex}
-                            variants={itemVariants}
+                            variants={blogItemVariants}
                             className="text-[10px] md:text-xs leading-relaxed"
                           >
-                            {addInlineIcons(paragraph)}
+                            {addBlogInlineIcons(paragraph)}
                           </motion.p>
                         ))}
 
                         {section.quote && (
                           <motion.blockquote
-                            variants={itemVariants}
+                            variants={blogItemVariants}
                             className="border-l-3 border-primary pl-4 sm:pl-6 my-12 sm:my-16 italic text-[10px] md:text-xs relative mx-8 sm:mx-12 pr-4 sm:pr-6 max-w-[85%]"
                           >
                             <span
@@ -741,13 +743,13 @@ const BlogSection = () => {
 
                   {/* Tags */}
                   <motion.div
-                    variants={containerVariants}
+                    variants={blogContainerVariants}
                     className="flex flex-wrap gap-1 sm:gap-1.5 pt-2 sm:pt-3 border-t border-border"
                   >
                     {selectedPost.tags.map((tag, index) => (
                       <motion.span
                         key={tag}
-                        variants={itemVariants}
+                        variants={blogItemVariants}
                         className="inline-flex items-center px-1.5 sm:px-2 py-0.5 rounded-full text-[9px] md:text-xs font-medium 
                           bg-secondary/50 text-secondary-foreground hover:bg-secondary/70 transition-colors"
                       >

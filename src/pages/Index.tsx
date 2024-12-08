@@ -128,15 +128,15 @@ const Grain = React.memo(({ opacity = 0.8 }: GrainProps) => {
   }), []);
 
   const overlayStyle = React.useMemo(() => ({
-    backgroundSize: "64px 64px",
+    backgroundSize: "32px 32px",
     backgroundRepeat: "repeat" as const,
     background: theme === 'dark'
       ? "url('https://framerusercontent.com/images/rR6HYXBrMmX4cRpXfXUOvpvpB0.png')"
       : "url('https://framerusercontent.com/images/rR6HYXBrMmX4cRpXfXUOvpvpB0.png')",
     opacity: theme === 'dark' ? opacity : opacity * 0.8,
     inset: "-200%",
-    width: "400%",
-    height: "400%",
+    width: "500%",
+    height: "500%",
     position: "absolute" as const,
     filter: theme === 'dark'
       ? 'none'
@@ -403,6 +403,9 @@ const Index = () => {
           </div>
         </motion.div>
       </AnimatePresence>
+
+      {/* Add Grain effect */}
+      <Grain opacity={0.05} />
 
       {/* Footer Section */}
       <footer className="border-t mt-16 relative z-10">

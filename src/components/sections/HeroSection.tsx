@@ -117,9 +117,10 @@ export const HeroSection = ({
         <div className="relative z-10 w-full max-w-5xl mx-auto">
           <ShimmerButton className="w-full">
             <div
-              className="group relative transition-all duration-500 dark:bg-black bg-white/[0.1] p-8 rounded-lg 
+              className="group relative transition-all duration-500 dark:bg-black/90 bg-white/[0.1] p-8 rounded-lg 
                 border-[1px] border-black/20 ring-1 ring-black/5 
-                dark:border-white/10 dark:ring-white/5"
+                dark:border-white/10 dark:ring-white/5
+"
             >
               {/* Grid Pattern Overlay - Light Mode */}
               <div className="absolute inset-0 w-full h-full dark:opacity-0">
@@ -158,7 +159,7 @@ export const HeroSection = ({
               {/* Grid Pattern Overlay - Dark Mode */}
               <div className="absolute inset-0 w-full h-full opacity-0 dark:opacity-100">
                 <svg
-                  className="w-full h-full opacity-[0.45]"
+                  className="w-full h-full opacity-[0.65]"
                   xmlns="http://www.w3.org/2000/svg"
                   width="100%"
                   height="100%"
@@ -177,7 +178,7 @@ export const HeroSection = ({
                         strokeWidth="0.5"
                       />
                     </pattern>
-                    <linearGradient id="fade-dark" x1="0" y1="1" x2="0.5" y2="0.5">
+                    <linearGradient id="fade-dark" x1="0" y1="1" x2="0.4" y2="0.8">
                       <stop offset="0" stopColor="white" />
                       <stop offset="1" stopColor="white" stopOpacity="0" />
                     </linearGradient>
