@@ -15,6 +15,7 @@ import { ShimmerDot } from "@/components/ui/shimmer-dot";
 import { Skeleton } from "../ui/skeleton";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
 import { ReactNode } from 'react';
+import { CSSProperties } from 'react';
 
 interface SocialLink {
   href: string;
@@ -102,6 +103,32 @@ export const HeroSection = ({
     e.preventDefault();
     e.stopPropagation();
   }, []);
+
+  const motionDivStyle: CSSProperties = {
+    transform: 'translateZ(0)',
+    backfaceVisibility: 'hidden',
+    WebkitBackfaceVisibility: 'hidden',
+    willChange: 'transform',
+    contain: 'paint layout',
+    cursor: 'pointer',
+    WebkitTapHighlightColor: 'transparent',
+    touchAction: 'none',
+    userSelect: 'none',
+    WebkitUserSelect: 'none',
+    WebkitTouchCallout: 'none'
+  } as const;
+
+  const imgStyle: CSSProperties = {
+    transform: 'translateZ(0)',
+    backfaceVisibility: 'hidden',
+    WebkitBackfaceVisibility: 'hidden',
+    willChange: 'transform',
+    WebkitTouchCallout: 'none',
+    WebkitUserSelect: 'none',
+    userSelect: 'none',
+    pointerEvents: 'none',
+    touchAction: 'none'
+  } as const;
 
   return (
     <div className="relative overflow-x-hidden">
@@ -215,35 +242,13 @@ export const HeroSection = ({
                       onTouchStart={preventTouchActions}
                       onTouchMove={preventTouchActions}
                       onTouchEnd={preventTouchActions}
-                      style={{
-                        transform: 'translateZ(0)',
-                        backfaceVisibility: 'hidden',
-                        WebkitBackfaceVisibility: 'hidden',
-                        willChange: 'transform',
-                        contain: 'paint layout',
-                        cursor: 'pointer',
-                        WebkitTapHighlightColor: 'transparent',
-                        touchAction: 'none',
-                        userSelect: 'none',
-                        WebkitUserSelect: 'none',
-                        WebkitTouchCallout: 'none'
-                      }}
+                      style={motionDivStyle}
                     >
                       <img
                         src={profileImage}
                         alt="Profile memoji"
                         className="w-full h-full object-cover transition-all duration-200 prevent-drag select-none touch-none"
-                        style={{
-                          transform: 'translateZ(0)',
-                          backfaceVisibility: 'hidden',
-                          WebkitBackfaceVisibility: 'hidden',
-                          willChange: 'transform',
-                          WebkitTouchCallout: 'none',
-                          WebkitUserSelect: 'none',
-                          userSelect: 'none',
-                          pointerEvents: 'none',
-                          touchAction: 'none'
-                        }}
+                        style={imgStyle}
                         draggable={false}
                         onContextMenu={preventTouchActions}
                         onTouchStart={preventTouchActions}

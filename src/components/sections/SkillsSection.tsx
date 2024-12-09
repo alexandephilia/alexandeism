@@ -110,8 +110,9 @@ const SkillCard: React.FC<Skill & { isExpanded: boolean; onToggle: () => void }>
     <ShimmerButton className="w-full">
       <Card
         onClick={onToggle}
-        className={`group hover:shadow-lg transition-all duration-500 cursor-pointer ${isExpanded ? 'min-h-[600px]' : 'h-[360px]'
-          } flex flex-col dark:bg-black/100 bg-white/[0.1]`}
+        className={`group hover:shadow-lg transition-all duration-500 cursor-pointer ${
+          isExpanded ? 'min-h-[600px]' : 'h-[360px]'
+        } flex flex-col dark:bg-black/100 bg-white/[0.1] relative`}
       >
         <CardHeader className="h-[90px] py-4">
           <div className="flex items-center gap-3">
@@ -134,7 +135,7 @@ const SkillCard: React.FC<Skill & { isExpanded: boolean; onToggle: () => void }>
         </CardHeader>
         <CardContent className="pt-2 flex-grow flex flex-col">
           {/* Main content wrapper */}
-          <div className="flex-grow space-y-4 mb-4">
+          <div className="flex-grow space-y-3">
             {/* Description text */}
             <div className="h-[40px] flex items-start overflow-hidden">
               <p className="text-sm text-muted-foreground line-clamp-2 w-full">
@@ -204,7 +205,7 @@ const SkillCard: React.FC<Skill & { isExpanded: boolean; onToggle: () => void }>
                         }
                       }
                     }}
-                    className="pt-4 border-t space-y-4"
+                    className="pt-4 pb-8 border-t space-y-4"
                   >
                     {/* Detailed description section */}
                     {detailedDescription && (
@@ -331,8 +332,8 @@ const SkillCard: React.FC<Skill & { isExpanded: boolean; onToggle: () => void }>
             </div>
           </div>
 
-          {/* Arrow icon - now in a fixed position */}
-          <div className="flex justify-center mt-auto pt-2">
+          {/* Arrow icon - position it absolutely at the bottom */}
+          <div className={`absolute ${isExpanded ? 'bottom-6' : 'bottom-4'} left-1/2 -translate-x-1/2`}>
             <motion.div
               animate={{
                 y: [0, 3, 0],
@@ -344,8 +345,9 @@ const SkillCard: React.FC<Skill & { isExpanded: boolean; onToggle: () => void }>
               }}
             >
               <HiChevronDoubleDown
-                className={`h-5 w-5 text-muted-foreground/50 transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''
-                  }`}
+                className={`h-5 w-5 text-muted-foreground/50 transition-transform duration-300 ${
+                  isExpanded ? 'rotate-180' : ''
+                }`}
               />
             </motion.div>
           </div>
