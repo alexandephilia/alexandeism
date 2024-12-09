@@ -61,6 +61,8 @@ import { AnimatedGradientText } from "@/components/ui/animated-text";
 import { AnimatedTyping } from "@/components/ui/animated-typing";
 import { GradientBlur } from "@/components/ui/gradient-blur";
 import { MyProjectsSection } from "@/components/sections/MyProjectsSection";
+import { useLocation, Link } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
 
 const ListItem = React.forwardRef<
   React.ElementRef<"a">,
@@ -72,7 +74,7 @@ const ListItem = React.forwardRef<
         <a
           ref={ref}
           className={cn(
-            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-all hover:text-accent-foreground hover:blur-[2px]",
+            "block select-none space-y-1 space-x-0 rounded-md p-3 leading-none no-underline outline-none transition-all hover:text-accent-foreground hover:blur-[2px]",
             className
           )}
           {...props}
@@ -126,15 +128,15 @@ const Grain = React.memo(({ opacity = 0.8 }: GrainProps) => {
   }), []);
 
   const overlayStyle = React.useMemo(() => ({
-    backgroundSize: "64px 64px",
+    backgroundSize: "32px 32px",
     backgroundRepeat: "repeat" as const,
     background: theme === 'dark'
       ? "url('https://framerusercontent.com/images/rR6HYXBrMmX4cRpXfXUOvpvpB0.png')"
       : "url('https://framerusercontent.com/images/rR6HYXBrMmX4cRpXfXUOvpvpB0.png')",
     opacity: theme === 'dark' ? opacity : opacity * 0.8,
     inset: "-200%",
-    width: "400%",
-    height: "400%",
+    width: "500%",
+    height: "500%",
     position: "absolute" as const,
     filter: theme === 'dark'
       ? 'none'
@@ -156,6 +158,8 @@ const Grain = React.memo(({ opacity = 0.8 }: GrainProps) => {
 });
 
 const Index = () => {
+  const location = useLocation();
+
   useEffect(() => {
     if (process.env.NODE_ENV === 'development') {
       const observer = new PerformanceObserver((list) => {
@@ -172,7 +176,6 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Grain opacity={0.06} />
       {/* Navigation */}
 
       <nav className="fixed w-full top-0 z-50">
@@ -275,11 +278,37 @@ const Index = () => {
                     <NavigationMenuItem>
                       <NavigationMenuTrigger>Hobbies</NavigationMenuTrigger>
                       <NavigationMenuContent>
-                        <ul className="grid w-[350px] gap-y-[0px] gap-x-[0px] p-2 grid-cols-2 grid-rows-2">
-                          <ListItem href="/projects/ai" title="AI Research" className="h-fit" />
-                          <ListItem href="/projects/prompt" title="Prompt Engineering" className="h-fit" />
-                          <ListItem href="https://uiverse.io/profile/0xnihilism" title="Web Components" className="h-fit" />
-                          <ListItem href="https://toolfolio.io/" title="Toolfolio" className="h-fit" />
+                        <ul className="grid w-[400px] grid-cols-2 gap-0 p-4">
+                          <Link to="/projects/ai" className="no-underline">
+                            <ListItem
+                              title="AI Research"
+                              className="h-auto p-3"
+                            >
+                              Exploring research of the latest LLMs
+                            </ListItem>
+                          </Link>
+                          <Link to="/projects/prompt" className="no-underline">
+                            <ListItem
+                              title="Prompt Engineering"
+                              className="h-auto p-3"
+                            >
+                              Crafting effective prompts for AI systems
+                            </ListItem>
+                          </Link>
+                          <ListItem
+                            href="https://uiverse.io/profile/0xnihilism"
+                            title="Web Components"
+                            className="h-auto p-3"
+                          >
+                            Building reusable UI components
+                          </ListItem>
+                          <ListItem
+                            href="https://toolfolio.io/"
+                            title="Toolfolio"
+                            className="h-auto p-3"
+                          >
+                            Collection of developer tools
+                          </ListItem>
                         </ul>
                       </NavigationMenuContent>
                     </NavigationMenuItem>
@@ -315,81 +344,68 @@ const Index = () => {
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <div className="container max-w-5xl px-4 sm:px-6 md:px-8">
-        <HeroSection
-          name="Garry Alexander"
-          title={
-            <>
-              <div className="flex flex-col items-center text-center gap-1 px-2">
-                {/* First line - Combined description */}
-                <div className="flex flex-wrap items-center justify-center gap-0.5 text-[11px] md:text-sm lg:text-base">
-                  <span>Hey! I am <strong className="dark:text-white dark:drop-shadow-[0_0_0.3rem_#ffffff70]">Alex</strong>. </span>
-                  <strong className="dark:text-white dark:drop-shadow-[0_0_0.3rem_#ffffff70]"> A front-end developer & </strong>
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={location.pathname}
+          className="main-content"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          transition={{
+            type: "spring",
+            stiffness: 260,
+            damping: 20
+          }}
+        >
+          {/* Hero Section */}
+          <div className="container max-w-5xl px-4 sm:px-6 md:px-8">
+            <HeroSection
+              name="Garry Alexander"
+              title={
+                <>
+                  <div className="flex flex-col items-center text-center gap-1 px-2">
+                    {/* First line - Combined description */}
+                    <div className="flex flex-wrap items-center justify-center gap-0.5 text-[11px] md:text-sm lg:text-base">
+                      <span>Hey! I am <strong className="dark:text-white dark:drop-shadow-[0_0_0.3rem_#ffffff70]">Alex</strong>. </span>
+                      <strong className="dark:text-white dark:drop-shadow-[0_0_0.3rem_#ffffff70]"> A front-end developer & </strong>
 
-                  <strong className="dark:text-white dark:drop-shadow-[0_0_0.3rem_#ffffff70]">nihilist who tend to contemplate about</strong>
-                </div>
+                      <strong className="dark:text-white dark:drop-shadow-[0_0_0.3rem_#ffffff70]">nihilist who tend to contemplate about</strong>
+                    </div>
 
-                {/* Animated typing - Adjusted for mobile */}
-                <div className="flex flex-wrap items-center justify-center">
-                  <AnimatedTyping
-                    words={["coffee.", "crypto.", "life.", "space.", "abyss."]}
-                    className="text-[11px] md:text-sm lg:text-base font-bold text-[#2a2a29] drop-shadow-[0_0_0.0rem_#656564] animate-pulse mix-blend-screen filter brightness-150 dark:text-[#EEEEEE] dark:drop-shadow-[0_0_0.3rem_#00ff9570] dark:animate-pulse dark:mix-blend-screen dark:filter dark:brightness-100"
-                  />
-                </div>
-              </div>
-            </>
-          }
-          subtitle={
-            <>
-              <span className="text-[11px] md:text-sm lg:text-base">
-                and experiment in the cosmic absurdity of life.{" "}
-                <strong className="dark:text-white dark:drop-shadow-[0_0_0.3rem_#ffffff70]">
-                  Starting from 0 to 1, or probably creating an accidental masterpiece.
-                </strong>
-              </span>
-            </>
-          }
-          profileImage="/Untitled.jpeg"
-        />
-      </div>
+                    {/* Animated typing - Adjusted for mobile */}
+                    <div className="flex flex-wrap items-center justify-center">
+                      <AnimatedTyping
+                        words={["coffee.", "crypto.", "life.", "space.", "abyss."]}
+                        className="text-[11px] md:text-sm lg:text-base font-bold text-[#2a2a29] drop-shadow-[0_0_0.0rem_#656564] animate-pulse mix-blend-screen filter brightness-150 dark:text-[#EEEEEE] dark:drop-shadow-[0_0_0.3rem_#00ff9570] dark:animate-pulse dark:mix-blend-screen dark:filter dark:brightness-100"
+                      />
+                    </div>
+                  </div>
+                </>
+              }
+              subtitle={
+                <>
+                  <span className="text-[11px] md:text-sm lg:text-base">
+                    and experiment in the cosmic absurdity of life.{" "}
+                    <strong className="dark:text-white dark:drop-shadow-[0_0_0.3rem_#ffffff70]">
+                      Starting from 0 to 1, or probably creating an accidental masterpiece.
+                    </strong>
+                  </span>
+                </>
+              }
+              profileImage="/Untitled.jpeg"
+            />
+            {/* <ProjectsSection /> */}
+            <SkillsSection />
+            <BlogSection />
+            {/* <ExperienceSection />
+            <MyProjectsSection /> */}
+            <ContactSection />
+          </div>
+        </motion.div>
+      </AnimatePresence>
 
-      {/* Projects Section */}
-      <div className="container max-w-5xl px-4 sm:px-6 md:px-8">
-        <ProjectsSection />
-      </div>
-
-      {/* Skills Section */}
-      <div className="container max-w-5xl px-4 sm:px-6 md:px-8">
-        <SkillsSection />
-      </div>
-
-      {/* Blog Section */}
-      <div className="container max-w-5xl px-4 sm:px-6 md:px-8">
-        <BlogSection />
-      </div>
-
-
-      {/* Experience Section */}
-      <div className="container max-w-5xl px-4 sm:px-6 md:px-8">
-        <ExperienceSection />
-      </div>
-
-
-      {/* My Projects Section */}
-      <div className="container max-w-5xl px-4 sm:px-6 md:px-8">
-        <MyProjectsSection />
-      </div>
-
-      {/* Contact Section */}
-      <div className="container max-w-5xl px-4 sm:px-6 md:px-8">
-        <ContactSection />
-      </div>
-
-
-
-
-
+      {/* Add Grain effect */}
+      <Grain opacity={0.05} />
 
       {/* Footer Section */}
       <footer className="border-t mt-16 relative z-10">

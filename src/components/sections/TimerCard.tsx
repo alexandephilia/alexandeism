@@ -197,108 +197,63 @@ export const TimerCard = () => {
     useEffect(() => {
         const style = document.createElement('style');
         style.textContent = `
-            /* Scope animations to specific timer elements */
             .timer-progress-bar {
                 box-shadow: 0 0 5px rgba(132, 204, 22, 0.5),
                            0 0 10px rgba(132, 204, 22, 0.3);
-                transition: all 0.3s ease;
+                transition: all 0.2s ease;
                 position: relative;
-            }
-
-            .timer-progress-bar.current {
-                box-shadow: 0 0 10px rgba(132, 204, 22, 0.8),
-                           0 0 20px rgba(132, 204, 22, 0.6),
-                           0 0 30px rgba(132, 204, 22, 0.4);
-                animation: timer-pulse 2s infinite;
             }
 
             @keyframes timer-wave {
                 0% {
                     transform: scaleY(1);
-                    filter: blur(0.1px);
                     opacity: 0.7;
                 }
                 50% {
-                    transform: scaleY(1.5);
-                    filter: blur(0.5px);
+                    transform: scaleY(1.8);
                     opacity: 1;
                 }
                 100% {
                     transform: scaleY(1);
-                    filter: blur(0.3px);
                     opacity: 0.8;
                 }
             }
 
+            .timer-progress-bar.current {
+                box-shadow: 0 0 10px rgba(132, 204, 22, 0.8),
+                           0 0 20px rgba(132, 204, 22, 0.6);
+                animation: timer-pulse 1s ease-in-out infinite;
+                filter: blur(1px);
+            }
+
             @keyframes timer-pulse {
                 0%, 100% {
+                    transform: scaleY(1.6);
                     box-shadow: 0 0 10px rgba(132, 204, 22, 0.8),
-                               0 0 20px rgba(132, 204, 22, 0.6),
-                               0 0 30px rgba(132, 204, 22, 0.4);
+                               0 0 20px rgba(132, 204, 22, 0.6);
+                    filter: blur(1px);
                 }
                 50% {
+                    transform: scaleY(2);
                     box-shadow: 0 0 15px rgba(132, 204, 22, 0.9),
-                               0 0 25px rgba(132, 204, 22, 0.7),
-                               0 0 35px rgba(132, 204, 22, 0.5);
+                               0 0 25px rgba(132, 204, 22, 0.7);
+                    filter: blur(2px);
                 }
             }
 
-            .timer-progress-bar.current::after {
-                content: '';
-                position: absolute;
-                right: -5px;
-                top: 0;
-                width: 10px;
-                height: 100%;
-                background: linear-gradient(90deg, transparent, rgba(132, 204, 22, 1));
-                filter: blur(4px);
-                animation: timer-hitNext 1s ease-in-out infinite;
-                transform-origin: right;
-                z-index: 10;
+            .timer-progress-bar.current::after,
+            .timer-progress-bar.next::before {
+                animation-duration: 0.2s;
             }
 
             @keyframes timer-hitNext {
                 0%, 100% {
-                    transform: scaleX(1);
-                    opacity: 0.7;
+                    opacity: 0.5;
                     filter: blur(4px);
                 }
                 50% {
-                    transform: scaleX(1);
-                    opacity: 1;
-                    filter: blur(8px);
-                }
-            }
-
-            .timer-progress-bar.next {
-                animation: timer-nextActivation 1s ease-in-out infinite;
-                position: relative;
-            }
-
-            .timer-progress-bar.next::before {
-                content: '';
-                position: absolute;
-                left: -5px;
-                top: 0;
-                width: 10px;
-                height: 100%;
-                background: linear-gradient(90deg, rgba(132, 204, 22, 1), transparent);
-                filter: blur(4px);
-                animation: timer-receiveGlow 1s ease-in-out infinite;
-                transform-origin: left;
-                z-index: 10;
-            }
-
-            @keyframes timer-receiveGlow {
-                0%, 100% {
-                    transform: scaleX(1);
-                    opacity: 0.7;
-                    filter: blur(4px);
-                }
-                50% {
-                    transform: scaleX(1);
-                    opacity: 1;
-                    filter: blur(8px);
+                    opacity: 0.8;
+                    filter: blur(5px);
                 }
             }
 
@@ -306,15 +261,12 @@ export const TimerCard = () => {
                 0%, 100% {
                     transform: scaleY(1);
                     filter: blur(0px);
-                    box-shadow: 0 0 5px rgba(132, 204, 22, 0.3),
-                               0 0 10px rgba(132, 204, 22, 0.2);
                 }
                 50% {
                     transform: scaleY(1.8);
-                    filter: blur(2px);
-                    box-shadow: 0 0 20px rgba(132, 204, 22, 1),
-                               0 0 40px rgba(132, 204, 22, 0.8),
-                               0 0 60px rgba(132, 204, 22, 0.6);
+                    filter: blur(5px);
+                    box-shadow: 0 0 20px rgba(132, 204, 22, 0.8),
+                               0 0 40px rgba(132, 204, 22, 0.6);
                 }
             }
         `;

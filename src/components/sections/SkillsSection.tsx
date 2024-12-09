@@ -110,8 +110,8 @@ const SkillCard: React.FC<Skill & { isExpanded: boolean; onToggle: () => void }>
     <ShimmerButton className="w-full">
       <Card
         onClick={onToggle}
-        className={`group hover:shadow-lg transition-all duration-500 cursor-pointer ${isExpanded ? 'min-h-[600px]' : 'h-[420px]'
-          } flex flex-col`}
+        className={`group hover:shadow-lg transition-all duration-500 cursor-pointer ${isExpanded ? 'min-h-[600px]' : 'h-[360px]'
+          } flex flex-col dark:bg-black/100 bg-white/[0.1]`}
       >
         <CardHeader className="h-[90px] py-4">
           <div className="flex items-center gap-3">
@@ -132,11 +132,14 @@ const SkillCard: React.FC<Skill & { isExpanded: boolean; onToggle: () => void }>
             </div>
           </div>
         </CardHeader>
-        <CardContent className="pt-2 space-y-4 flex-grow flex flex-col justify-between">
-          <div className="space-y-4">
+        <CardContent className="pt-2 flex-grow flex flex-col">
+          {/* Main content wrapper */}
+          <div className="flex-grow space-y-4 mb-4">
             {/* Description text */}
-            <div className="h-[40px] flex items-start">
-              <p className="text-sm text-muted-foreground line-clamp-2">{description}</p>
+            <div className="h-[40px] flex items-start overflow-hidden">
+              <p className="text-sm text-muted-foreground line-clamp-2 w-full">
+                {description}
+              </p>
             </div>
 
             {/* Tools and technologies section */}
@@ -243,18 +246,33 @@ const SkillCard: React.FC<Skill & { isExpanded: boolean; onToggle: () => void }>
                           {keyFeatures.map((feature, index) => (
                             <motion.div
                               key={index}
-                              initial={{ opacity: 0, x: -20 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              exit={{ opacity: 0, x: -10 }}
-                              transition={{
-                                type: "spring",
-                                stiffness: 200,
-                                damping: 20,
-                                mass: 1,
-                                delay: 0.2 + index * 0.1
+                              initial={{
+                                opacity: 0,
+                                y: 10,
+                                filter: "blur(12px)",
                               }}
+                              animate={{
+                                opacity: 1,
+                                y: 0,
+                                filter: "blur(0px)",
+                              }}
+                              exit={{
+                                opacity: 0,
+                                y: -10,
+                                filter: "blur(12px)",
+                              }}
+                              transition={{
+                                duration: 0.5,
+                                delay: 0.1 + index * 0.1,
+                                ease: [0.4, 0, 0.2, 1]
+                              }}
+                              className="relative flex items-center"
                             >
-                              <li>{feature}</li>
+                              <li className="w-full">
+                                <span className="relative">
+                                  {feature}
+                                </span>
+                              </li>
                             </motion.div>
                           ))}
                         </ul>
@@ -313,8 +331,8 @@ const SkillCard: React.FC<Skill & { isExpanded: boolean; onToggle: () => void }>
             </div>
           </div>
 
-          {/* Arrow icon - now consistently at bottom */}
-          <div className="w-full flex justify-center">
+          {/* Arrow icon - now in a fixed position */}
+          <div className="flex justify-center mt-auto pt-2">
             <motion.div
               animate={{
                 y: [0, 3, 0],
@@ -572,7 +590,7 @@ export const SkillsSection: React.FC = () => {
                 }}
               >
                 <ShimmerButton className="w-full">
-                  <Card className="group transition-all duration-300 aspect-square">
+                  <Card className="group transition-all duration-300 aspect-square dark:bg-black/100 bg-white/[0.1]">
                     <CardContent className="flex flex-col items-center justify-between h-full p-3">
                       <div className="flex-1 flex items-center">
                         <skill.icon className="h-7 w-7 group-hover:scale-110 transition-transform duration-300" />

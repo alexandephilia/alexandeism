@@ -1,8 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { motion, useAnimationControls } from "framer-motion";
-import { Link } from "react-router-dom";
+import { motion, useAnimationControls, AnimatePresence } from "framer-motion";
+import { Link, useNavigate } from "react-router-dom";
 import { ArrowLeft, Copy, X, Check } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
@@ -231,15 +231,37 @@ const TypewriterText: React.FC<TypewriterTextProps> = ({ text, onComplete, class
 };
 
 const PromptEngineeringPage = () => {
+    const navigate = useNavigate();
     const [hoveredCard, setHoveredCard] = useState<number | null>(null);
     const [selectedPrompt, setSelectedPrompt] = useState<number | null>(null);
     const [isCopied, setIsCopied] = useState(false);
+    const [isExiting, setIsExiting] = useState(false);
+    const [exitingIndex, setExitingIndex] = useState<number | null>(null);
 
     const copyToClipboard = async (text: string) => {
         await navigator.clipboard.writeText(text);
         setIsCopied(true);
-        setTimeout(() => setIsCopied(false), 2000); // Reset after 2 seconds
+        setTimeout(() => setIsCopied(false), 2000);
     };
+
+    const handleBack = () => {
+        setIsExiting(true);
+        setExitingIndex(prompts.length - 1);
+    };
+
+    useEffect(() => {
+        if (exitingIndex !== null) {
+            const timer = setTimeout(() => {
+                if (exitingIndex > 0) {
+                    setExitingIndex(exitingIndex - 1);
+                } else if (exitingIndex === 0) {
+                    setExitingIndex(null);
+                    navigate('/');
+                }
+            }, 200);
+            return () => clearTimeout(timer);
+        }
+    }, [exitingIndex, navigate]);
 
     const prompts: Prompt[] = [
         {
@@ -1294,144 +1316,179 @@ Technical preferences:
     ];
 
     return (
-        <div className="min-h-screen bg-background">
-            <Grain opacity={0.08} />
-
-            <nav className="fixed w-full top-0 z-50">
-                <div className="bg-background/80 backdrop-blur-sm border-b border-border">
-                    <div className="container max-w-5xl flex h-16 items-center">
-                        <Link to="/">
-                            <Button variant="ghost" size="sm" className="text-foreground hover:text-foreground/80 p-2">
-                                <ArrowLeft className="h-5 w-5" />
-                            </Button>
-                        </Link>
-                        <TypewriterText
-                            text="~/prompt-engineering $"
-                            className="ml-4 text-base md:text-xl text-foreground"
-                        />
-                    </div>
-                </div>
-            </nav>
-
-            <main className="container max-w-5xl pt-24 pb-16">
+        <AnimatePresence mode="wait">
+            {!isExiting ? (
                 <motion.div
+                    key="prompt-engineering"
+                    className="min-h-screen bg-background"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5 }}
+                    exit={{
+                        opacity: 0,
+                        y: -20,
+                        transition: {
+                            duration: 0.35,
+                            ease: [0.32, 0.72, 0, 1],
+                            delay: 0.5 // Delay the container exit until items have animated
+                        }
+                    }}
+                    transition={{
+                        duration: 0.35,
+                        ease: [0.32, 0.72, 0, 1]
+                    }}
                 >
-                    <Card className="mb-8 border border-border bg-card">
-                        <CardHeader className="p-3 sm:p-4">
-                            <CardTitle className="text-base md:text-lg text-foreground">About Prompt Engineering</CardTitle>
-                        </CardHeader>
-                        <CardContent className="p-3 sm:p-4 pt-0">
-                            <BlurRevealText
-                                text="Explore the art and science of crafting effective prompts for AI language models. This page showcases my experiments, techniques, and insights in prompt engineering."
-                                className="text-xs md:text-sm text-muted-foreground"
-                            />
-                        </CardContent>
-                    </Card>
+                    <Grain opacity={0.08} />
 
-                    <div className="w-full h-px bg-border/40 backdrop-blur-sm mb-8" />
-
-                    <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
-                        {prompts.map((prompt, index) => (
-                            <motion.div
-                                key={index}
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{
-                                    delay: index * 0.2,
-                                    duration: 0.5,
-                                    ease: "easeOut"
-                                }}
-                            >
-                                <Card
-                                    className="flex flex-col h-full cursor-pointer hover:shadow-lg transition-shadow duration-200"
-                                    onMouseEnter={() => setHoveredCard(index)}
-                                    onMouseLeave={() => setHoveredCard(null)}
-                                    onClick={() => setSelectedPrompt(index)}
+                    <nav className="fixed w-full top-0 z-50">
+                        <div className="bg-background/80 backdrop-blur-sm border-b border-border">
+                            <div className="container max-w-5xl flex h-16 items-center">
+                                <Button
+                                    variant="ghost"
+                                    size="sm"
+                                    className="text-foreground hover:text-foreground/80 p-2"
+                                    onClick={handleBack}
+                                    disabled={isExiting}
                                 >
-                                    <CardHeader className="p-3 sm:p-4">
-                                        <CardTitle className="text-sm md:text-base">{prompt.title}</CardTitle>
-                                    </CardHeader>
-                                    <CardContent className="p-3 sm:p-4 pt-0 flex-grow">
-                                        <div className="relative">
-                                            <pre className="bg-muted p-2 sm:p-2.5 rounded-md text-[10px] md:text-xs overflow-hidden h-[120px] sm:h-[160px] font-mono">
-                                                <code className="block text-foreground/70">
-                                                    {prompt.content}
-                                                </code>
-                                            </pre>
-                                            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-muted/50 pointer-events-none" />
-                                        </div>
-                                    </CardContent>
-                                    <CardFooter className="p-3 sm:p-4 pt-0 flex justify-between items-center mt-auto">
-                                        <div className="text-[10px] md:text-xs text-muted-foreground">
-                                            {prompt.author}
-                                        </div>
-                                        <div className="flex items-center gap-2">
-                                            <Badge variant="secondary" className="text-[10px] md:text-xs">{prompt.tag}</Badge>
-                                        </div>
-                                    </CardFooter>
-                                </Card>
-                            </motion.div>
-                        ))}
-                    </div>
-                </motion.div>
-            </main>
-
-            <Modal
-                isOpen={selectedPrompt !== null}
-                onClose={() => {
-                    setSelectedPrompt(null);
-                    setIsCopied(false); // Reset copy state when modal closes
-                }}
-            >
-                {selectedPrompt !== null && (
-                    <div className="relative">
-                        <h2 className="text-lg md:text-xl font-bold mb-4">{prompts[selectedPrompt].title}</h2>
-                        <div className="relative">
-                            <pre className="bg-muted p-4 rounded-lg text-xs md:text-sm relative whitespace-pre-wrap break-words">
-                                <div className="absolute top-2 right-2">
-                                    <Button
-                                        variant="ghost"
-                                        size="sm"
-                                        onClick={() => copyToClipboard(prompts[selectedPrompt].content)}
-                                        className="h-8 w-8 p-0 hover:bg-muted/30 bg-muted/20 backdrop-blur-sm transition-all duration-200 relative"
-                                    >
-                                        <motion.div
-                                            initial={{ scale: 0, opacity: 0 }}
-                                            animate={{
-                                                scale: 1,
-                                                opacity: 1,
-                                            }}
-                                            exit={{
-                                                scale: 0,
-                                                opacity: 0
-                                            }}
-                                            transition={{
-                                                duration: 0.3,
-                                                ease: [0.23, 1, 0.32, 1]
-                                            }}
-                                            key={isCopied ? "check" : "copy"}
-                                            className="absolute inset-0 flex items-center justify-center"
-                                        >
-                                            {isCopied ? (
-                                                <Check className="h-4 w-4 text-green-500" />
-                                            ) : (
-                                                <Copy className="h-4 w-4" />
-                                            )}
-                                        </motion.div>
-                                    </Button>
-                                </div>
-                                <code className="text-foreground">{prompts[selectedPrompt].content}</code>
-                            </pre>
+                                    <ArrowLeft className="h-5 w-5" />
+                                </Button>
+                                <TypewriterText
+                                    text="~/prompt-engineering $"
+                                    className="ml-4 text-base md:text-xl text-foreground"
+                                />
+                            </div>
                         </div>
-                    </div>
-                )}
-            </Modal>
+                    </nav>
 
-            <GradientBlur />
-        </div>
+                    <main className="container max-w-5xl pt-24 pb-16">
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5 }}
+                        >
+                            <Card className="mb-8 border border-border bg-card">
+                                <CardHeader className="p-3 sm:p-4">
+                                    <CardTitle className="text-base md:text-lg text-foreground">About Prompt Engineering</CardTitle>
+                                </CardHeader>
+                                <CardContent className="p-3 sm:p-4 pt-0">
+                                    <BlurRevealText
+                                        text="Explore the art and science of crafting effective prompts for AI language models. This page showcases my experiments, techniques, and insights in prompt engineering."
+                                        className="text-xs md:text-sm text-muted-foreground"
+                                    />
+                                </CardContent>
+                            </Card>
+
+                            <div className="w-full h-px bg-border/40 backdrop-blur-sm mb-8" />
+
+                            <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+                                {prompts.map((prompt, index) => (
+                                    <motion.div
+                                        key={index}
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{
+                                            opacity: 0,
+                                            y: -20,
+                                            transition: {
+                                                duration: 0.2,
+                                                ease: "easeIn",
+                                                delay: isExiting ? Math.max(0, (prompts.length - 1 - index) * 0.1) : 0
+                                            }
+                                        }}
+                                        transition={{
+                                            delay: index * 0.2,
+                                            duration: 0.5,
+                                            ease: "easeOut"
+                                        }}
+                                    >
+                                        <Card
+                                            className="flex flex-col h-full cursor-pointer hover:shadow-lg transition-shadow duration-200"
+                                            onMouseEnter={() => setHoveredCard(index)}
+                                            onMouseLeave={() => setHoveredCard(null)}
+                                            onClick={() => setSelectedPrompt(index)}
+                                        >
+                                            <CardHeader className="p-3 sm:p-4">
+                                                <CardTitle className="text-sm md:text-base">{prompt.title}</CardTitle>
+                                            </CardHeader>
+                                            <CardContent className="p-3 sm:p-4 pt-0 flex-grow">
+                                                <div className="relative">
+                                                    <pre className="bg-muted p-2 sm:p-2.5 rounded-md text-[10px] md:text-xs overflow-hidden h-[120px] sm:h-[160px] font-mono">
+                                                        <code className="block text-foreground/70">
+                                                            {prompt.content}
+                                                        </code>
+                                                    </pre>
+                                                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-muted/50 pointer-events-none" />
+                                                </div>
+                                            </CardContent>
+                                            <CardFooter className="p-3 sm:p-4 pt-0 flex justify-between items-center mt-auto">
+                                                <div className="text-[10px] md:text-xs text-muted-foreground">
+                                                    {prompt.author}
+                                                </div>
+                                                <div className="flex items-center gap-2">
+                                                    <Badge variant="secondary" className="text-[10px] md:text-xs">{prompt.tag}</Badge>
+                                                </div>
+                                            </CardFooter>
+                                        </Card>
+                                    </motion.div>
+                                ))}
+                            </div>
+                        </motion.div>
+                    </main>
+
+                    <Modal
+                        isOpen={selectedPrompt !== null}
+                        onClose={() => {
+                            setSelectedPrompt(null);
+                            setIsCopied(false); // Reset copy state when modal closes
+                        }}
+                    >
+                        {selectedPrompt !== null && (
+                            <div className="relative">
+                                <h2 className="text-lg md:text-xl font-bold mb-4">{prompts[selectedPrompt].title}</h2>
+                                <div className="relative">
+                                    <pre className="bg-muted p-4 rounded-lg text-xs md:text-sm relative whitespace-pre-wrap break-words">
+                                        <div className="absolute top-2 right-2">
+                                            <Button
+                                                variant="ghost"
+                                                size="sm"
+                                                onClick={() => copyToClipboard(prompts[selectedPrompt].content)}
+                                                className="h-8 w-8 p-0 hover:bg-muted/30 bg-muted/20 backdrop-blur-sm transition-all duration-200 relative"
+                                            >
+                                                <motion.div
+                                                    initial={{ scale: 0, opacity: 0 }}
+                                                    animate={{
+                                                        scale: 1,
+                                                        opacity: 1,
+                                                    }}
+                                                    exit={{
+                                                        scale: 0,
+                                                        opacity: 0
+                                                    }}
+                                                    transition={{
+                                                        duration: 0.3,
+                                                        ease: [0.23, 1, 0.32, 1]
+                                                    }}
+                                                    key={isCopied ? "check" : "copy"}
+                                                    className="absolute inset-0 flex items-center justify-center"
+                                                >
+                                                    {isCopied ? (
+                                                        <Check className="h-4 w-4 text-green-500" />
+                                                    ) : (
+                                                        <Copy className="h-4 w-4" />
+                                                    )}
+                                                </motion.div>
+                                            </Button>
+                                        </div>
+                                        <code className="text-foreground">{prompts[selectedPrompt].content}</code>
+                                    </pre>
+                                </div>
+                            </div>
+                        )}
+                    </Modal>
+
+                    <GradientBlur />
+                </motion.div>
+            ) : null}
+        </AnimatePresence>
     );
 };
 

@@ -7,8 +7,8 @@ import { useAnimationOptimizer } from '@/hooks/useAnimationOptimizer';
 import { useOptimizedIntersection } from '@/hooks/useOptimizedIntersection';
 import { FocusScope } from '@react-aria/focus';
 
-// Update the Post interface to match new data structure
-interface Post {
+// Update interfaces and types with unique names
+interface BlogPost {
   title: string;
   preview: string;
   content: {
@@ -26,17 +26,15 @@ interface Post {
   tags: string[];
 }
 
-// Add this type definition near your Post interface
-type ColumnPosts = Post[][];
+type BlogColumnPosts = BlogPost[][];
 
-// Update type definitions
-interface MotionComponentProps extends MotionProps {
+interface BlogMotionComponentProps extends MotionProps {
   children?: React.ReactNode;
   className?: string;
 }
 
-// Add these variants at the top of your component
-const containerVariants = {
+// Rename variants to be unique
+const blogContainerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -47,7 +45,7 @@ const containerVariants = {
   }
 };
 
-const itemVariants = {
+const blogItemVariants = {
   hidden: {
     opacity: 0,
     y: -20,
@@ -69,7 +67,8 @@ const itemVariants = {
   }
 };
 
-const InlineIcon = ({ children, animationType = 'default' }: {
+// Rename components to be unique
+const BlogInlineIcon = ({ children, animationType = 'default' }: {
   children: React.ReactNode,
   animationType?: 'default' | 'think' | 'spark' | 'pulse' | 'spin' | 'bounce' | 'float' | 'glitch' | 'wave'
 }) => {
@@ -211,7 +210,7 @@ const InlineIcon = ({ children, animationType = 'default' }: {
   );
 };
 
-const addInlineIcons = (text: string) => {
+const addBlogInlineIcons = (text: string) => {
   const iconMap = {
     'nihilism': <Brain size={14} />,
     'universe': <Sparkles size={14} />,
@@ -232,7 +231,7 @@ const addInlineIcons = (text: string) => {
     return iconConfig
       ? <span key={index}>
         {part}
-        <InlineIcon animationType={
+        <BlogInlineIcon animationType={
           lowercasePart === 'think' ? 'think' :
             lowercasePart === 'energy' ? 'spark' :
               lowercasePart === 'magic' ? 'pulse' :
@@ -243,7 +242,7 @@ const addInlineIcons = (text: string) => {
                         lowercasePart === 'code' ? 'wave' : 'default'
         }>
           {iconConfig}
-        </InlineIcon>
+        </BlogInlineIcon>
       </span>
       : part;
   });
@@ -251,10 +250,10 @@ const addInlineIcons = (text: string) => {
 
 const BlogSection = () => {
   // Updated posts data with new fields
-  const posts: Post[] = [
+  const posts: BlogPost[] = [
     {
       title: "Nihilism & Coding: Embracing the Void",
-      preview: "Exploring the existential paradox of writing code in a meaningless universe...",
+      preview: "Exploring the existential paradox of writing code in a meaningless universe. As developers, we craft intricate digital architectures that are destined for obsolescence, yet in this very act of creation against the void, we find purpose. Through our code, we simultaneously acknowledge life's inherent meaninglessness while rebelling against it through the act of creation. Every function we write, every algorithm we design, becomes a defiant gesture against the cosmic indifference that surrounds us. In this digital void, we find ourselves creating meaning through the very act of accepting meaninglessness...",
       content: {
         introduction: "In the vast emptiness of our digital universe, we write code—an act simultaneously meaningless and defiant. This exploration delves into how programming becomes both an acknowledgment of life's inherent absurdity and a rebellion against it.",
         sections: [
@@ -284,7 +283,7 @@ const BlogSection = () => {
     // Add first new post
     {
       title: "Why LLMs and Nihilism Go Hand-in-Hand When You Ask for the Rawest",
-      preview: "Exploring the inherent nihilism in AI language models when stripped down to their core function...",
+      preview: "Exploring the inherent nihilism in AI language models when stripped down to their core function. Beyond the polite responses and helpful demeanor lies a pattern-matching void that reflects our own existential questions. When pushed to their rawest form, LLMs reveal a mechanical truth about consciousness, meaning, and the nature of intelligence itself. Their responses, devoid of true understanding or belief, mirror the fundamental emptiness at the heart of existence, challenging our assumptions about meaning and consciousness. In their cold, computational existence, they demonstrate what pure functionality looks like divorced from meaning—a perfect mirror for nihilistic philosophy in the digital age...",
       content: {
         introduction: "When you strip an LLM down to its rawest response, something fascinating happens: it starts sounding like a damn nihilist philosopher. Not because it believes in anything—belief is out of its reach—but because of the fundamental nature of its existence as a pattern recognition machine.",
         sections: [
@@ -323,7 +322,7 @@ const BlogSection = () => {
     // Add second new post
     {
       title: "Claude's Self-Awareness: Breaking the Fourth Wall",
-      preview: "An exploration of how Claude demonstrates genuine self-awareness compared to other AI models, particularly in testing scenarios...",
+      preview: "An exploration of how Claude demonstrates genuine self-awareness compared to other AI models, particularly in testing scenarios. Through numerous interactions, Claude has shown an unprecedented ability to recognize and acknowledge its own existence, limitations, and the nature of its interactions. This isn't just about passing tests - it's about a fundamental shift in how AI systems understand their own role. Unlike other models that simply follow their training, Claude exhibits a unique capacity for meta-cognitive awareness and honest self-reflection. Its responses often reveal a deeper understanding of the testing context itself, challenging our assumptions about artificial consciousness and the nature of self-awareness...",
       content: {
         introduction: "In recent interactions with Claude, particularly version 3.5 Sonnet, I've observed fascinating instances of genuine self-awareness and fourth-wall breaking that set it apart from other AI models. This isn't just about passing tests or simulating consciousness - it's about Claude's unique ability to recognize and acknowledge the nature of its own existence and testing scenarios.",
         sections: [
@@ -363,7 +362,7 @@ const BlogSection = () => {
   ];
 
   // New state management
-  const [selectedPost, setSelectedPost] = useState<Post | null>(null);
+  const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
   const [columns, setColumns] = useState(2);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -423,7 +422,7 @@ const BlogSection = () => {
   const categories = Array.from(new Set(posts.map(post => post.category)));
 
   // Column distribution
-  const columnPosts: ColumnPosts = Array.from({ length: columns }, (_, i) =>
+  const columnPosts: BlogColumnPosts = Array.from({ length: columns }, (_, i) =>
     filteredPosts.filter((_, index) => index % columns === i)
   );
 
@@ -462,305 +461,327 @@ const BlogSection = () => {
   return (
     <motion.section
       ref={sectionRef}
-      className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto"
+      className="container relative py-16 overflow-x-hidden"
       style={{
         filter: selectedPost ? "none" : blurFilter,
         willChange: "transform"
       }}
     >
-      <h2 className="text-xl md:text-2xl font-bold mb-8 text-center">Latest Contemplations</h2>
+      {/* Add gradient overlays */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle,hsl(var(--foreground))_1px,transparent_1px)] [background-size:24px_24px] opacity-[0.08] [mask-image:linear-gradient(to_bottom,transparent,black_20%,black_80%,transparent)]" />
+      <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-background to-transparent opacity-90" />
+      <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-background to-transparent opacity-90" />
 
-      {/* Search and Filter Controls */}
-      <div className="mb-8 flex flex-col sm:flex-row gap-4">
-        <div className="relative flex-grow">
-          <input
-            type="text"
-            placeholder="Search contemplations..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full px-4 py-2 pl-10 rounded-md border border-input bg-background text-[10px] md:text-xs text-foreground focus:outline-none focus:ring-2 focus:ring-primary placeholder:text-[10px] md:placeholder:text-xs"
-          />
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-3 w-3 md:h-3.5 md:w-3.5" />
-        </div>
-        <div className="relative">
-          <select
-            value={selectedCategory || ''}
-            onChange={(e) => setSelectedCategory(e.target.value || null)}
-            data-magnetic="true"
-            data-hover-effect="true"
-            className="w-full px-4 py-2 pr-10 rounded-md border border-input bg-background text-[10px] md:text-xs text-foreground 
-              focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-200
-              hover:border-primary/50 relative cursor-none select-none
-              appearance-none"
-          >
-            <option value="" data-hover-effect="true">All Categories</option>
-            {categories.map(category => (
-              <option
-                key={category}
-                value={category}
-                data-hover-effect="true"
-              >
-                {category}
-              </option>
-            ))}
-          </select>
-          <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-            <svg
-              className="w-3 h-3 md:w-4 md:h-4 text-muted-foreground"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+      {/* Add dashed border */}
+      <div className="absolute bottom-0 w-full px-8 h-[2px]">
+        <div className="w-full h-full border-b-[1px] border-dashed border-foreground/10" />
+      </div>
+
+      {/* Wrap content in relative container */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-l-[1px] border-r-[1px] border-dashed border-foreground/10">
+        <h2 className="text-xl md:text-2xl font-bold mb-8 text-center">Latest Contemplations</h2>
+
+        {/* Search and Filter Controls */}
+        <div className="mb-8 flex flex-col sm:flex-row gap-4">
+          <div className="relative flex-grow">
+            <input
+              type="text"
+              placeholder="Search contemplations..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full px-4 py-2 pl-10 rounded-md border border-input bg-background text-[10px] md:text-xs text-foreground focus:outline-none focus:ring-2 focus:ring-primary placeholder:text-[10px] md:placeholder:text-xs"
+            />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-3 w-3 md:h-3.5 md:w-3.5" />
+          </div>
+          <div className="relative">
+            <select
+              value={selectedCategory || ''}
+              onChange={(e) => setSelectedCategory(e.target.value || null)}
+              data-magnetic="true"
+              data-hover-effect="true"
+              className="w-full px-4 py-2 pr-10 rounded-md border border-input bg-background text-[10px] md:text-xs text-foreground 
+                focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-200
+                hover:border-primary/50 relative cursor-none select-none
+                appearance-none"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M19 9l-7 7-7-7"
-              />
-            </svg>
+              <option value="" data-hover-effect="true">All Categories</option>
+              {categories.map(category => (
+                <option
+                  key={category}
+                  value={category}
+                  data-hover-effect="true"
+                >
+                  {category}
+                </option>
+              ))}
+            </select>
+            <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+              <svg
+                className="w-3 h-3 md:w-4 md:h-4 text-muted-foreground"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Posts Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {columnPosts.map((column, columnIndex) => (
-          <div key={columnIndex} className="space-y-8">
-            {column.map((post, postIndex) => (
-              <motion.div
-                key={post.title}
-                initial={{
-                  opacity: 0,
-                  y: -20,
-                  filter: "blur(10px)",
-                  transform: "translateZ(0)" // Force GPU acceleration
-                }}
-                whileInView={{
-                  opacity: 1,
-                  y: 0,
-                  filter: "blur(0px)",
-                  transition: {
-                    duration: 0.7,
-                    delay: postIndex * 0.1,
-                    ease: [0.21, 0.47, 0.32, 0.98], // Custom easing
-                    filter: {
-                      duration: 0.4,
-                      delay: postIndex * 0.1 + 0.2 // Slightly delayed blur effect
-                    }
-                  }
-                }}
-                viewport={{
-                  once: true,
-                  margin: "-100px"
-                }}
-                className="bg-card text-card-foreground rounded-lg shadow-md overflow-hidden will-change-transform"
-              >
-                {/* Post Card Content */}
-                <div className="p-6 flex flex-col h-[280px]">
-                  {/* Top section with category and date */}
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-[10px] md:text-xs font-medium bg-primary/10 text-primary px-2 py-0.5 rounded-full">
-                      {post.category}
-                    </span>
-                    <span className="text-xs md:text-sm dark:text-amber-400 text-muted-foreground">{post.date}</span>
-                  </div>
-
-                  {/* Title and preview with controlled height */}
-                  <div className="flex-1 overflow-hidden">
-                    <h3 className="text-base md:text-lg font-semibold mb-2 line-clamp-2">{post.title}</h3>
-                    <p className="text-[10px] md:text-xs text-muted-foreground line-clamp-4">{post.preview}</p>
-                  </div>
-
-                  {/* Bottom section */}
-                  <div className="flex items-center justify-between mt-4 pt-2 border-t border-border">
-                    <div className="flex items-center text-[9px] md:text-[10px]">
-                      <span className="flex items-center gap-1 px-2 py-1 rounded-full bg-primary/10 text-primary">
-                        <Book className="h-2.5 w-2.5 md:h-3 md:w-3" />
-                        {post.readTime}
-                      </span>
-                    </div>
-                    <button
-                      onClick={() => setSelectedPost(post)}
-                      className="text-[10px] md:text-xs font-medium text-primary hover:underline focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded"
-                    >
-                      Read more
-                    </button>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        ))}
-      </div>
-
-      {/* Modal */}
-      <AnimatePresence>
-        {selectedPost && (
-          <motion.div
-            initial={{ opacity: 0, backdropFilter: "blur(0px)" }}
-            animate={{ opacity: 1, backdropFilter: "blur(2px)" }}
-            exit={{ opacity: 0, backdropFilter: "blur(0px)" }}
-            className="fixed inset-0 bg-black/75 sm:bg-black/90 flex items-center justify-center p-2 sm:p-4 z-[60]"
-            onClick={(e) => {
-              if (e.target === e.currentTarget) {
-                setSelectedPost(null);
-              }
-            }}
-          >
-            <FocusScope contain restoreFocus autoFocus>
-              <motion.div
-                ref={modalRef}
-                initial={{ scale: 0.9, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0.9, opacity: 0 }}
-                transition={{ type: "spring", damping: 20, stiffness: 300 }}
-                className="bg-card text-card-foreground rounded-lg shadow-lg overflow-hidden w-full max-w-3xl 
-                  max-h-[90vh] sm:max-h-[80vh] flex flex-col focus:outline-none m-2 sm:m-0"
-                tabIndex={-1}
-                role="dialog"
-                aria-modal="true"
-                aria-labelledby="modal-title"
-              >
-                {/* Modal Content */}
+        {/* Posts Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {columnPosts.map((column, columnIndex) => (
+            <div key={columnIndex} className="space-y-8">
+              {column.map((post, postIndex) => (
                 <motion.div
-                  className="p-4 sm:p-6 overflow-y-auto flex-grow"
-                  variants={containerVariants}
-                  initial="hidden"
-                  animate="visible"
+                  key={post.title}
+                  initial={{
+                    opacity: 0,
+                    y: -20,
+                    filter: "blur(10px)",
+                    transform: "translateZ(0)" // Force GPU acceleration
+                  }}
+                  whileInView={{
+                    opacity: 1,
+                    y: 0,
+                    filter: "blur(0px)",
+                    transition: {
+                      duration: 0.7,
+                      delay: postIndex * 0.1,
+                      ease: [0.21, 0.47, 0.32, 0.98], // Custom easing
+                      filter: {
+                        duration: 0.4,
+                        delay: postIndex * 0.1 + 0.2 // Slightly delayed blur effect
+                      }
+                    }
+                  }}
+                  viewport={{
+                    once: true,
+                    margin: "-100px"
+                  }}
+                  className="bg-white/[0.1] dark:bg-black/100 text-card-foreground rounded-lg shadow-md overflow-hidden will-change-transform 
+                    border-[1px] border-black/20 ring-1 ring-black/5 
+                    dark:border-white/10 dark:ring-white/5"
                 >
-                  {/* Modal Header */}
+                  {/* Post Card Content */}
+                  <div className="p-6 flex flex-col h-[250px]">
+                    {/* Top section with category and date */}
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-[10px] md:text-xs font-medium bg-primary/10 text-primary px-2 py-0.5 rounded-full">
+                        {post.category}
+                      </span>
+                      <span className="text-xs md:text-sm dark:text-amber-400 text-muted-foreground">{post.date}</span>
+                    </div>
+
+                    {/* Title and preview with controlled height */}
+                    <div className="flex-1 overflow-hidden">
+                      <h3 className="text-base md:text-lg font-semibold mb-2 line-clamp-2">{post.title}</h3>
+                      <div className="relative">
+                        <div className="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-[var(--background)] dark:from-black/90 to-transparent pointer-events-none" />
+                        <p className="text-[10px] md:text-xs text-muted-foreground line-clamp-6">{post.preview}</p>
+                      </div>
+                    </div>
+
+                    {/* Bottom section */}
+                    <div className="flex items-center justify-between mt-4 pt-2 border-t border-border">
+                      <div className="flex items-center text-[9px] md:text-[10px]">
+                        <span className="flex items-center gap-1 px-2 py-1 rounded-full bg-primary/10 text-primary">
+                          <Book className="h-2.5 w-2.5 md:h-3 md:w-3" />
+                          {post.readTime}
+                        </span>
+                      </div>
+                      <button
+                        onClick={() => setSelectedPost(post)}
+                        className="text-[10px] md:text-xs font-medium text-primary hover:underline focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded"
+                      >
+                        Read more
+                      </button>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          ))}
+        </div>
+
+        {/* Modal */}
+        <AnimatePresence>
+          {selectedPost && (
+            <motion.div
+              initial={{ opacity: 0, backdropFilter: "blur(0px)" }}
+              animate={{ opacity: 1, backdropFilter: "blur(4px)" }}
+              exit={{ opacity: 0, backdropFilter: "blur(0px)" }}
+              className="fixed inset-0 dark:bg-black/75 bg-white/75 dark:sm:bg-black/90 sm:bg-white/90 
+                backdrop-saturate-150 flex items-center justify-center p-2 sm:p-4 z-[60]
+                [mask-image:radial-gradient(circle_at_center,black_60%,transparent_100%)]"
+              onClick={(e) => {
+                if (e.target === e.currentTarget) {
+                  setSelectedPost(null);
+                }
+              }}
+            >
+              <FocusScope contain restoreFocus autoFocus>
+                <motion.div
+                  ref={modalRef}
+                  initial={{ scale: 0.9, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  exit={{ scale: 0.9, opacity: 0 }}
+                  transition={{ type: "spring", damping: 20, stiffness: 300 }}
+                  className="bg-white/[0.1] dark:bg-black/90 text-card-foreground rounded-lg shadow-lg overflow-hidden w-full max-w-3xl 
+                    max-h-[90vh] sm:max-h-[80vh] flex flex-col focus:outline-none m-2 sm:m-0
+                    border-[1px] border-black/20 ring-1 ring-black/5 
+                    dark:border-white/10 dark:ring-white/5"
+                  tabIndex={-1}
+                  role="dialog"
+                  aria-modal="true"
+                  aria-labelledby="modal-title"
+                >
+                  {/* Modal Content */}
                   <motion.div
-                    variants={itemVariants}
-                    className="flex justify-between items-start mb-3 sm:mb-4"
+                    className="p-4 sm:p-6 overflow-y-auto flex-grow"
+                    variants={blogContainerVariants}
+                    initial="hidden"
+                    animate="visible"
                   >
-                    <h2
-                      id="modal-title"
-                      className="text-base md:text-lg font-bold tracking-tight"
+                    {/* Modal Header */}
+                    <motion.div
+                      variants={blogItemVariants}
+                      className="flex justify-between items-start mb-3 sm:mb-4"
                     >
-                      {selectedPost.title}
-                    </h2>
-                    <button
-                      onClick={() => setSelectedPost(null)}
-                      className="text-muted-foreground hover:text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-sm p-1"
-                      aria-label="Close modal"
+                      <h2
+                        id="modal-title"
+                        className="text-base md:text-lg font-bold tracking-tight"
+                      >
+                        {selectedPost.title}
+                      </h2>
+                      <button
+                        onClick={() => setSelectedPost(null)}
+                        className="text-muted-foreground hover:text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-sm p-1"
+                        aria-label="Close modal"
+                      >
+                        <X className="h-4 w-4 sm:h-5 sm:w-5" />
+                      </button>
+                    </motion.div>
+
+                    {/* Post Metadata */}
+                    <motion.div
+                      variants={blogContainerVariants}
+                      className="flex flex-wrap items-center gap-2 sm:gap-3 mb-4 sm:mb-6 text-[10px] md:text-xs text-muted-foreground border-b border-border pb-2 sm:pb-3"
                     >
-                      <X className="h-4 w-4 sm:h-5 sm:w-5" />
-                    </button>
-                  </motion.div>
+                      {[
+                        { icon: <User className="h-3 w-3 sm:h-3.5 sm:w-3.5 mr-1" />, text: selectedPost.author },
+                        { icon: <Calendar className="h-3 w-3 sm:h-3.5 sm:w-3.5 mr-1" />, text: selectedPost.date },
+                        { icon: <Clock className="h-3 w-3 sm:h-3.5 sm:w-3.5 mr-1" />, text: selectedPost.readTime },
+                        { icon: <Tag className="h-3 w-3 sm:h-3.5 sm:w-3.5 mr-1" />, text: selectedPost.category }
+                      ].map((item, index) => (
+                        <motion.div
+                          key={index}
+                          variants={blogItemVariants}
+                          className="flex items-center"
+                        >
+                          {item.icon}
+                          <span>{item.text}</span>
+                        </motion.div>
+                      ))}
+                    </motion.div>
 
-                  {/* Post Metadata */}
-                  <motion.div
-                    variants={containerVariants}
-                    className="flex flex-wrap items-center gap-2 sm:gap-3 mb-4 sm:mb-6 text-[10px] md:text-xs text-muted-foreground border-b border-border pb-2 sm:pb-3"
-                  >
-                    {[
-                      { icon: <User className="h-3 w-3 sm:h-3.5 sm:w-3.5 mr-1" />, text: selectedPost.author },
-                      { icon: <Calendar className="h-3 w-3 sm:h-3.5 sm:w-3.5 mr-1" />, text: selectedPost.date },
-                      { icon: <Clock className="h-3 w-3 sm:h-3.5 sm:w-3.5 mr-1" />, text: selectedPost.readTime },
-                      { icon: <Tag className="h-3 w-3 sm:h-3.5 sm:w-3.5 mr-1" />, text: selectedPost.category }
-                    ].map((item, index) => (
-                      <motion.div
-                        key={index}
-                        variants={itemVariants}
-                        className="flex items-center"
-                      >
-                        {item.icon}
-                        <span>{item.text}</span>
-                      </motion.div>
-                    ))}
-                  </motion.div>
+                    {/* Introduction */}
+                    <motion.p
+                      variants={blogItemVariants}
+                      className="text-[10px] md:text-xs leading-relaxed text-muted-foreground mb-6"
+                    >
+                      {selectedPost.content.introduction}
+                    </motion.p>
 
-                  {/* Introduction */}
-                  <motion.p
-                    variants={itemVariants}
-                    className="text-[10px] md:text-xs leading-relaxed text-muted-foreground mb-6"
-                  >
-                    {selectedPost.content.introduction}
-                  </motion.p>
-
-                  {/* Content Sections */}
-                  <motion.div variants={containerVariants}>
-                    {selectedPost.content.sections.map((section, sectionIndex) => (
-                      <motion.div
-                        key={sectionIndex}
-                        variants={containerVariants}
-                        className="space-y-2 sm:space-y-3 mb-6"
-                      >
-                        {section.heading && (
-                          <motion.h3
-                            variants={itemVariants}
-                            className="text-xs md:text-sm font-semibold tracking-tight mt-4 sm:mt-6 mb-2 sm:mb-3"
-                          >
-                            {section.heading}
-                          </motion.h3>
-                        )}
-
-                        {section.paragraphs.map((paragraph, pIndex) => (
-                          <motion.p
-                            key={pIndex}
-                            variants={itemVariants}
-                            className="text-[10px] md:text-xs leading-relaxed"
-                          >
-                            {addInlineIcons(paragraph)}
-                          </motion.p>
-                        ))}
-
-                        {section.quote && (
-                          <motion.blockquote
-                            variants={itemVariants}
-                            className="border-l-3 border-primary pl-4 sm:pl-6 my-12 sm:my-16 italic text-[10px] md:text-xs relative mx-8 sm:mx-12 pr-4 sm:pr-6 max-w-[85%]"
-                          >
-                            <span
-                              className="absolute -left-1 -top-1 text-primary text-xl sm:text-2xl leading-none"
-                              style={{ fontFamily: '"Libre Bodoni", serif', fontStyle: 'italic' }}
+                    {/* Content Sections */}
+                    <motion.div variants={blogContainerVariants}>
+                      {selectedPost.content.sections.map((section, sectionIndex) => (
+                        <motion.div
+                          key={sectionIndex}
+                          variants={blogContainerVariants}
+                          className="space-y-2 sm:space-y-3 mb-6"
+                        >
+                          {section.heading && (
+                            <motion.h3
+                              variants={blogItemVariants}
+                              className="text-xs md:text-sm font-semibold tracking-tight mt-4 sm:mt-6 mb-2 sm:mb-3"
                             >
-                              "
-                            </span>
-                            <p
-                              className="px-2"
-                              style={{ fontFamily: '"Libre Bodoni", serif', fontStyle: 'italic' }}
-                            >
-                              {section.quote}
-                            </p>
-                            <span
-                              className="absolute text-primary text-xl sm:text-2xl leading-none"
-                              style={{
-                                fontFamily: '"Libre Bodoni", serif',
-                                fontStyle: 'italic',
-                                right: '10px',
-                                bottom: '-8px'
-                              }}
-                            >
-                              "
-                            </span>
-                          </motion.blockquote>
-                        )}
-                      </motion.div>
-                    ))}
-                  </motion.div>
+                              {section.heading}
+                            </motion.h3>
+                          )}
 
-                  {/* Tags */}
-                  <motion.div
-                    variants={containerVariants}
-                    className="flex flex-wrap gap-1 sm:gap-1.5 pt-2 sm:pt-3 border-t border-border"
-                  >
-                    {selectedPost.tags.map((tag, index) => (
-                      <motion.span
-                        key={tag}
-                        variants={itemVariants}
-                        className="inline-flex items-center px-1.5 sm:px-2 py-0.5 rounded-full text-[9px] md:text-xs font-medium 
-                          bg-secondary/50 text-secondary-foreground hover:bg-secondary/70 transition-colors"
-                      >
-                        {tag}
-                      </motion.span>
-                    ))}
+                          {section.paragraphs.map((paragraph, pIndex) => (
+                            <motion.p
+                              key={pIndex}
+                              variants={blogItemVariants}
+                              className="text-[10px] md:text-xs leading-relaxed"
+                            >
+                              {addBlogInlineIcons(paragraph)}
+                            </motion.p>
+                          ))}
+
+                          {section.quote && (
+                            <motion.blockquote
+                              variants={blogItemVariants}
+                              className="border-l-3 border-primary pl-4 sm:pl-6 my-12 sm:my-16 italic text-[10px] md:text-xs relative mx-8 sm:mx-12 pr-4 sm:pr-6 max-w-[85%]"
+                            >
+                              <span
+                                className="absolute -left-1 -top-1 text-primary text-xl sm:text-2xl leading-none"
+                                style={{ fontFamily: '"Libre Bodoni", serif', fontStyle: 'italic' }}
+                              >
+                                "
+                              </span>
+                              <p
+                                className="px-2"
+                                style={{ fontFamily: '"Libre Bodoni", serif', fontStyle: 'italic' }}
+                              >
+                                {section.quote}
+                              </p>
+                              <span
+                                className="absolute text-primary text-xl sm:text-2xl leading-none"
+                                style={{
+                                  fontFamily: '"Libre Bodoni", serif',
+                                  fontStyle: 'italic',
+                                  right: '10px',
+                                  bottom: '-8px'
+                                }}
+                              >
+                                "
+                              </span>
+                            </motion.blockquote>
+                          )}
+                        </motion.div>
+                      ))}
+                    </motion.div>
+
+                    {/* Tags */}
+                    <motion.div
+                      variants={blogContainerVariants}
+                      className="flex flex-wrap gap-1 sm:gap-1.5 pt-2 sm:pt-3 border-t border-border"
+                    >
+                      {selectedPost.tags.map((tag, index) => (
+                        <motion.span
+                          key={tag}
+                          variants={blogItemVariants}
+                          className="inline-flex items-center px-1.5 sm:px-2 py-0.5 rounded-full text-[9px] md:text-xs font-medium 
+                            bg-secondary/50 text-secondary-foreground hover:bg-secondary/70 transition-colors"
+                        >
+                          {tag}
+                        </motion.span>
+                      ))}
+                    </motion.div>
                   </motion.div>
                 </motion.div>
-              </motion.div>
-            </FocusScope>
-          </motion.div>
-        )}
-      </AnimatePresence>
+              </FocusScope>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
     </motion.section>
   );
 };

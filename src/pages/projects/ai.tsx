@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, ExternalLink } from "lucide-react";
-import { motion, useScroll, useTransform, useSpring, useAnimationControls } from "framer-motion";
-import { Link } from "react-router-dom";
+import { motion, useScroll, useTransform, useSpring, useAnimationControls, AnimatePresence } from "framer-motion";
+import { Link, useNavigate } from "react-router-dom";
 import { useRef, useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 
@@ -206,102 +206,161 @@ const BlurRevealText = ({ text, delay = 0, className = "" }: {
 };
 
 const AIResearchPage = () => {
+    const navigate = useNavigate();
+    const [isExiting, setIsExiting] = useState(false);
+    const [exitingIndex, setExitingIndex] = useState<number | null>(null);
+
+    const handleBack = () => {
+        setIsExiting(true);
+        // Start from the last item
+        setExitingIndex(researchLinks.length - 1);
+    };
+
+    useEffect(() => {
+        if (exitingIndex !== null) {
+            const timer = setTimeout(() => {
+                if (exitingIndex > 0) {
+                    setExitingIndex(exitingIndex - 1);
+                } else if (exitingIndex === 0) {
+                    setExitingIndex(null);
+                    navigate('/');
+                }
+            }, 200);
+            return () => clearTimeout(timer);
+        }
+    }, [exitingIndex, navigate]);
+
     return (
-        <div className="min-h-screen bg-background/50 text-foreground font-mono">
-            <Grain opacity={0.08} />
+        <AnimatePresence mode="wait">
+            {!isExiting ? (
+                <motion.div
+                    key="ai-research"
+                    className="min-h-screen bg-background/50 text-foreground font-mono"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{
+                        opacity: 0,
+                        y: -20,
+                        transition: {
+                            duration: 0.35,
+                            ease: [0.32, 0.72, 0, 1],
+                            delay: 0.5 // Delay the container exit until items have animated
+                        }
+                    }}
+                    transition={{
+                        duration: 0.35,
+                        ease: [0.32, 0.72, 0, 1]
+                    }}
+                >
+                    <Grain opacity={0.08} />
 
-            <nav className="fixed w-full top-0 z-50">
-                <div className="bg-background/80 backdrop-blur-sm border-b border-border">
-                    <div className="container max-w-5xl flex h-16 items-center">
-                        <Link to="/">
-                            <Button variant="ghost" size="sm" className="text-foreground hover:text-foreground/80">
-                                <ArrowLeft className="h-5 w-5" />
-                            </Button>
-                        </Link>
-                        <TypewriterText
-                            text="~/ai-research $"
-                            className="ml-4 text-base md:text-xl text-foreground"
-                        />
-                    </div>
-                </div>
-            </nav>
+                    <nav className="fixed w-full top-0 z-50">
+                        <div className="bg-background/80 backdrop-blur-sm border-b border-border">
+                            <div className="container max-w-5xl flex h-16 items-center">
+                                <Button
+                                    variant="ghost"
+                                    size="sm"
+                                    className="text-foreground hover:text-foreground/80"
+                                    onClick={handleBack}
+                                    disabled={isExiting}
+                                >
+                                    <ArrowLeft className="h-5 w-5" />
+                                </Button>
+                                <TypewriterText
+                                    text="~/ai-research $"
+                                    className="ml-4 text-base md:text-xl text-foreground"
+                                />
+                            </div>
+                        </div>
+                    </nav>
 
-            <div className="container max-w-5xl pt-24 pb-16">
-                <div className="opacity-100">
-                    {researchLinks.map((link, index) => (
-                        <motion.div
-                            key={index}
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{
-                                delay: index * 0.3,
-                                duration: 0.5,
-                                ease: "easeOut"
-                            }}
-                            className="mb-6"
-                        >
-                            <TerminalWindow>
-                                <div className="p-6 relative">
-                                    <div className="flex items-start">
-                                        <div className="flex-1">
-                                            <div className="flex items-center justify-between">
-                                                <div className="group flex items-center gap-2 min-w-0 flex-1">
-                                                    <span className="text-muted-foreground shrink-0 group-hover:text-foreground transition-colors">$</span>
-                                                    <TypewriterText
-                                                        text={link.title}
-                                                        className="text-base md:text-lg font-bold text-foreground group-hover:text-foreground/80 transition-colors"
-                                                    />
+                    <div className="container max-w-5xl pt-24 pb-16">
+                        <div className="opacity-100">
+                            {researchLinks.map((link, index) => (
+                                <motion.div
+                                    key={index}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{
+                                        opacity: 0,
+                                        y: -20,
+                                        transition: {
+                                            duration: 0.2,
+                                            ease: "easeIn",
+                                            delay: isExiting ? Math.max(0, (researchLinks.length - 1 - index) * 0.1) : 0
+                                        }
+                                    }}
+                                    transition={{
+                                        delay: index * 0.3,
+                                        duration: 0.5,
+                                        ease: "easeOut"
+                                    }}
+                                    className="mb-6"
+                                >
+                                    <TerminalWindow>
+                                        <div className="p-6 relative">
+                                            <div className="flex items-start">
+                                                <div className="flex-1">
+                                                    <div className="flex items-center justify-between">
+                                                        <div className="group flex items-center gap-2 min-w-0 flex-1">
+                                                            <span className="text-muted-foreground shrink-0 group-hover:text-foreground transition-colors">$</span>
+                                                            <TypewriterText
+                                                                text={link.title}
+                                                                className="text-base md:text-lg font-bold text-foreground group-hover:text-foreground/80 transition-colors"
+                                                            />
+                                                        </div>
+                                                        <a
+                                                            href={link.url}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            className="text-muted-foreground hover:text-foreground transition-colors ml-4"
+                                                        >
+                                                            <ExternalLink className="h-3 w-3 md:h-4 md:w-4" />
+                                                        </a>
+                                                    </div>
+                                                    <div className="mt-4 text-foreground/90 bg-muted/20 p-2 rounded">
+                                                        <BlurRevealText
+                                                            text={link.description}
+                                                            delay={index * 0.3 + 0.2}
+                                                            className="text-xs md:text-sm group-hover:text-foreground transition-colors"
+                                                        />
+                                                    </div>
+                                                    <div className="flex gap-2 mt-4 flex-wrap">
+                                                        {link.tags.map((tag, tagIndex) => (
+                                                            <motion.span
+                                                                key={tagIndex}
+                                                                initial={{
+                                                                    opacity: 0,
+                                                                    filter: 'blur(4px)',
+                                                                    x: -20
+                                                                }}
+                                                                animate={{
+                                                                    opacity: 1,
+                                                                    filter: 'blur(0px)',
+                                                                    x: 0
+                                                                }}
+                                                                transition={{
+                                                                    duration: 0.5,
+                                                                    delay: tagIndex * 0.1 + 0.5,
+                                                                    ease: "easeOut"
+                                                                }}
+                                                                className="text-[10px] md:text-xs border border-border px-2 py-0.5 rounded-sm bg-muted/20 text-muted-foreground group-hover:text-foreground transition-colors"
+                                                            >
+                                                                {tag}
+                                                            </motion.span>
+                                                        ))}
+                                                    </div>
                                                 </div>
-                                                <a
-                                                    href={link.url}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    className="text-muted-foreground hover:text-foreground transition-colors ml-4"
-                                                >
-                                                    <ExternalLink className="h-3 w-3 md:h-4 md:w-4" />
-                                                </a>
-                                            </div>
-                                            <div className="mt-4 text-foreground/90 bg-muted/20 p-2 rounded">
-                                                <BlurRevealText
-                                                    text={link.description}
-                                                    delay={index * 0.3 + 0.2}
-                                                    className="text-xs md:text-sm group-hover:text-foreground transition-colors"
-                                                />
-                                            </div>
-                                            <div className="flex gap-2 mt-4 flex-wrap">
-                                                {link.tags.map((tag, tagIndex) => (
-                                                    <motion.span
-                                                        key={tagIndex}
-                                                        initial={{
-                                                            opacity: 0,
-                                                            filter: 'blur(4px)',
-                                                            x: -20
-                                                        }}
-                                                        animate={{
-                                                            opacity: 1,
-                                                            filter: 'blur(0px)',
-                                                            x: 0
-                                                        }}
-                                                        transition={{
-                                                            duration: 0.5,
-                                                            delay: tagIndex * 0.1 + 0.5,
-                                                            ease: "easeOut"
-                                                        }}
-                                                        className="text-[10px] md:text-xs border border-border px-2 py-0.5 rounded-sm bg-muted/20 text-muted-foreground group-hover:text-foreground transition-colors"
-                                                    >
-                                                        {tag}
-                                                    </motion.span>
-                                                ))}
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </TerminalWindow>
-                        </motion.div>
-                    ))}
-                </div>
-            </div>
-        </div>
+                                    </TerminalWindow>
+                                </motion.div>
+                            ))}
+                        </div>
+                    </div>
+                </motion.div>
+            ) : null}
+        </AnimatePresence>
     );
 };
 

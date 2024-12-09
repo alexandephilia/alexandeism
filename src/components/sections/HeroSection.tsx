@@ -1,7 +1,7 @@
+import { motion } from "@/lib/motion";
 import { Button } from "@/components/ui/button";
 import { StatusBadge } from "@/components/ui/statusbadge";
 import { SiCardano } from "react-icons/si";
-import { motion } from "framer-motion"; // Add this import at the top
 import { Linkedin, Mail, User, Skull } from "lucide-react";
 import {
   Tooltip,
@@ -117,9 +117,10 @@ export const HeroSection = ({
         <div className="relative z-10 w-full max-w-5xl mx-auto">
           <ShimmerButton className="w-full">
             <div
-              className="group relative transition-all duration-500 dark:bg-black bg-white/[0.1] p-8 rounded-lg 
+              className="group relative transition-all duration-500 dark:bg-black/90 bg-white/[0.1] p-8 rounded-lg 
                 border-[1px] border-black/20 ring-1 ring-black/5 
-                dark:border-white/10 dark:ring-white/5"
+                dark:border-white/10 dark:ring-white/5
+"
             >
               {/* Grid Pattern Overlay - Light Mode */}
               <div className="absolute inset-0 w-full h-full dark:opacity-0">
@@ -158,7 +159,7 @@ export const HeroSection = ({
               {/* Grid Pattern Overlay - Dark Mode */}
               <div className="absolute inset-0 w-full h-full opacity-0 dark:opacity-100">
                 <svg
-                  className="w-full h-full opacity-[0.45]"
+                  className="w-full h-full opacity-[0.65]"
                   xmlns="http://www.w3.org/2000/svg"
                   width="100%"
                   height="100%"
@@ -177,7 +178,7 @@ export const HeroSection = ({
                         strokeWidth="0.5"
                       />
                     </pattern>
-                    <linearGradient id="fade-dark" x1="0" y1="1" x2="0.5" y2="0.5">
+                    <linearGradient id="fade-dark" x1="0" y1="1" x2="0.4" y2="0.8">
                       <stop offset="0" stopColor="white" />
                       <stop offset="1" stopColor="white" stopOpacity="0" />
                     </linearGradient>
@@ -337,11 +338,11 @@ export const HeroSection = ({
         </div>
 
         {/* Scroll indicator */}
-        <div className="mt-12 md:mt-16 animate-bounce opacity-50 pointer-events-none">
+        {/* <div className="mt-12 md:mt-16 animate-bounce opacity-50 pointer-events-none">
           <div className="w-4 h-8 md:w-6 md:h-10 border-2 border-foreground/40 rounded-full flex justify-center">
             <div className="w-1 h-2 bg-foreground/40 rounded-full mt-2"></div>
           </div>
-        </div>
+        </div> */}
       </section>
     </div>
   );

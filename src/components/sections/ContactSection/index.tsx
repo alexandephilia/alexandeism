@@ -47,26 +47,33 @@ export const ContactSection = () => {
   ];
 
   return (
-    <motion.section
+    <motion.div
       ref={sectionRef}
-      className="container py-16 w-full"
+      className="relative w-full"
       style={{
         opacity,
         filter: blur
       }}
     >
-      <div className="max-w-7xl mx-auto">
-        <div className="grid md:grid-cols-3 gap-6 mb-8">
-          {contactCards.map((card, index) => (
-            <ContactCard
-              key={index}
-              {...card}
-              delay={index * 0.1}
-            />
-          ))}
+      <div
+        className="absolute top-0 left-0 w-full h-full content-[''] z-10 pointer-events-none bg-[url('https://res.cloudinary.com/dzl9yxixg/image/upload/noise_yvdidf.gif')]"
+      ></div>
+      <div className='absolute bottom-0 left-0 right-0 top-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:35px_34px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]'></div>
+      
+      <section className="container py-16 w-full relative z-20">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-6 mb-8">
+            {contactCards.map((card, index) => (
+              <ContactCard
+                key={index}
+                {...card}
+                delay={index * 0.1}
+              />
+            ))}
+          </div>
+          <ContactForm />
         </div>
-        <ContactForm />
-      </div>
-    </motion.section>
+      </section>
+    </motion.div>
   );
 }; 

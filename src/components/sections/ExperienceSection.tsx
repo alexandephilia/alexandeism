@@ -189,14 +189,14 @@ export const ExperienceSection = () => {
             >
               <div className="w-full md:w-1/2 p-4">
                 <ShimmerButton className="w-full">
-                  <Card className="border-2 hover:border-primary/50 transition-colors duration-300">
+                  <Card className="bg-card text-card-foreground rounded-lg shadow-md overflow-hidden will-change-transform">
                     <CardHeader>
                       <div className="flex justify-between items-start">
                         <div>
                           <CardTitle className="text-sm md:text-base font-bold">{item.title}</CardTitle>
                           <p className="text-[7px] md:text-[9px] font-medium text-primary/80 tracking-tight">{item.company}</p>
                         </div>
-                        <span className="text-[7px] md:text-[9px] whitespace-nowrap dark:text-amber-400 text-muted-foreground/70 bg-secondary/40 px-1 py-0.5 rounded-full font-medium tracking-tight">
+                        <span className="text-[7px] md:text-[9px] whitespace-nowrap dark:text-amber-400 text-muted-foreground/70 bg-primary/10 px-1.5 py-0.5 rounded-full font-medium tracking-tight">
                           {item.date}
                         </span>
                       </div>

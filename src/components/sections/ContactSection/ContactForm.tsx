@@ -40,9 +40,11 @@ export const ContactForm = () => {
       transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
       className="w-full"
     >
-      <Card className="overflow-hidden w-full backdrop-blur-md bg-white/30 dark:bg-zinc-900/30 border border-gray-200 dark:border-zinc-700/30">
+      <Card className="overflow-hidden w-full bg-white/[0.1] dark:bg-black/100 
+        border-[1px] border-black/20 ring-1 ring-black/5 
+        dark:border-white/10 dark:ring-white/5">
         <div className="md:grid md:grid-cols-5">
-          <div className="p-8 md:col-span-2 dark:text-white backdrop-blur-md bg-white/30 dark:bg-zinc-900/30">
+          <div className="p-8 md:col-span-2 dark:text-white bg-white/[0.1] dark:bg-black/100">
             <h3 className="text-lg md:text-2xl font-bold mb-6">Get in Touch</h3>
             <p className="mb-8 text-sm md:text-lg dark:text-gray-300">
               I'm always interested in hearing about new projects and opportunities.
@@ -97,7 +99,9 @@ export const ContactForm = () => {
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    className="w-full rounded-md border backdrop-blur-sm bg-white/20 dark:bg-zinc-800/20 border-gray-200 dark:border-zinc-700/30 px-4 py-3 text-sm md:text-base dark:text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:focus:ring-zinc-700/30 transition-all"
+                    className="w-full rounded-md border bg-white/[0.1] dark:bg-black/100 border-black/20 dark:border-white/10 
+                      px-4 py-3 text-sm md:text-base dark:text-white placeholder:text-gray-500 
+                      focus:outline-none focus:ring-2 focus:ring-gray-200 dark:focus:ring-zinc-700/30 transition-all"
                     required
                   />
                 </div>
@@ -108,7 +112,9 @@ export const ContactForm = () => {
                     type="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full rounded-md border backdrop-blur-sm bg-white/20 dark:bg-zinc-800/20 border-gray-200 dark:border-zinc-700/30 px-4 py-3 text-sm md:text-base dark:text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:focus:ring-zinc-700/30 transition-all"
+                    className="w-full rounded-md border bg-white/[0.1] dark:bg-black/100 border-black/20 dark:border-white/10 
+                      px-4 py-3 text-sm md:text-base dark:text-white placeholder:text-gray-500 
+                      focus:outline-none focus:ring-2 focus:ring-gray-200 dark:focus:ring-zinc-700/30 transition-all"
                     required
                   />
                 </div>
@@ -120,7 +126,9 @@ export const ContactForm = () => {
                   name="subject"
                   value={formData.subject}
                   onChange={handleChange}
-                  className="w-full rounded-md border backdrop-blur-sm bg-white/20 dark:bg-zinc-800/20 border-gray-200 dark:border-zinc-700/30 px-4 py-3 text-sm md:text-base dark:text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:focus:ring-zinc-700/30 transition-all"
+                  className="w-full rounded-md border bg-white/[0.1] dark:bg-black/100 border-black/20 dark:border-white/10 
+                    px-4 py-3 text-sm md:text-base dark:text-white placeholder:text-gray-500 
+                    focus:outline-none focus:ring-2 focus:ring-gray-200 dark:focus:ring-zinc-700/30 transition-all"
                   required
                 />
               </div>
@@ -131,7 +139,9 @@ export const ContactForm = () => {
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
-                  className="w-full rounded-md border backdrop-blur-sm bg-white/20 dark:bg-zinc-800/20 border-gray-200 dark:border-zinc-700/30 px-4 py-3 h-40 resize-none text-base text-black dark:text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:focus:ring-zinc-700/30 transition-all"
+                  className="w-full rounded-md border bg-white/[0.1] dark:bg-black/100 border-black/20 dark:border-white/10 
+                    px-4 py-3 h-40 resize-none text-base text-black dark:text-white placeholder:text-gray-500 
+                    focus:outline-none focus:ring-2 focus:ring-gray-200 dark:focus:ring-zinc-700/30 transition-all"
                   required
                 />
               </div>

@@ -62,7 +62,9 @@ export const ContactCard = ({ title, icon: Icon, value, color, delay = 0, href }
     >
       <a href={href} className="block">
         <ShimmerButton className="w-full">
-          <Card className={`group transition-all ${color} cursor-pointer w-full`}>
+          <Card className={`group transition-all ${color} cursor-pointer w-full bg-white/[0.1] dark:bg-black/100 
+            border-[1px] border-black/20 ring-1 ring-black/5 
+            dark:border-white/10 dark:ring-white/5`}>
             <CardHeader>
               <div className="flex items-center gap-3">
                 <Icon className="h-5 w-5 md:h-6 md:w-6" />
